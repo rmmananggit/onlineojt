@@ -251,6 +251,40 @@ if(isset($_POST['delete_student']))
     }
 }
 
+if(isset($_POST['logout_btn']))
+{
+    // session_destroy();
+    unset( $_SESSION['auth']);
+    unset( $_SESSION['auth_role']);
+    unset( $_SESSION['auth_user']);
+
+    $_SESSION['message'] = "Logout Successfully";
+    header("Location: ../login/index.php");
+    exit(0);
+}
+
+
+//delete attendance
+if(isset($_POST['delete_attendance']))
+{
+    $id = $_POST['delete_attendance'];
+
+    $query = "DELETE FROM attendance WHERE attendance_id='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status_code'] = "success";
+      $id = $_POST['id'];
+      header("Location: attendance_update.php?id=$id");
+        exit(0);
+    }
+    else
+    {
+      header('Location: attendance_manage.php');
+        exit(0);
+    }
+}
 
 
 
@@ -259,8 +293,6 @@ if(isset($_POST['delete_student']))
 
 
 
-
-?>
 
 
 

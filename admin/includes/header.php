@@ -66,17 +66,17 @@
 
        
 
+     
         <li class="nav-item dropdown pe-3">
-
+        <?php if(isset($_SESSION['auth_user']))  ?>
 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
   <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-  <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+  <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['auth_user'] ['user_name'];  ?></span>
 </a><!-- End Profile Iamge Icon -->
 
 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
   <li class="dropdown-header">
-    <h6>Kevin Anderson</h6>
-    <span>Web Designer</span>
+    <h6><?= $_SESSION['auth_user'] ['user_name'];  ?></h6>
   </li>
   <li>
     <hr class="dropdown-divider">
@@ -93,10 +93,13 @@
   </li>
 
   <li>
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form action="process.php" method="POST">
-          <button type="submit" name="logout_btn" class="btn btn-danger">Logout</button>
-        </form>
+    <form action="process.php" method="POST">
+    <button class="dropdown-item d-flex align-items-center" type="submit" name="logout_btn">
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Sign Out</span>
+    </button>
+    </form>
+    
   </li>
 
 </ul><!-- End Profile Dropdown Items -->
