@@ -8,7 +8,7 @@ if(isset($_POST['login']))
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $login_query = "SELECT * FROM accounts WHERE email='$email' AND password= '$password' LIMIT 1";
+    $login_query = "SELECT id,fname,mname,lname,email,password,acc_status,acc_type FROM accounts WHERE email='$email' AND password= '$password' UNION SELECT id,fname,mname,lname,email,password,acc_status,acc_type FROM student WHERE email='$email' AND password= '$password' LIMIT 1";
     $login_query_run = mysqli_query($con, $login_query);
 
     if(mysqli_num_rows($login_query_run) > 0)
@@ -37,18 +37,16 @@ if(isset($_POST['login']))
             $_SESSION['status_code'] = "success";
             header("Location: ../admin/index.php");
             exit(0);
-        }elseif( $_SESSION['auth_role'] == '5' &&  $_SESSION['pos_role'] == '4')
+        }elseif( $_SESSION['auth_role'] == '1')
         {
-            $_SESSION['status'] = "Welcome Parent!";
             $_SESSION['status_code'] = "success";
-            header("Location: ../parent/index.php");
+            header("Location: ../student/index.php");
             exit(0);
         }
-        elseif( $_SESSION['auth_role'] == '1' &&  $_SESSION['pos_role'] == '2')
+        elseif( $_SESSION['auth_role'] == '3')
         {
-            $_SESSION['status'] = "Welcome Secretary!";
             $_SESSION['status_code'] = "success";
-            header("Location: ../secretary/index.php");
+            header("Location: ../supervisor/index.php");
             exit(0);
         }
         elseif( $_SESSION['auth_role'] == '1' &&  $_SESSION['pos_role'] == '3')
@@ -65,8 +63,7 @@ if(isset($_POST['login']))
             exit(0);
         }
             }else{
-                $_SESSION['status'] = "Your account is archived or pending";
-            $_SESSION['status_code'] = "error";
+                $_SESSION['message'] = "Your account has been disabled";
             header("Location: ../login/index.php");
             exit(0); 
             }
@@ -75,8 +72,7 @@ if(isset($_POST['login']))
            
         }
         else{
-            $_SESSION['status'] = "Invalid Username and Password";
-            $_SESSION['status_code'] = "error";
+            $_SESSION['message'] = "Invalid Username and Password";
             header("Location: ../login/index.php");
             exit(0);
         }
