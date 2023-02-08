@@ -22,13 +22,13 @@ if(isset($_POST['add_journal']))
     if($query_run)
     {
       $_SESSION['status_code'] = "success";
-      header('Location: journal_manage.php');
+      header('Location: index.php');
         exit(0);
     }
     else
     {
         $_SESSION['status_code'] = "error";
-      header('Location: journal_manage.php');
+      header('Location: index.php');
         exit(0);
     }
 }
