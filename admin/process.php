@@ -63,6 +63,61 @@ if(isset($_POST['add_coordinator']))
 }
 
 
+if(isset($_POST['add_supervisor']))
+{
+    $picture = $_FILES['picture'];
+
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $password = uniqid();
+    $phone = $_POST['phone'];
+
+    
+    $acctype = 3;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$picture','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+
+      $name = htmlentities($_POST['lname']);
+      $email = htmlentities($_POST['email']);
+      $subject = htmlentities('Account Credentials');
+      $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password");
+  
+      $mail = new PHPMailer(true);
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'ustponlineojt@gmail.com';
+      $mail->Password = 'tukuieeuncmktfiz';
+      $mail->Port = 465;
+      $mail->SMTPSecure = 'ssl';
+      $mail->isHTML(true);
+      $mail->setFrom($email, $name);
+      $mail->addAddress($_POST['email']);
+      $mail->Subject = ("$email ($subject)");
+      $mail->Body = $message;
+      $mail->send();
+      $_SESSION['status_code'] = "success";
+        header('Location: super_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: super_manage.php');
+      exit(0);
+    }
+   
+}
+
+
 //update ang coordinator
 if(isset($_POST['update_coordinator']))
 {
@@ -98,6 +153,42 @@ if(isset($_POST['update_coordinator']))
 }
 
 
+//update ang supervisor
+if(isset($_POST['super_update']))
+{
+    $id = $_POST['id'];
+    $picture = $_FILES['picture'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+
+    $acctype = 3;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`picture`='$picture',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $_SESSION['status_code'] = "success";
+        header('Location: super_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: super_manage.php');
+      exit(0);
+    }
+   
+}
+
+
+
 //delete supervisor
 
 if(isset($_POST['delete_coordinator']))
@@ -116,6 +207,27 @@ if(isset($_POST['delete_coordinator']))
     else
     {
       header('Location: coordinator_manage.php');
+        exit(0);
+    }
+}
+
+//delete supervisor
+if(isset($_POST['delete_supervisor']))
+{
+    $id = $_POST['delete_supervisor'];
+
+    $query = "DELETE FROM accounts WHERE id='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status_code'] = "success";
+      header('Location: super_manage.php');
+        exit(0);
+    }
+    else
+    {
+      header('Location: super_manage.php');
         exit(0);
     }
 }
@@ -178,10 +290,7 @@ if(isset($_POST['add_student']))
    
 }
 
-//update student
 
-
-//update ang coordinator
 if(isset($_POST['update_student']))
 {
     $id = $_POST['id'];
@@ -215,6 +324,7 @@ if(isset($_POST['update_student']))
     }
    
 }
+
 //logout
 if(isset($_POST['logout_btn']))
 {

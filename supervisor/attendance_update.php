@@ -122,8 +122,9 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">DESCRIPTION</th>
-          <th scope="col">DATE</th>
+        <th scope="col">DESCRIPTION</th>
+                    <th scope="col">DATE</th>
+                    <th scope="col">ACTION</th>
         </tr>
       </thead>
     <tbody>

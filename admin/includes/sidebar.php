@@ -33,7 +33,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#">
+  <a class="nav-link collapsed" href="super_manage.php">
     <i class="bi bi-person-square"></i>
     <span>Supervisor Account</span>
   </a>
