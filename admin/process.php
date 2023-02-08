@@ -1,0 +1,267 @@
+<?php include('authentication.php'); 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
+
+
+if(isset($_POST['add_coordinator']))
+{
+    $picture = $_FILES['picture'];
+
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $password = uniqid();
+    $phone = $_POST['phone'];
+
+    
+    $acctype = 2;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$picture','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+
+      $name = htmlentities($_POST['lname']);
+      $email = htmlentities($_POST['email']);
+      $subject = htmlentities('Account Credentials');
+      $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password");
+  
+      $mail = new PHPMailer(true);
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'ustponlineojt@gmail.com';
+      $mail->Password = 'tukuieeuncmktfiz';
+      $mail->Port = 465;
+      $mail->SMTPSecure = 'ssl';
+      $mail->isHTML(true);
+      $mail->setFrom($email, $name);
+      $mail->addAddress($_POST['email']);
+      $mail->Subject = ("$email ($subject)");
+      $mail->Body = $message;
+      $mail->send();
+      $_SESSION['status_code'] = "success";
+        header('Location: coordinator_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: coordinator_manage.php');
+      exit(0);
+    }
+   
+}
+
+
+//update ang coordinator
+if(isset($_POST['update_coordinator']))
+{
+    $id = $_POST['id'];
+    $picture = $_FILES['picture'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+
+    $acctype = 2;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`picture`='$picture',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $_SESSION['status_code'] = "success";
+        header('Location: coordinator_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: coordinator_manage.php');
+      exit(0);
+    }
+   
+}
+
+
+//delete supervisor
+
+if(isset($_POST['delete_coordinator']))
+{
+    $id = $_POST['delete_coordinator'];
+
+    $query = "DELETE FROM accounts WHERE id='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status_code'] = "success";
+      header('Location: coordinator_manage.php');
+        exit(0);
+    }
+    else
+    {
+      header('Location: coordinator_manage.php');
+        exit(0);
+    }
+}
+
+
+
+//add student
+
+if(isset($_POST['add_student']))
+{
+    $picture = $_FILES['picture'];
+
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $password = uniqid();
+    $phone = $_POST['phone'];
+    $course = $_POST['course'];
+    
+    $acctype = 1;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "INSERT INTO `student`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$mobile','$email','$password','$picture','$course','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $name = htmlentities($_POST['lname']);
+      $email = htmlentities($_POST['email']);
+      $subject = htmlentities('Account Credentials');
+      $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password");
+  
+      $mail = new PHPMailer(true);
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'ustponlineojt@gmail.com';
+      $mail->Password = 'tukuieeuncmktfiz';
+      $mail->Port = 465;
+      $mail->SMTPSecure = 'ssl';
+      $mail->isHTML(true);
+      $mail->setFrom($email, $name);
+      $mail->addAddress($_POST['email']);
+      $mail->Subject = ("$email ($subject)");
+      $mail->Body = $message;
+      $mail->send();
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: student_manage.php');
+      exit(0);
+    }
+   
+}
+
+//update student
+
+
+//update ang coordinator
+if(isset($_POST['update_student']))
+{
+    $id = $_POST['id'];
+    $picture = $_FILES['picture'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $course = $_POST['course'];
+
+    $acctype = 1;
+    $accstatus = 1;
+
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    
+
+    $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: student_manage.php');
+      exit(0);
+    }
+   
+}
+//logout
+if(isset($_POST['logout_btn']))
+{
+    // session_destroy();
+    unset( $_SESSION['auth']);
+    unset( $_SESSION['auth_role']);
+    unset( $_SESSION['auth_user']);
+
+    $_SESSION['status'] = "You have successfully disconnected from your account.";
+    $_SESSION['status_code'] = "success";
+    header("Location: ../login/index.php");
+    exit(0);
+}
+
+
+//delete student
+if(isset($_POST['delete_student']))
+{
+    $id = $_POST['delete_student'];
+
+    $query = "DELETE FROM student WHERE id='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status_code'] = "success";
+      header('Location: student_manage.php');
+        exit(0);
+    }
+    else
+    {
+      header('Location: student_manage.php');
+        exit(0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+
