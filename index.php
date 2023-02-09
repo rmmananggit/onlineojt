@@ -57,6 +57,7 @@
         
 
                   <div class="pt-4 pb-2">
+                  <h6 class="card-title text-center pb-0 fs-4">Web-based OJT Monitoring System in USTP Panaon</h6>
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
