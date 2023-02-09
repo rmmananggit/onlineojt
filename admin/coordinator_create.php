@@ -40,7 +40,7 @@
                 
                
                 <div class="text-end">
-                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
+                <a type="button" class="btn btn-danger" href="index.php">Back</a>
                   <button type="submit" name="add_coordinator" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>

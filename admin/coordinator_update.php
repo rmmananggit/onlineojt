@@ -65,7 +65,7 @@
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
+                <a type="button" class="btn btn-danger" href="index.php">Back</a>
                   <button type="submit" name="update_coordinator" class="btn btn-primary">Submit</button>
                 </div>
               </form>

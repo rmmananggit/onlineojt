@@ -178,7 +178,7 @@
                
                 <div class="text-end mt-5">
                 <a type="button" class="btn btn-danger" href="attendance_manage.php">Back</a>
-                 
+                <a type="button" class="btn btn-secondary" href="printattendance.php?id=<?=$user['id'];?>">Print</a>
                 </div>
               </form>
               

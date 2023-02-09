@@ -162,3 +162,35 @@ if(isset($_POST['update_student']))
     }
    
 }
+
+
+if(isset($_POST['update_account']))
+{
+
+    $user_id= $_POST['user_id'];
+    $fname= $_POST['fname'];
+    $mname= $_POST['mname'];
+    $lname= $_POST['lname'];
+    $email= $_POST['email'];
+    $password= $_POST['password'];
+    $mobile= $_POST['mobile'];
+    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+    $acc_type = 1;
+    $acc_stats = 1;
+
+    $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id` ='$user_id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+        $_SESSION['status_code'] = "success";
+        header('Location: settings.php');
+        exit(0);
+    }
+    else
+    {
+        $_SESSION['status_code'] = "error";
+        header('Location: settings.php');
+        exit(0);
+    }
+}

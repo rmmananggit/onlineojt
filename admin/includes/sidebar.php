@@ -5,17 +5,10 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-    
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-
-      </li>
+  
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="coordinator_manage.php">
+        <a class="nav-link collapsed" href="index.php">
           <i class="bi bi-person-video"></i>
           <span>Coordinator Account</span>
         </a>
@@ -43,9 +36,10 @@
 <li class="nav-item">
   <a class="nav-link collapsed" href="attendance_manage.php">
     <i class="bi bi-calendar"></i>
-    <span>Attendance</span>
+    <span>Manage Attendance</span>
   </a>
 </li>
+
 
 
 
