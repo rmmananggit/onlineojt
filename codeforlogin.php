@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../admin/config/dbcon.php');
+include('./admin/config/dbcon.php');
 
 if(isset($_POST['login']))
 {
@@ -35,29 +35,29 @@ if(isset($_POST['login']))
                 if( $_SESSION['auth_role'] == '4')
         {
             $_SESSION['status_code'] = "success";
-            header("Location: ../admin/index.php");
+            header("Location: ./admin/index.php");
             exit(0);
         }elseif( $_SESSION['auth_role'] == '1')
         {
             $_SESSION['status_code'] = "success";
-            header("Location: ../student/index.php");
+            header("Location: ./student/index.php");
             exit(0);
         }
         elseif( $_SESSION['auth_role'] == '3')
         {
             $_SESSION['status_code'] = "success";
-            header("Location: ../supervisor/index.php");
+            header("Location: ./supervisor/index.php");
             exit(0);
         }
         elseif( $_SESSION['auth_role'] == '2')
         {
             $_SESSION['status_code'] = "success";
-            header("Location: ../coordinator/index.php");
+            header("Location: ./coordinator/index.php");
             exit(0);
         } 
             }else{
                 $_SESSION['message'] = "Your account has been disabled";
-            header("Location: ../login/index.php");
+            header("Location: index.php");
             exit(0); 
             }
            
@@ -66,7 +66,7 @@ if(isset($_POST['login']))
         }
         else{
             $_SESSION['message'] = "Invalid Username and Password";
-            header("Location: ../login/index.php");
+            header("Location: index.php");
             exit(0);
         }
     }
@@ -74,7 +74,7 @@ if(isset($_POST['login']))
     {
         $_SESSION['status'] = "Invalid Username and Password";
         $_SESSION['status_code'] = "error";
-        header("Location: ../login/index.php");
+        header("Location: index.php");
         exit(0);
     }   
 
