@@ -27,6 +27,13 @@
   </a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link collapsed" href="task_manage.php">
+  <i class="bi bi-card-text"></i>
+    <span>Manage Task</span>
+  </a>
+</li>
+
 
 
 

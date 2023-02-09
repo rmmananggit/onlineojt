@@ -1,6 +1,28 @@
 <?php include('authentication.php'); 
 
 
+//change task status
+if(isset($_POST['done_btn']))
+{
+    $id = $_POST['done_btn'];
+    $status = "Done";
+   
+    $query = "UPDATE `task` SET `status`='$status' WHERE `task_id` = '$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $_SESSION['status_code'] = "success";
+        header('Location: task_manage.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: task_manage.php');
+      exit(0);
+    }
+   
+}
 
 if(isset($_POST['add_journal']))
 {
