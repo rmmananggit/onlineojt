@@ -34,6 +34,13 @@
   </a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link collapsed" href="comment.php">
+  <i class="bi bi-journal"></i>
+    <span>Comment</span>
+  </a>
+</li>
+
 
 
 

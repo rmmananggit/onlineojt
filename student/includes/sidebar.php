@@ -28,7 +28,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#">
+  <a class="nav-link collapsed" href="supervisor.php">
     <i class="bi bi-person-square"></i>
     <span>Supervisor</span>
   </a>

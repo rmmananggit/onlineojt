@@ -24,6 +24,29 @@ if(isset($_POST['done_btn']))
    
 }
 
+//add_comment
+if(isset($_POST['add_comment']))
+{
+    $id = $_POST['id'];
+    $comment = $_POST['comment'];
+   
+    $query = "INSERT INTO `comment`(`student_id`, `message`) VALUES ('$id','$comment')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      $_SESSION['status_code'] = "success";
+        header('Location: supervisor.php');
+        exit(0);
+    }else{
+      $_SESSION['status_code'] = "error";
+      header('Location: supervisor.php');
+      exit(0);
+    }
+   
+}
+
 if(isset($_POST['add_journal']))
 {
     $user_id = $_POST['user_id'];
