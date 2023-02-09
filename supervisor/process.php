@@ -47,6 +47,7 @@ if(isset($_POST['add_ratings']))
 }
 
 
+//logout
 if(isset($_POST['logout_btn']))
 {
     // session_destroy();
@@ -54,9 +55,8 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_role']);
     unset( $_SESSION['auth_user']);
 
-    $_SESSION['status'] = "Logout Successfully";
     $_SESSION['status_code'] = "success";
-    header("Location: ../login/index.php");
+    header("Location: ../index.php");
     exit(0);
 }
 

@@ -335,7 +335,7 @@ if(isset($_POST['logout_btn']))
 
     $_SESSION['status'] = "You have successfully disconnected from your account.";
     $_SESSION['status_code'] = "success";
-    header("Location: ../login/index.php");
+    header("Location: ../index.php");
     exit(0);
 }
 
