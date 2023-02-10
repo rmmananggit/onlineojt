@@ -27,6 +27,12 @@
   </a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link collapsed" href="manage_files.php">
+    <i class="bi bi-file"></i>
+    <span>Student Files</span>
+  </a>
+</li>
 
 
 
