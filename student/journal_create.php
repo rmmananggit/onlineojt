@@ -37,6 +37,11 @@
                 <label class="mb-2">Upload Picture #2</label> <br>
                 <input type="file" required name="pic2" accept=".jpg, .jpeg, .png">
                 </div>
+
+                <div class="col-md-6">                 
+                <label class="mb-2">Upload Video</label> <br>
+                <input type="file" required name="file" value='Upload' name='but_upload' accept=".mp4, .avi, .mov">
+                </div>
               
                
                 <div class="text-end">

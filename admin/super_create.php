@@ -31,6 +31,12 @@
                   <label for="inputPassword5" class="form-label">Phone Number</label>
                   <input type="text" name="phone" class="form-control" id="inputPassword5">
                 </div>
+                <div class="col-md-6">
+                <label for="">Gender</label>
+                <br>
+                <input required class="ml-2" type="radio" name="gender" value="Male"> Male
+                <input required class="ml-2"  type="radio" name="gender" value="Female"> Female
+                </div>
 
                 <div class="col-md-6">                 
                 <label class="mb-2">Upload Picture (2x2)</label> <br>

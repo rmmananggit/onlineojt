@@ -34,6 +34,13 @@
   </a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link collapsed" href="student_file.php">
+    <i class="bi bi-file"></i>
+    <span>Add File</span>
+  </a>
+</li>
+
 
 
 

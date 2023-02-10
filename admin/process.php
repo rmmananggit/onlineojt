@@ -17,6 +17,7 @@ if(isset($_POST['add_coordinator']))
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $password = uniqid();
+    $gender = $_POST['gender'];
     $phone = $_POST['phone'];
 
     
@@ -26,7 +27,7 @@ if(isset($_POST['add_coordinator']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$picture','$acctype','$accstatus')";
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -73,6 +74,7 @@ if(isset($_POST['add_supervisor']))
     $email = $_POST['email'];
     $password = uniqid();
     $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
 
     
     $acctype = 3;
@@ -81,7 +83,7 @@ if(isset($_POST['add_supervisor']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$picture','$acctype','$accstatus')";
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -246,6 +248,7 @@ if(isset($_POST['add_student']))
     $email = $_POST['email'];
     $password = uniqid();
     $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
     $course = $_POST['course'];
     
     $acctype = 1;
@@ -254,7 +257,7 @@ if(isset($_POST['add_student']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `student`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$mobile','$email','$password','$picture','$course','$acctype','$accstatus')";
+    $query = "INSERT INTO `student`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`, `gender`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$mobile','$email','$password','$gender','$picture','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
