@@ -11,19 +11,19 @@
           $file_tmp = $_FILES['pdf_file']['tmp_name'];
  
           move_uploaded_file($file_tmp,"./pdf/".$file_name);
- 
+          move_uploaded_file($file_tmp,"../admin/pdf/".$file_name);
           $insertquery =
           "INSERT INTO `student_files`(`id`, `filetitle`, `filename`) VALUES ('$user_id','$name','$file_name')";
           $iquery = mysqli_query($con, $insertquery);
 
           $_SESSION['status_code'] = "success";
-          header('Location: add_file.php');
+          header('Location: student_file.php');
           exit(0);
         }
         else
         {
           $_SESSION['status_code'] = "error";
-          header('Location: add_file.php');
+          header('Location: student_file.php');
           exit(0);
         }
     }

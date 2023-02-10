@@ -22,6 +22,7 @@
                     <th scope="col">Journal #</th>
                      <th>File Title</th>
                      <th>File Name</th>
+                     <th class="text-center">ACTION</th>
                   </tr>
                 </thead>
               <tbody>
@@ -46,6 +47,7 @@
                                     <td><?= $row['file_id']; ?></td>
                                     <td><?= $row['filetitle']; ?></td>
                                     <td><?= $row['filename']; ?></td>
+                                    <td class="text-center"><a href="pdf/<?php echo $row['filename']; ?>" download>Download</td>
                                   
                                     </tr>
                                     <?php
