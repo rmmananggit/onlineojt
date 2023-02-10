@@ -91,7 +91,7 @@ $users_run = mysqli_query($con, $users);
                     </div>
                     <div class="col-md-6">
                                 <label for="picture">Picture: </label>
-                                <input type="file" name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
+                                <input type="file" required name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
                     </div>
                     <div class="text-end mt-4">
                                 <a href="index.php" class="btn btn-danger">Back</a>

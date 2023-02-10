@@ -333,7 +333,6 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_role']);
     unset( $_SESSION['auth_user']);
 
-    $_SESSION['status'] = "You have successfully disconnected from your account.";
     $_SESSION['status_code'] = "success";
     header("Location: ../index.php");
     exit(0);
