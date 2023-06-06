@@ -61,8 +61,8 @@
                                     <tr>
                                     <td><?= $row['id']; ?></td>
                                     <td>  <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($row['picture']).'" 
-                alt="image" style="height: 300px; width: 300px; object-fit: cover;">';
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 300px; width: 300px;">';
                 ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
