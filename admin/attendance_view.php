@@ -7,7 +7,9 @@
 <div class="container">
 <div class="card">
             <div class="card-body">
-              <h5 class="card-title">View Student Information</h5>
+            <div class="col-md-12 mt-4 mb-4">  
+               <h1><center>VIEW STUDENT INFORMATION </center></h1>
+                </div>
 
               <?php
                         if(isset($_GET['id']))

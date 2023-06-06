@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +38,7 @@
 </head>
 
 <body>
-
+<?php session_start(); ?>
   <main>
     <div class="container">
 
@@ -49,7 +48,6 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
          <!-- End Logo -->
-         <?php include('message.php'); ?>
               <div class="card mb-3">
               
                 <div class="card-body">
@@ -103,6 +101,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -116,6 +115,25 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+<?php
+        if(isset($_SESSION['status']) && $_SESSION['status_code'] !='' )
+        {
+            ?>
+                <script>
+                swal({
+                  title: "<?php echo $_SESSION['status']; ?>",
+                icon: "<?php echo $_SESSION['status_code']; ?>",
+                });
+                </script>
+                <?php
+                unset($_SESSION['status']);
+                unset($_SESSION['status_code']);
+        }     
+ ?>
+ 
+ 
 </body>
 
 </html>

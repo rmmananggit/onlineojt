@@ -197,6 +197,7 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_role']);
     unset( $_SESSION['auth_user']);
 
+    $_SESSION['status'] = "You have been logout!";
     $_SESSION['status_code'] = "success";
     header("Location: ../index.php");
     exit(0);
@@ -267,4 +268,62 @@ if(isset($_POST['update_account']))
         header('Location: settings.php');
         exit(0);
     }
+}
+
+if(isset($_POST['change_password']))
+{
+
+    $user_id= $_POST['user_id'];
+    $currentpassword= $_POST['currentpassword'];
+    $newpassword= $_POST['newpassword'];
+    $confirmpassword= $_POST['confirmpassword'];
+  
+    //check current password
+    $current_pass = "SELECT
+    *, 
+    student.`password`
+  FROM
+    student
+  WHERE
+    student.id = $user_id AND
+    student.`password` = $currentpassword";
+$query_run = mysqli_query($con, $current_pass);
+
+if(mysqli_num_rows($query_run) > 0)
+{
+  if ($newpassword === $confirmpassword) {
+    $query = "UPDATE `student` SET `password`='$newpassword' WHERE `id` ='$user_id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    { 
+      $_SESSION['status'] = "Password has been changed";
+        $_SESSION['status_code'] = "success";
+        header('Location: changepassword.php');
+        exit(0);
+    }
+    else
+    {
+      $_SESSION['status'] = "Something went wrong!";
+        $_SESSION['status_code'] = "error";
+        header('Location: changepassword.php');
+        exit(0);
+    }
+} else {
+        $_SESSION['status'] = "New Password and Confirm Password does not match";
+        $_SESSION['status_code'] = "error";
+        header('Location: changepassword.php');
+        exit(0);
+}
+}
+else
+{
+  $_SESSION['status'] = "Invalid Current Password!";
+          $_SESSION['status_code'] = "error";
+          header('Location: changepassword.php');
+          exit(0);
+}
+   
+
+  
 }

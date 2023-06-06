@@ -20,6 +20,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -36,6 +37,7 @@
                             accounts.lname, 
                             accounts.mobile, 
                             accounts.email, 
+                            accounts.picture,
                             account_type.`name`, 
                             acc_status.status_name
                           FROM
@@ -58,6 +60,10 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 300px; width: 300px; object-fit: cover;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>

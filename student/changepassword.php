@@ -8,7 +8,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item active">Profile</li>
+          <li class="breadcrumb-item active">Change Password</li>
         </ol>
       </nav>
     </div>
@@ -64,39 +64,39 @@ $users_run = mysqli_query($con, $users);
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
             
 
-                  <h5 class="card-title">Profile Details</h5>
+                  <h5 class="card-title">Change Password</h5>
                   <div class="row">
                   <div class="col-md-12 mb-3">
-                                    <label for="">First Name:</label>
-                                    <input required type="text" name="fname" value="<?= $user['fname']; ?>" class="form-control">
+                                    <label for="">Current Password:</label>
+                                    <div class="input-group">
+  <input required type="password" name="currentpassword" value="" class="form-control" id="passwordInput" placeholder="Enter Current Password">
+  <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+    <i class="bi bi-eye" id="eyeIcon"></i>
+  </button>
+</div>
                     </div>
                     <div class="col-md-12 mb-3">
-                                    <label for="">Middle Name:</label>
-                                    <input required type="text" name="mname" value="<?= $user['mname']; ?>" class="form-control">
+                                    <label for="">New Password:</label>
+                                    <div class="input-group">
+  <input required type="password" name="newpassword" value="" class="form-control" id="passwordInput1" placeholder="Enter New Password">
+  <button class="btn btn-outline-secondary" type="button" id="togglePassword1">
+    <i class="bi bi-eye" id="eyeIcon"></i>
+  </button>
+</div>
                     </div>
                     <div class="col-md-12 mb-3">
-                                    <label for="">Last Name:</label>
-                                    <input required type="text" name="lname" value="<?= $user['lname']; ?>" class="form-control">
+                                    <label for="">Confirm New Password:</label>
+                                    <div class="input-group">
+  <input required type="password" name="confirmpassword" value="" class="form-control" id="passwordInput2" placeholder="Enter Confirm Password">
+  <button class="btn btn-outline-secondary" type="button" id="togglePassword2">
+    <i class="bi bi-eye" id="eyeIcon"></i>
+  </button>
+</div>
                     </div>
-                    <div class="col-md-12 mb-3">
-                                    <label for="">Mobile Number:</label>
-                                    <input required type="text" name="mobile" value="<?= $user['mobile']; ?>" class="form-control">
-                    </div>
-                    <div class="col-md-12 mb-3">
-                                    <label for="">Email:</label>
-                                    <input required type="email" name="email" value="<?= $user['email']; ?>" class="form-control">
-                    </div>
-                    <div class="col-md-12 mb-3">
-                                    <label for="">Password:</label>
-                                    <input required type="text" name="password" value="<?= $user['password']; ?>" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                                <label for="picture">Picture: </label>
-                                <input type="file" name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
-                    </div>
+
                     <div class="text-end mt-4">
-                                <a href="index.php" class="btn btn-danger">Back</a>
-                                <button type="submit" name="update_account" class="btn btn-primary">Save</button>
+                                <a href="settings.php" class="btn btn-danger">Back</a>
+                                <button type="submit" name="change_password" class="btn btn-primary">Save</button>
                                 </div>
                   
                    </div>
