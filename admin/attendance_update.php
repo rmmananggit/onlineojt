@@ -23,22 +23,66 @@
                              ?>
 
             
-              <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
+                
+<form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
 
-              <input type="hidden" name="id" value="<?=$user['id'];?>"> 
+<input type="hidden" name="id" value="<?=$user['id'];?>"> 
 
-              <div class="col-md-6">
-                  <label for="inputName5" class="form-label">Full Name</label>
-                  <input type="text" readonly name="fname" class="form-control-plaintext" value="<?= $user['fname']; ?> <?= $user['mname']; ?> <?= $user['lname']; ?>" id="inputName5">
+  <div class="col-md-3">
+    <label for="inputName5" class="form-label">First Name</label>
+    <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5" readonly>
+  </div>
+  <div class="col-md-3">
+    <label for="inputName5" class="form-label">Middle Name</label>
+    <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5" readonly>
+  </div>
+  <div class="col-md-3">
+    <label for="inputName5" class="form-label">Last Name</label>
+    <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5" readonly>
+  </div>
+
+  <div class="col-md-3">
+                <label class="mb-2">Suffix:</label>
+                <select class="form-control" name="suffix" disabled>
+  <option selected disabled>Select Suffix</option>
+  <option value="JR" <?= $user['suffix'] == 'JR' ? 'selected' :'' ?> >JR</option>
+  <option value="SR" <?= $user['suffix'] == 'SR' ? 'selected' :'' ?> >SR</option>
+  <option value="II" <?= $user['suffix'] == 'II' ? 'selected' :'' ?> >II</option>
+  <option value="III" <?= $user['suffix'] == 'III' ? 'selected' :'' ?> >III</option>
+  <option value="IV" <?= $user['suffix'] == 'IV' ? 'selected' :'' ?> >IV</option>
+</select>
                 </div>
+  <div class="col-md-6">
+    <label for="inputEmail5" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5" readonly>
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword5" class="form-label">Phone Number</label>
+    <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5" readonly>
+  </div>
 
-              <div class="col-md-6">  
-                <h6>Id Picture:</h6>               
-                <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 200px; max-width: 300px; object-fit: cover;">';
-                ?>
-                </div>
+
+  <div class="col-md-6">                 
+
+  <label class="mb-2">Course:</label>
+  <select name="course" required class="form-control" disabled>
+      <option value="" disabled>--Status--</option>
+      <option value="3" <?= $user['course'] == '3' ? 'selected' :'' ?> >Bachelor of Science in Marine Biology</option>
+      <option value="4" <?= $user['course'] == '4' ? 'selected' :'' ?> >Bachelor of Science in Information Technology</option>
+      <option value="5" <?= $user['course'] == '5' ? 'selected' :'' ?> >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+      <option value="6" <?= $user['course'] == '6' ? 'selected' :'' ?> >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+      
+  </select>
+                
+  </div>
+
+  <div class="col-md-6 text-center">  
+  <h6>Current Picture:</h6>               
+  <?php 
+  echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($user['picture']).'" 
+  alt="image" style="height: 300px;">';
+  ?>
+  </div>
 
                
                 <div class="col-md-12 mt-4">  

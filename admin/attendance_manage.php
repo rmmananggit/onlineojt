@@ -19,6 +19,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -34,6 +35,7 @@
                             student.mname, 
                             student.lname, 
                             student.email, 
+                            student.picture,
                             student.course, 
                             acc_status.status_name, 
                             student.mobile
@@ -57,6 +59,10 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 300px; width: 300px;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>

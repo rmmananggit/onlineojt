@@ -200,18 +200,19 @@ if(isset($_POST['delete_coordinator']))
 {
     $id = $_POST['delete_coordinator'];
 
-    $query = "DELETE FROM accounts WHERE id='$id'";
+    $query = "UPDATE `accounts` SET `acc_status`='2' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
+      $_SESSION['status'] = "Account has been archived";
       $_SESSION['status_code'] = "success";
-      header('Location: coordinator_manage.php');
+      header('Location: index.php');
         exit(0);
     }
     else
     {
-      header('Location: coordinator_manage.php');
+      header('Location: index.php');
         exit(0);
     }
 }
@@ -221,13 +222,14 @@ if(isset($_POST['delete_supervisor']))
 {
     $id = $_POST['delete_supervisor'];
 
-    $query = "DELETE FROM accounts WHERE id='$id'";
+    $query = "UPDATE `accounts` SET `acc_status`='2' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
+      $_SESSION['status'] = "Account has been archived";
       $_SESSION['status_code'] = "success";
-      header('Location: super_manage.php');
+      header('Location: index.php');
         exit(0);
     }
     else
@@ -354,11 +356,12 @@ if(isset($_POST['delete_student']))
 {
     $id = $_POST['delete_student'];
 
-    $query = "DELETE FROM student WHERE id='$id'";
+    $query = "UPDATE `student` SET `acc_status`='2' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
+      $_SESSION['status'] = "Account has been archived";
       $_SESSION['status_code'] = "success";
       header('Location: student_manage.php');
         exit(0);

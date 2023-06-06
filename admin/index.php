@@ -74,7 +74,7 @@
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <a type="button" class="btn btn-outline-primary" href="coordinator_update.php?id=<?=$row['id'];?>">Update</a>
 
-                                    <button type="submit" name="delete_coordinator" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Delete</button>
+                                    <button type="submit" name="delete_coordinator" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Archive</button>
                                     </div>
 
                                     </form>

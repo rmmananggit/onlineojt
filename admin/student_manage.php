@@ -19,6 +19,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -35,6 +36,7 @@
                             student.lname, 
                             student.email, 
                             student.course, 
+                            student.picture,
                             acc_status.status_name, 
                             student.mobile
                           FROM
@@ -56,7 +58,12 @@
                                 {
                                     ?>
                                     <tr>
+
                                     <td><?= $row['id']; ?></td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 300px; width: 300px;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
@@ -67,7 +74,7 @@
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="student_update.php?id=<?=$row['id'];?>">Update</a>
 
-<button type="submit" name="delete_student" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Delete</button>
+<button type="submit" name="delete_student" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Archive</button>
 </div>
 
 </form>

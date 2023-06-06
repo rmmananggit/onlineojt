@@ -49,10 +49,7 @@
                 <input required class="ml-2"  type="radio" name="gender" value="Female"> Female
                 </div>
 
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture (2x2)</label> <br>
-                <input type="file" name="picture" accept=".jpg, .jpeg, .png" value="">
-                </div>
+             
 
                 <div class="col-md-6">
                 <label class="mb-2">Course:</label>
@@ -63,6 +60,16 @@
   <option value="5">Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
   <option value="6">Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
 </select>
+                </div>
+
+                <div class="col-md-6">                 
+                <label class="mb-2">Upload Picture (2x2)</label> <br>
+  <input type="file" class="input-large btn btn-secondary" name="picture" id="image1" accept=".jpg, .jpeg, .png" onchange="previewImage('frame1', 'image1')" required>
+  <br>
+
+  <label class="mb-2 mt-2"><h5>Preview:</h5></label>
+
+  <div class="mt-2" id="frame1"></div>
                 </div>
 
                 

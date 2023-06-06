@@ -19,6 +19,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -34,6 +35,7 @@
                             accounts.mname, 
                             accounts.lname, 
                             accounts.mobile, 
+                            accounts.picture,
                             accounts.email, 
                             account_type.`name`, 
                             acc_status.status_name
@@ -58,6 +60,10 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 250px; width: 250px;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
@@ -68,7 +74,7 @@
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="super_update.php?id=<?=$row['id'];?>">Update</a>
 
-<button type="submit" name="delete_supervisor" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Delete</button>
+<button type="submit" name="delete_supervisor" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Archive</button>
 </div>
 
 </form>
