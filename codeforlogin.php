@@ -53,6 +53,7 @@ if(isset($_POST['login']))
         }
         elseif( $_SESSION['auth_role'] == '2')
         {
+            $_SESSION['status'] = "Welcome $full_name!";
             $_SESSION['status_code'] = "success";
             header("Location: ./coordinator/index.php");
             exit(0);

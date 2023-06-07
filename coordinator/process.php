@@ -95,34 +95,58 @@ if(isset($_POST['update_student']))
    
 }
 
+if (isset($_POST['update_account'])) {
+  $user_id = $_POST['user_id'];
+  $fname = $_POST['fname'];
+  $mname = $_POST['mname'];
+  $lname = $_POST['lname'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $mobile = $_POST['mobile'];
+  $acc_type = 4;
+  $acc_stats = 1;
 
-if(isset($_POST['update_account']))
-{
+  // Update other data
+  $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id`='$user_id'";
+  $query_run = mysqli_query($con, $query);
 
-    $user_id= $_POST['user_id'];
-    $fname= $_POST['fname'];
-    $mname= $_POST['mname'];
-    $lname= $_POST['lname'];
-    $email= $_POST['email'];
-    $password= $_POST['password'];
-    $mobile= $_POST['mobile'];
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
-    $acc_type = 4;
-    $acc_stats = 1;
+  if (!$query_run) {
+      $_SESSION['status'] = "Something went wrong!";
+      $_SESSION['status_code'] = "error";
+      header('Location: settings.php');
+      exit(0);
+  }
 
-    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id` ='$user_id'";
-    $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
-        $_SESSION['status_code'] = "success";
-        header('Location: settings.php');
-        exit(0);
-    }
-    else
-    {
-        $_SESSION['status_code'] = "error";
-        header('Location: settings.php');
-        exit(0);
-    }
+  // Update photo if a new photo is uploaded
+  if ($_FILES["picture"]["tmp_name"]) {
+      $picture_temp = $_FILES["picture"]["tmp_name"];
+
+      // Retrieve existing photo, if any
+      $retrieve_query = "SELECT `picture` FROM `accounts` WHERE `id`='$user_id'";
+      $retrieve_result = mysqli_query($con, $retrieve_query);
+      $retrieve_row = mysqli_fetch_assoc($retrieve_result);
+
+      // Delete existing photo from MySQL
+      if ($retrieve_row['picture']) {
+          $delete_query = "UPDATE `accounts` SET `picture` = NULL WHERE `id`='$user_id'";
+          $delete_result = mysqli_query($con, $delete_query);
+      }
+
+      // Upload new photo to MySQL
+      $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
+      $update_photo_query = "UPDATE `accounts` SET `picture`='$picture' WHERE `id`='$user_id'";
+      $update_photo_result = mysqli_query($con, $update_photo_query);
+
+      if (!$update_photo_result) {
+          $_SESSION['status'] = "Something went wrong!";
+          $_SESSION['status_code'] = "error";
+          header('Location: settings.php');
+          exit(0);
+      }
+  }
+
+  $_SESSION['status'] = "Your Account has been updated!";
+  $_SESSION['status_code'] = "success";
+  header('Location: settings.php');
+  exit(0);
 }

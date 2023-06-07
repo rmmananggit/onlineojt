@@ -12,15 +12,15 @@
             
               <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
                 <div class="col-md-3">
-                  <label for="inputName5" class="form-label">First Name</label>
+                  <label for="inputName5" class="form-label">First Name:</label>
                   <input type="text" name="fname" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-3">
-                  <label for="inputName5" class="form-label">Middle Name</label>
+                  <label for="inputName5" class="form-label">Middle Name:</label>
                   <input type="text" name="mname" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-3">
-                  <label for="inputName5" class="form-label">Last Name</label>
+                  <label for="inputName5" class="form-label">Last Name:</label>
                   <input type="text" name="lname" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-3">
@@ -35,22 +35,27 @@
 </select>
                 </div>
                 <div class="col-md-6">
-                  <label for="inputEmail5" class="form-label">Email</label>
+                  <label for="inputEmail5" class="form-label">Email:</label>
                   <input type="email" name="email" class="form-control" id="inputEmail5">
                 </div>
                 <div class="col-md-6">
-                  <label for="inputPassword5" class="form-label">Phone Number</label>
+                  <label for="inputPassword5" class="form-label">Phone Number:</label>
                   <input type="text" name="phone" class="form-control" id="inputPassword5">
                 </div>
                 <div class="col-md-6">
-                <label for="">Gender</label>
+                <label for="">Gender:</label>
                 <br>
                 <input required class="ml-2" type="radio" name="gender" value="Male"> Male
                 <input required class="ml-2"  type="radio" name="gender" value="Female"> Female
                 </div>
 
+                <div class="col-md-6">
+                            <label for="date" class="required">Date of Birth:</label>
+                            <input required class="form-control" id="date" name="dob" placeholder="MM/DD/YYY" type="date"/>
+                </div>
+
                 <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture (2x2)</label> <br>
+                <label class="mb-2">Upload Picture:</label> <br>
   <input type="file" class="input-large btn btn-secondary" name="picture" id="image1" accept=".jpg, .jpeg, .png" onchange="previewImage('frame1', 'image1')" required>
   <br>
 
@@ -59,6 +64,7 @@
   <div class="mt-2" id="frame1"></div>
                       
                                </div>
+
 
                 
                

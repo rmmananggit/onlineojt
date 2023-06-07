@@ -19,6 +19,7 @@ if(isset($_POST['add_coordinator']))
     $email = $_POST['email'];
     $password = uniqid();
     $gender = $_POST['gender'];
+    $birthday = $_POST['dob'];
     $phone = $_POST['phone'];
 
     
@@ -28,7 +29,7 @@ if(isset($_POST['add_coordinator']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`,`gender`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$picture','$acctype','$accstatus')";
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`,`gender`,`dob`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$birthday','$picture','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -53,7 +54,7 @@ if(isset($_POST['add_coordinator']))
       // $mail->Subject = ("$email ($subject)");
       // $mail->Body = $message;
       // $mail->send();
-      $_SESSION['status'] = "Accout has been added";
+      $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: index.php');
         exit(0);
