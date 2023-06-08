@@ -19,6 +19,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -34,6 +35,7 @@
                             student.mname, 
                             student.lname, 
                             student.email, 
+                            student.picture,
                             student.course, 
                             acc_status.status_name, 
                             student.mobile
@@ -57,6 +59,10 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 250px; width: 250px; object-fit: cover;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
@@ -65,7 +71,9 @@
 
 <form action="process.php" method="POST">  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<a type="button" class="btn btn-outline-primary" href="student_update.php?id=<?=$row['id'];?>">Update</a>
+<a type="button" class="btn btn-outline-primary" href="student_view.php?id=<?=$row['id'];?>">View</a>
+<a type="button" class="btn btn-outline-info" href="student_update.php?id=<?=$row['id'];?>">Update</a>
+<a type="button" class="btn btn-outline-danger" href="student_update.php?id=<?=$row['id'];?>">Archive</a>
 </div>
 
 </form>

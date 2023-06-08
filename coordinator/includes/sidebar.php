@@ -28,8 +28,15 @@
 </li>
 
 <li class="nav-item">
+  <a class="nav-link collapsed" href="manage_task.php">
+  <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+    <span>Task</span>
+  </a>
+</li>
+
+<li class="nav-item">
   <a class="nav-link collapsed" href="manage_files.php">
-    <i class="bi bi-file"></i>
+  <i class="bi bi-card-image"></i>
     <span>Student Files</span>
   </a>
 </li>

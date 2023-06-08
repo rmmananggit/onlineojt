@@ -112,10 +112,12 @@ if(isset($_POST['add_supervisor']))
       // $mail->Subject = ("$email ($subject)");
       // $mail->Body = $message;
       // $mail->send();
+      $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: super_manage.php');
         exit(0);
     }else{
+      $_SESSION['status'] = "The account addition was unsuccessful";
       $_SESSION['status_code'] = "error";
       header('Location: super_manage.php');
       exit(0);

@@ -60,40 +60,64 @@ if(isset($_POST['logout_btn']))
 }
 
 
+if (isset($_POST['update_student'])) {
+  $id = $_POST['id'];
+  $fname = $_POST['fname'];
+  $mname = $_POST['mname'];
+  $lname = $_POST['lname'];
+  $email = $_POST['email'];
+  $mobile = $_POST['mobile'];
+  $course = $_POST['course'];
 
-if(isset($_POST['update_student']))
-{
-    $id = $_POST['id'];
-    $picture = $_FILES['picture'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $mobile = $_POST['mobile'];
-    $course = $_POST['course'];
+  $acctype = 1;
+  $accstatus = 1;
 
-    $acctype = 1;
-    $accstatus = 1;
 
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
-    
+  // Update other data
+  $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+  $query_run = mysqli_query($con, $query);
 
-    $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
-    $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
-      
-      $_SESSION['status_code'] = "success";
+  if (!$query_run) {
+      $_SESSION['status'] = "Something went wrong!";
+      $_SESSION['status_code'] = "error";
+      header('Location: settings.php');
+      exit(0);
+  }
+
+  // Update photo if a new photo is uploaded
+  if ($_FILES["picture"]["tmp_name"]) {
+    $picture_temp = $_FILES["picture"]["tmp_name"];
+
+    // Retrieve existing photo, if any
+    $retrieve_query = "SELECT `picture` FROM `student` WHERE `id`='$id'";
+    $retrieve_result = mysqli_query($con, $retrieve_query);
+    $retrieve_row = mysqli_fetch_assoc($retrieve_result);
+
+    // Delete existing photo from MySQL
+    if ($retrieve_row['picture']) {
+        $delete_query = "UPDATE `student` SET `picture` = NULL WHERE `id`='$id'";
+        $delete_result = mysqli_query($con, $delete_query);
+    }
+
+    // Upload new photo to MySQL
+    $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
+    $update_photo_query = "UPDATE `student` SET `picture`='$picture' WHERE `id`='$id'";
+    $update_photo_result = mysqli_query($con, $update_photo_query);
+
+    if (!$update_photo_result) {
+        $_SESSION['status'] = "Something went wrong!";
+        $_SESSION['status_code'] = "error";
         header('Location: index.php');
         exit(0);
-    }else{
-      $_SESSION['status_code'] = "error";
-      header('Location: index.php');
-      exit(0);
     }
-   
 }
+
+$_SESSION['status'] = "Your Account has been updated!";
+$_SESSION['status_code'] = "success";
+header('Location: index.php');
+exit(0);
+}
+
 
 if (isset($_POST['update_account'])) {
   $user_id = $_POST['user_id'];
@@ -103,7 +127,7 @@ if (isset($_POST['update_account'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
   $mobile = $_POST['mobile'];
-  $acc_type = 4;
+  $acc_type = 2;
   $acc_stats = 1;
 
   // Update other data
@@ -149,4 +173,36 @@ if (isset($_POST['update_account'])) {
   $_SESSION['status_code'] = "success";
   header('Location: settings.php');
   exit(0);
+}
+
+
+//add rating
+if(isset($_POST['add_task']))
+{
+    $id = $_POST['id'];
+    $task = $_POST['task'];
+    $deadline = $_POST['deadline'];
+    $status = 'Pending';
+    $grade =  '';
+
+    $current_date = date("Y-m-d");
+
+
+    $query = "INSERT INTO `task`(`student_id`, `task`, `status`, `grade`, `date_given`, `deadline`) VALUES ('$id','$task','$status','$grade','$current_date','$deadline')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Task Added Successfully";
+      $_SESSION['status_code'] = "success";
+      header('Location: manage_task.php');
+        exit(0);
+    }
+    else
+    {
+      $_SESSION['status'] = "Something went wrong";
+      $_SESSION['status_code'] = "error";
+      header('Location: manage_task.php');
+        exit(0);
+    }
 }

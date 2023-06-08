@@ -13,19 +13,19 @@
               <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
               <div class="col-md-3">
                   <label for="inputName5" class="form-label">First Name:</label>
-                  <input type="text" name="fname" class="form-control" id="inputName5">
+                  <input type="text" name="fname" class="form-control" id="inputName5" required>
                 </div>
                 <div class="col-md-3">
                   <label for="inputName5" class="form-label">Middle Name:</label>
-                  <input type="text" name="mname" class="form-control" id="inputName5">
+                  <input type="text" name="mname" class="form-control" id="inputName5" required>
                 </div>
                 <div class="col-md-3">
                   <label for="inputName5" class="form-label">Last Name:</label>
-                  <input type="text" name="lname" class="form-control" id="inputName5">
+                  <input type="text" name="lname" class="form-control" id="inputName5" required>
                 </div>
                 <div class="col-md-3">
                 <label class="mb-2">Suffix:</label>
-                <select class="form-control" name="suffix">
+                <select class="form-control" name="suffix" required>
   <option selected disabled>Select Suffix</option>
   <option value="JR">JR</option>
   <option value="SR">SR</option>
@@ -36,11 +36,12 @@
                 </div>
                 <div class="col-md-6">
                   <label for="inputEmail5" class="form-label">Email:</label>
-                  <input type="email" name="email" class="form-control" id="inputEmail5">
+                  <input type="email" name="email" class="form-control" id="inputEmail5" required>
                 </div>
                 <div class="col-md-6">
-                  <label for="inputPassword5" class="form-label">Phone Number:</label>
-                  <input type="text" name="phone" class="form-control" id="inputPassword5">
+                <label class="mb-2">Phone Number:</label>
+                <input type="text" name="phone" class="form-control" pattern="[0-9]{1,11}" maxlength="11" title="Please enter a valid phone number with a maximum of 11 digits" required>
+                <small class="form-text text-muted">Please enter a valid phone number using only numbers (maximum 11 digits).</small>
                 </div>
                 <div class="col-md-6">
                 <label for="">Gender:</label>
@@ -51,7 +52,7 @@
 
                 <div class="col-md-6">
                             <label for="date" class="required">Date of Birth:</label>
-                            <input required class="form-control" id="date" name="dob" placeholder="MM/DD/YYY" type="date"/>
+                            <input required class="form-control" id="date" name="dob" placeholder="MM/DD/YYY" type="date" required>
                 </div>
 
 
@@ -76,17 +77,18 @@
                       </div>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Name:</label>
                   <input type="text" name="compemail" class="form-control" id="inputName5">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Email:</label>
                   <input type="text" name="mname" class="form-control" id="inputName5">
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Address:</label>
-                  <input type="text" name="lname" class="form-control" id="inputName5">
+                  <textarea type="text" name="lname" class="form-control" id="inputName5"> </textarea>
                 </div>
 
                 

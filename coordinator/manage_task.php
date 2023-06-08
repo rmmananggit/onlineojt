@@ -12,14 +12,13 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"> Manage Student Account</h5>
+              <h5 class="card-title"> Manage Student Task</h5>
           
           
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -59,12 +58,10 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
-                                   <td>
-    <?php 
-        echo '<img class="img-fluid" src="data:image;base64,'.base64_encode($row['picture']).'" alt="image" 
-        style="height: 300px; width: 300px; object-fit: cover;">';
-    ?>
-</td>
+                                    <td>  <?php 
+                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
+                alt="image" style="height: 250px; width: 250px; object-fit: cover;">';
+                ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
@@ -73,7 +70,8 @@
 
 <form action="process.php" method="POST">  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<a type="button" class="btn btn-outline-primary" href="student_update.php?id=<?=$row['id'];?>">Update</a>
+<a type="button" class="btn btn-outline-primary" href="view_task.php?id=<?=$row['id'];?>">View</a>
+<a type="button" class="btn btn-outline-primary" href="add_task.php?id=<?=$row['id'];?>">Add</a>
 </div>
 
 </form>

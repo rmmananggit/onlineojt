@@ -34,6 +34,10 @@
                 unset($_SESSION['status_code']);
         }     
  ?>
+
+<script>
+  
+</script>
  
 </body>
 

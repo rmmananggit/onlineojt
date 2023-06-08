@@ -7,7 +7,7 @@
 <div class="container">
 <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit Student Account</h5>
+              <h5 class="card-title">View Student Account</h5>
 
               <?php
                         if(isset($_GET['id']))
@@ -29,28 +29,23 @@
 
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">First Name</label>
-                  <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5">
+                  <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">Middle Name</label>
-                  <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5">
+                  <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">Last Name</label>
-                  <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5">
+                  <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-6">
                   <label for="inputEmail5" class="form-label">Email</label>
-                  <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5">
+                  <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5" readonly>
                 </div>
                 <div class="col-md-6">
                   <label for="inputPassword5" class="form-label">Phone Number</label>
-                  <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
-                </div>
-
-                <div class="col-md-6 text-center">                 
-                <label class="mb-2">Upload Picture (2x2)</label> <br>
-                <input type="file" class="input-large btn btn-secondary" name="picture" id="image1" accept=".jpg, .jpeg, .png" onchange="previewImage('frame1', 'image1')">
+                  <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5" readonly>
                 </div>
 
                 <div class="col-md-6">                 
@@ -58,24 +53,20 @@
                 <label class="mb-2">Course:</label>
                 <select name="course" required class="form-control">
                     <option value="" disabled>--Status--</option>
-                    <option value="3" <?= $user['course'] == '3' ? 'selected' :'' ?> >Bachelor of Science in Marine Biology</option>
-                    <option value="4" <?= $user['course'] == '4' ? 'selected' :'' ?> >Bachelor of Science in Information Technology</option>
-                    <option value="5" <?= $user['course'] == '5' ? 'selected' :'' ?> >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
-                    <option value="6" <?= $user['course'] == '6' ? 'selected' :'' ?> >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+                    <option value="3" <?= $user['course'] == '3' ? 'selected' :'' ?> disabled> >Bachelor of Science in Marine Biology</option>
+                    <option value="4" <?= $user['course'] == '4' ? 'selected' :'' ?> disabled>Bachelor of Science in Information Technology</option>
+                    <option value="5" <?= $user['course'] == '5' ? 'selected' :'' ?> disabled>Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+                    <option value="6" <?= $user['course'] == '6' ? 'selected' :'' ?> disabled>Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
                     
                 </select>
                               
                 </div>
 
-                <div class="col-md-6 text-center mt-4" id="frame1">
-
-                </div>
-
-                <div class="col-md-6 mt-4 text-center">  
-                <h6>Current Picture:</h6>               
+                <div class="col-md-6 text-center">  
+                <h6>Image:</h6>               
                 <?php 
                 echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 300px; max-width: 300px; object-fit: cover;">';
+                alt="image" style="height: 300px; max-width: 500px; object-fit: cover;">';
                 ?>
                 </div>
 
@@ -85,8 +76,7 @@
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-danger" href="index.php">Back</a>
-                  <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-primary" href="index.php">Back</a>
                 </div>
               </form>
               

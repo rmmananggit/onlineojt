@@ -12,14 +12,6 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="journal_manage.php">
-          <i class="bi bi-envelope-paper"></i>
-          <span>Manage Journal</span>
-        </a>
-      </li>
-
-
 <li class="nav-item">
   <a class="nav-link collapsed" href="attendance_manage.php">
   <i class="bi bi-calendar"></i>

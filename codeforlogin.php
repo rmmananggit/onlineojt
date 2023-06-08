@@ -47,6 +47,7 @@ if(isset($_POST['login']))
         }
         elseif( $_SESSION['auth_role'] == '3')
         {
+            $_SESSION['status'] = "Welcome $full_name!";
             $_SESSION['status_code'] = "success";
             header("Location: ./supervisor/index.php");
             exit(0);
