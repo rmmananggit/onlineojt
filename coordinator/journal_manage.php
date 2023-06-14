@@ -130,7 +130,7 @@
       <div class="modal-body">
         <form action="process.php" method="POST">
 
-        <input type="hidden" name="id" value="<?= $row['id']; ?>">
+        <input type="" name="id" value="<?= $row['id']; ?>">
 
         <div class="col-md-12 mb-4">
                   <label for="inputName5" class="form-label">Enter Rating of the Student's Journal</label>

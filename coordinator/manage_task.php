@@ -19,6 +19,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Picture</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
@@ -65,7 +66,7 @@
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td class="text-center"><?= $row['status_name']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  
