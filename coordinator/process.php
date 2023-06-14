@@ -24,16 +24,17 @@ if(isset($_POST['delete_attendance']))
 
 
 //add rating
-if(isset($_POST['add_ratings']))
+if(isset($_POST['journal_add_ratings']))
 {
     $rate = $_POST['rate'];
-    $id = $_POST['id'];
+    $id = $_POST['journalid'];
 
-    $query = "UPDATE `journal` SET `grade`='$rate' WHERE `id` = '$id'";
+    $query = "UPDATE `journal` SET `grade`='$rate' WHERE `journal_id` = '$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
+      $_SESSION['status'] = "The rating has been successfully added!";
       $_SESSION['status_code'] = "success";
       header('Location: journal_manage.php');
         exit(0);

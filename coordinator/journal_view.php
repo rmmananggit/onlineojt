@@ -16,7 +16,19 @@
                         if(isset($_GET['id']))
                         {
                             $id = $_GET['id'];
-                            $users = "SELECT * FROM journal WHERE journal_id='$id' ";
+                            $users = "SELECT
+                            student.fname, 
+                            student.mname, 
+                            student.lname, 
+                            journal.*
+                          FROM
+                            student
+                            INNER JOIN
+                            journal
+                            ON 
+                              student.id = journal.id
+                          WHERE
+                            journal.journal_id = $id";
                             $users_run = mysqli_query($con, $users);
 
                             if(mysqli_num_rows($users_run) > 0)
@@ -26,19 +38,23 @@
                              ?>
 
 
-          
+                <div class="col-md-12">
+                  <label for="inputName5" class="form-label"> <b>Student Name:</b></label>
+                  <input readonly class="form-control-plaintext" value="<?= $user['fname']; ?> <?= $user['mname']; ?> <?= $user['lname']; ?>"></input>
+
+                </div>
               <div class="col-md-12">
-                  <label for="inputName5" class="form-label">Journal Title:</label>
+                  <label for="inputName5" class="form-label"> <b>Journal Title:</b></label>
                   <input readonly class="form-control-plaintext" value="<?= $user['title']; ?>"></input>
                 </div>
 
                 <div class="col-md-12">
-                  <label for="inputName5" class="form-label">Journal Message:</label>
+                  <label for="inputName5" class="form-label"> <b>Journal Message:</b></label>
                   <textarea readonly class="form-control-plaintext" rows="20" value="" ><?= $user['message']; ?></textarea>
                 </div>
 
                 <div class="col-md-12">
-                  <label for="inputName5" class="form-label">Date Submitted:</label>
+                  <label for="inputName5" class="form-label"> <b>Date Submitted:</b></label>
                   <input readonly class="form-control-plaintext" value="<?= $user['date']; ?>"></input>
                 </div>
 

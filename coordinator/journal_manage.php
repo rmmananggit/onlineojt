@@ -33,18 +33,19 @@
                             student.fname, 
                             student.mname, 
                             student.lname, 
+                            journal.journal_id, 
                             journal.title, 
+                            journal.message, 
                             journal.pic1, 
                             journal.pic2, 
                             journal.grade, 
-                            journal.date, 
-                            journal.id
+                            journal.date
                           FROM
-                            journal
-                            INNER JOIN
                             student
+                            INNER JOIN
+                            journal
                             ON 
-                              journal.id = student.id";
+                              student.id = journal.id";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -78,7 +79,7 @@
 
                                     
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<a type="button" class="btn btn-outline-primary" href="journal_view.php?id=<?=$row['id'];?>">View</a>
+<a type="button" class="btn btn-outline-primary" href="journal_view.php?id=<?=$row['journal_id'];?>">View</a>
 
 <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Add Rating</a>
 </div>
@@ -130,7 +131,7 @@
       <div class="modal-body">
         <form action="process.php" method="POST">
 
-        <input type="" name="id" value="<?= $row['id']; ?>">
+        <input type="" name="journalid" value="<?=$row['journal_id'];?>">
 
         <div class="col-md-12 mb-4">
                   <label for="inputName5" class="form-label">Enter Rating of the Student's Journal</label>
@@ -139,7 +140,7 @@
 
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="add_ratings" class="btn btn-primary">Save changes</button>
+        <button type="submit" name="journal_add_ratings" class="btn btn-primary">Save changes</button>
       </div>
         </form>
       </div>
