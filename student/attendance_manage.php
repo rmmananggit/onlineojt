@@ -7,6 +7,24 @@
 <div class="container">
     
 <h2><center>ATTENDANCE</center></h2>
+<h5><center>You must time-in at 8 am and time-out at 12 pm. Also in 1 pm and 5 pm.</center></h5>
+
+<?php
+$currentHour = date('H'); // Get the current hour in 24-hour format
+
+$disableButton = false; // Assume the button is enabled by default
+
+// Check if the current time is within the specified ranges
+if (($currentHour >= 8 && $currentHour < 12) || ($currentHour >= 12 && $currentHour < 17)) {
+    $timein = true;
+    $timeout = true; // Disable the button
+}
+?>
+
+<!-- HTML code with the button -->
+
+
+
    
 <section class="section mt-3">
       <div class="row">
@@ -23,8 +41,8 @@
 <label for="" hidden="true">user_id</label>
 <input required type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
 
-
-<button class="btn btn-secondary mb-2" type="submit" name="timein" >CLICK HERE TO TIME-IN</button>
+ 
+<button class="btn btn-primary mb-2" type="submit" name="timein" <?php if ($timein) echo 'disabled'; ?> >CLICK HERE TO TIME-IN</button>
 
 
 </form>
@@ -92,7 +110,7 @@
 <input required type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
 
 
-<button class="btn btn-secondary mb-2" type="submit" name="timeout" >CLICK HERE TO TIME-OUT</button>
+<button class="btn btn-primary mb-2" type="submit" name="timeout" <?php if ($timeout) echo 'disabled'; ?> >CLICK HERE TO TIME-OUT</button>
 
 
 </form>

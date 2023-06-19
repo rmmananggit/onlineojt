@@ -14,7 +14,45 @@
             <div class="card-body">
               <h5 class="card-title"> Add Course</h5>
 
-              <a type="button" href="coordinator_create.php" class="btn btn-primary mb-3">Click here to add course</a>
+               <!-- Button to trigger the modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+        Add Course
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form fields to capture data -->
+                    <form method="post" action="process.php">
+                        <div class="form-group">
+                            <label for="name"><b>Course:</b></label>
+                            <input type="text" class="form-control" placeholder="Enter Course" name="course" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="acronym"><b>Acronym:</b></label>
+                            <input class="form-control" placeholder="Eg. BSIT/BTLED  " name="acronym" required>
+                        </div>
+                      
+                 
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="add_course" class="btn btn-primary">Save changes</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
               <!-- Default Table -->
               <table class="table">
                 <thead>

@@ -14,43 +14,22 @@
             <div class="card-body">
               <h5 class="card-title"> Manage Student Account</h5>
           
+              
+
+
           
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile Number</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date Announced</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
               <tbody>
               <?php
-                            $query = "SELECT
-                            student.id, 
-                            student.fname, 
-                            student.mname, 
-                            student.lname, 
-                            student.email, 
-                            student.course, 
-                            student.picture,
-                            acc_status.status_name, 
-                            student.mobile
-                          FROM
-                            student
-                            INNER JOIN
-                            account_type
-                            ON 
-                              student.acc_type = account_type.acc_id
-                            INNER JOIN
-                            acc_status
-                            ON 
-                              student.acc_status = acc_status.status_id
-                          WHERE
-                            student.acc_status = 1";
+                            $query = "SELECT * FROM `announcement`";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -59,22 +38,15 @@
                                     ?>
                                     <tr>
                                     <td><?= $row['id']; ?></td>
-                                   <td>
-    <?php 
-        echo '<img class="img-fluid" src="data:image;base64,'.base64_encode($row['picture']).'" alt="image" 
-        style="height: 300px; width: 300px; object-fit: cover;">';
-    ?>
-</td>
-                                    <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
-                                    <td><?= $row['email']; ?></td>
-                                    <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td><?= $row['message']; ?></td>
+                                    <td><?= $row['date_announced']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="student_update.php?id=<?=$row['id'];?>">View</a>
 </div>
+
 
 </form>
 

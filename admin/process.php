@@ -242,6 +242,29 @@ if(isset($_POST['delete_supervisor']))
     }
 }
 
+//add course
+if(isset($_POST['add_course']))
+{
+    $course_name = $_POST['course'];
+    $acronym = $_POST['acronym'];
+
+    $query = "INSERT INTO `course`(`course_name`, `acronym`) VALUES ('$course_name','$acronym')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Course added successfully";
+      $_SESSION['status_code'] = "success";
+      header('Location: add_course.php');
+        exit(0);
+    }
+    else
+    {
+      header('Location: add_course.php');
+        exit(0);
+    }
+}
+
 
 
 //add student

@@ -86,7 +86,7 @@
                
                 <div class="text-end mt-5">
                 <a type="button" class="btn btn-danger" href="index.php">Back</a>
-                  <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="update_student" class="btn btn-primary">Update</button>
                 </div>
               </form>
               
