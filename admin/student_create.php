@@ -11,6 +11,12 @@
 
             
               <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
+              <div class="col-md-12">
+                  <label for="inputEmail5" class="form-label">Id Number:</label>
+                  <input type="text" name="id" class="form-control" id="inputEmail5" pattern="[0-9]{1,11}" maxlength="12" required>
+                  <small class="form-text text-muted">Please make sure the id number is correct</small>
+                </div>
+
               <div class="col-md-3">
                   <label for="inputName1" class="form-label">First Name:</label>
                   <input  type="text" name="fname" class="form-control" id="inputName1" required>
@@ -34,6 +40,7 @@
   <option value="IV">IV</option>
 </select>
                 </div>
+                
                 <div class="col-md-6">
                   <label for="inputEmail4" class="form-label">Email:</label>
                   <input type="email" name="email" class="form-control" id="inputEmail4" required>
@@ -41,7 +48,7 @@
 
                 <div class="col-md-6">
                 <label class="mb-2">Phone Number:</label>
-                <input type="text" name="phone" class="form-control" pattern="[0-9]{1,11}" maxlength="11" title="Please enter a valid phone number with a maximum of 11 digits" required>
+                <input type="text" name="phone" class="form-control" pattern="[0-9]{1,11}" maxlength="11" required>
                 <small class="form-text text-muted">Please enter a valid phone number using only numbers (maximum 11 digits).</small>
                 </div>
 
