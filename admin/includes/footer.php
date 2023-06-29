@@ -25,7 +25,7 @@
       // Define the callback function when file reading is completed
       reader.onload = function(e) {
         const imageURL = e.target.result;
-        frame.innerHTML = `<img src="${imageURL}" alt="Preview" width="200" height="200">`;
+        frame.innerHTML = `<img src="${imageURL}" alt="Preview" width="300" height="300">`;
       };
 
       // Read the uploaded file as a data URL

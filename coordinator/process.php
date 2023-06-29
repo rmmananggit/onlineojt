@@ -207,3 +207,4 @@ if(isset($_POST['add_task']))
         exit(0);
     }
 }
+

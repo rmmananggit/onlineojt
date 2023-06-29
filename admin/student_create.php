@@ -12,8 +12,8 @@
             
               <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
               <div class="col-md-12">
-                  <label for="inputEmail5" class="form-label">Id Number:</label>
-                  <input type="text" name="id" class="form-control" id="inputEmail5" pattern="[0-9]{1,11}" maxlength="12" required>
+                  <label for="inputEmail5" class="form-label">Student ID Number:</label>
+                  <input type="text" name="student_id" class="form-control" id="inputEmail5" maxlength="12" required>
                   <small class="form-text text-muted">Please make sure the id number is correct</small>
                 </div>
 

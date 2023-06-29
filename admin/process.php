@@ -273,6 +273,7 @@ if(isset($_POST['add_student']))
 {
     $picture = $_FILES['picture'];
 
+    $stud_id = $_POST['student_id'];
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
@@ -289,7 +290,7 @@ if(isset($_POST['add_student']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `student`(`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `password`, `gender`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$picture','$course','$acctype','$accstatus')";
+    $query = "INSERT INTO `student`(`student_id`,`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `password`, `gender`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$stud_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$picture','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -316,10 +317,10 @@ if(isset($_POST['add_student']))
       // $mail->send();
       $_SESSION['status'] = "Accout has been added";
       $_SESSION['status_code'] = "success";
-        header('Location: index.php');
+        header('Location: student_create.php');
         exit(0);
     }else{
-      $_SESSION['status'] = "The account addition was unsuccessful";
+      $_SESSION['status'] = "Student ID already taken";
       $_SESSION['status_code'] = "error";
       header('Location: student_create.php');
       exit(0);
@@ -468,7 +469,59 @@ if(isset($_POST['update_account']))
 
 
 
+if (isset($_POST['download_student'])) {
+  $student_id = $_POST['download_student'];
 
+  // Fetch the selected student's data
+  $query = "SELECT
+                student.id, 
+                student.student_id,
+                student.fname, 
+                student.mname, 
+                student.lname, 
+                student.email, 
+                student.course, 
+                acc_status.status_name, 
+                student.mobile
+            FROM
+                student
+                INNER JOIN
+                account_type
+                ON 
+                    student.acc_type = account_type.acc_id
+                INNER JOIN
+                acc_status
+                ON 
+                    student.acc_status = acc_status.status_id
+            WHERE
+                student.acc_status = 1
+                AND student.id = $student_id";
+  $query_run = mysqli_query($con, $query);
+
+  if (mysqli_num_rows($query_run) > 0) {
+      $student_data = mysqli_fetch_assoc($query_run);
+      $last_name = $student_data['lname'];
+      $filename = $last_name . '.csv';
+
+      // Create a CSV file
+      $file = fopen($filename, 'w');
+
+      // Write data to the CSV file
+      fputcsv($file, array_values($student_data));
+
+      fclose($file);
+
+      // Download the CSV file
+      header('Content-Type: application/csv');
+      header('Content-Disposition: attachment; filename=' . $filename);
+      readfile($filename);
+
+      // Delete the CSV file
+      unlink($filename);
+  } else {
+      echo "No records found.";
+  }
+}
 
 
 
