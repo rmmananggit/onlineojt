@@ -66,7 +66,7 @@
                 <a type="button" class="btn btn-danger" href="index.php">Back</a>
                   <button type="submit" name="edit_journal" class="btn btn-primary">Submit</button>
                 </div>
-
+                </div>
               </form><!-- End Multi Columns Form -->
               <?php
                                 }

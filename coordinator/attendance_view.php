@@ -28,16 +28,8 @@
               <input type="hidden" name="id" value="<?=$user['id'];?>"> 
 
               <div class="col-md-6">
-                  <label for="inputName5" class="form-label">Full Name</label>
-                  <input type="text" readonly name="fname" class="form-control-plaintext" value="<?= $user['fname']; ?> <?= $user['mname']; ?> <?= $user['lname']; ?>" id="inputName5">
-                </div>
-
-              <div class="col-md-6">  
-                <h6>Id Picture:</h6>               
-                <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 200px; max-width: 300px; object-fit: cover;">';
-                ?>
+                  <label for="inputName5" class="form-label"><b>Full Name</b></label>
+                  <input type="text" name="lname" class="form-control"  value="<?= $user['fname']; ?> <?= $user['mname']; ?> <?= $user['lname']; ?>" id="inputName5" readonly>
                 </div>
 
                

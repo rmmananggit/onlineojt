@@ -29,54 +29,67 @@ if (isset($_POST['import'])) {
 
                 // Display the values in the text fields
                 ?>
-                <div class="container">
-                    <section class="section">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Imported Student Data</h5>
+<div class="container">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Imported Student Data</h5>
 
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="studentId" class="form-label">Student ID:</label>
-                                                <input type="text" class="form-control" id="studentId" name="studentId" value="<?= $student_id ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="firstName" class="form-label">First Name:</label>
-                                                <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $fname ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="middleName" class="form-label">Middle Name:</label>
-                                                <input type="text" class="form-control" id="middleName" name="middleName" value="<?= $mname ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="lastName" class="form-label">Last Name:</label>
-                                                <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $lname ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email:</label>
-                                                <input type="email" class="form-control" id="email" name="email" value="<?= $email ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="course" class="form-label">Course:</label>
-                                                <input type="text" class="form-control" id="course" name="course" value="<?= $course ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="statusName" class="form-label">Status:</label>
-                                                <input type="text" class="form-control" id="statusName" name="statusName" value="<?= $status_name ?>" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="mobile" class="form-label">Mobile Number:</label>
-                                                <input type="text" class="form-control" id="mobile" name="mobile" value="<?= $mobile ?>" readonly>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+              <form>
+                <div class="row">
+                  <div class="col-md-12 mb-4">
+                    <label for="studentId" class="form-label">Student ID:</label>
+                    <input type="text" class="form-control" id="studentId" name="studentId" value="<?= $student_id ?>" readonly>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="firstName" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $fname ?>" readonly>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="middleName" class="form-label">Middle Name:</label>
+                    <input type="text" class="form-control" id="middleName" name="middleName" value="<?= $mname ?>" readonly>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="lastName" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $lname ?>" readonly>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?= $email ?>" readonly>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <label for="course" class="form-label">Course:</label>
+
+                    <select name="course" required class="form-control">
+                    <option value="" disabled>--Status--</option>
+                    <option value="3" <?= $course == '3' ? 'selected' :'' ?> disabled> >Bachelor of Science in Marine Biology</option>
+                    <option value="4" <?= $course == '4' ? 'selected' :'' ?> disabled>Bachelor of Science in Information Technology</option>
+                    <option value="5" <?= $course == '5' ? 'selected' :'' ?> disabled>Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+                    <option value="6" <?= $course == '6' ? 'selected' :'' ?> disabled>Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+                    
+                </select>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="statusName" class="form-label">Status:</label>
+                    <input type="text" class="form-control" id="statusName" name="statusName" value="<?= $status_name ?>" readonly>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="mobile" class="form-label">Mobile Number:</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="<?= $mobile ?>" readonly>
+                  </div>
                 </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
                 <?php
             } else {
                 echo "Invalid CSV file.";
@@ -91,31 +104,6 @@ if (isset($_POST['import'])) {
     }
 }
 ?>
-
-<div class="container">
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Import Student Data</h5>
-
-                        <!-- Form to upload CSV file -->
-                        <form action="import_student.php" method="POST" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="csvFile" class="form-label">Select CSV File:</label>
-                                <input type="file" class="form-control" id="csvFile" name="csvFile">
-                            </div>
-                            <button type="submit" name="import" class="btn btn-primary">Import</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-
 
 
 

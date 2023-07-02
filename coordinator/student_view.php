@@ -62,14 +62,7 @@
                               
                 </div>
 
-                <div class="col-md-6 text-center">  
-                <h6>Image:</h6>               
-                <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 300px; max-width: 500px; object-fit: cover;">';
-                ?>
-                </div>
-
+            
 
                
 

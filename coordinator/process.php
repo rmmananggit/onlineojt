@@ -1,7 +1,28 @@
 <?php include('authentication.php'); 
 
-//delete attendance
+//delete attendance time-in
 if(isset($_POST['delete_attendance']))
+{
+    $id = $_POST['delete_attendance'];
+
+    $query = "DELETE FROM attendance WHERE attendance_id='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status_code'] = "success";
+      $id = $_POST['id'];
+      header("Location: attendance_update.php?id=$id");
+        exit(0);
+    }
+    else
+    {
+
+    }
+}
+
+//delete attendance timeout
+if(isset($_POST['delete_attendance_timeout']))
 {
     $id = $_POST['delete_attendance'];
 

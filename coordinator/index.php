@@ -12,7 +12,7 @@ include('includes/sidebar.php');
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Manage Student Account</h5>
-            <a type="button" href="import_student.php" class="btn btn-primary mb-3">Import Student</a>
+            <a type="button" href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#importStudentModal">Import Student</a>
             <table class="table">
               <thead>
                 <tr>
@@ -99,6 +99,42 @@ include('includes/sidebar.php');
     </div>
   </section>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="importStudentModal" tabindex="-1" aria-labelledby="importStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="importStudentModalLabel">Import Student Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+        <div class="container">
+          <section class="section">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-body">
+                    <form action="import_student.php" method="POST" enctype="multipart/form-data">
+                      <div class="mb-3">
+                        <label for="csvFile" class="form-label">Select CSV File:</label>
+                        <input type="file" class="form-control" id="csvFile" name="csvFile">
+                      </div>
+                      <button type="submit" name="import" class="btn btn-primary float-end">Import</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <?php
 include('includes/footer.php');

@@ -32,13 +32,7 @@
                   <input type="text" readonly name="fname" class="form-control-plaintext" value="<?= $user['fname']; ?> <?= $user['mname']; ?> <?= $user['lname']; ?>" id="inputName5">
                 </div>
 
-              <div class="col-md-6">  
-                <h6>Id Picture:</h6>               
-                <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 200px; max-width: 300px; object-fit: cover;">';
-                ?>
-                </div>
+           
 
                
                 <div class="col-md-12 mt-4">  

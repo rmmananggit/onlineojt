@@ -48,10 +48,7 @@
                   <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
                 </div>
 
-                <div class="col-md-6 text-center">                 
-                <label class="mb-2">Upload Picture (2x2)</label> <br>
-                <input type="file" name="picture" accept=".jpg, .jpeg, .png" value="">
-                </div>
+                
 
                 <div class="col-md-6">                 
           
@@ -67,13 +64,7 @@
                               
                 </div>
 
-                <div class="col-md-6 text-center">  
-                <h6>Current Picture:</h6>               
-                <?php 
-                echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-                alt="image" style="height: 300px; max-width: 300px; object-fit: cover;">';
-                ?>
-                </div>
+            
 
 
                
