@@ -13,44 +13,32 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">View Student Attendance</h5>
-          
-          
+        
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile Number</th>
-                    <th scope="col">Status</th>
+                  <th scope="col">Student ID Number</th>
+                    <th scope="col">Full Name</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
               <tbody>
               <?php
                             $query = "SELECT
-                            student.id, 
-                            student.fname, 
-                            student.mname, 
-                            student.lname, 
-                            student.email, 
-                            student.picture,
-                            student.course, 
-                            acc_status.status_name, 
-                            student.mobile
+                            coordinator_student.fname, 
+                            coordinator_student.mname, 
+                            coordinator_student.lname, 
+                            coordinator_student.id, 
+                            attendance.user_id, 
+                            coordinator_student.student_id
                           FROM
-                            student
+                            coordinator_student
                             INNER JOIN
-                            account_type
+                            attendance
                             ON 
-                              student.acc_type = account_type.acc_id
-                            INNER JOIN
-                            acc_status
-                            ON 
-                              student.acc_status = acc_status.status_id
+                              coordinator_student.id = attendance.attendance_id
                           WHERE
-                            student.acc_status = 1";
+                            coordinator_student.acc_status = 1";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -58,15 +46,8 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['id']; ?></td>
-                                    <td>  <?php 
-                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
-                alt="image" style="height: 300px; width: 300px;">';
-                ?></td>
+                                    <td><?= $row['student_id']; ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
-                                    <td><?= $row['email']; ?></td>
-                                    <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  

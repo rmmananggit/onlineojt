@@ -279,18 +279,15 @@ if(isset($_POST['add_student']))
     $lname = $_POST['lname'];
     $suffix = $_POST['suffix'];
     $email = $_POST['email'];
-    $password = uniqid();
     $phone = $_POST['phone'];
     $gender = $_POST['gender'];
     $course = $_POST['course'];
     
     $acctype = 1;
     $accstatus = 1;
-
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `student`(`student_id`,`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `password`, `gender`, `picture`, `course`, `acc_type`, `acc_status`) VALUES ('$stud_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$picture','$course','$acctype','$accstatus')";
+    $query = "INSERT INTO `student`(`student_id`,`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$stud_id','$fname','$mname','$lname','$suffix','$phone','$email','$gender','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -317,7 +314,7 @@ if(isset($_POST['add_student']))
       // $mail->send();
       $_SESSION['status'] = "Accout has been added";
       $_SESSION['status_code'] = "success";
-        header('Location: student_create.php');
+        header('Location: student_manage.php');
         exit(0);
     }else{
       $_SESSION['status'] = "Student ID already taken";
@@ -332,26 +329,26 @@ if(isset($_POST['add_student']))
 if(isset($_POST['update_student']))
 {
     $id = $_POST['id'];
-    $picture = $_FILES['picture'];
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
     $course = $_POST['course'];
+    $stud_id = $_POST['stud_id'];
+    $suffix = $_POST['suffix'];
 
     $acctype = 1;
     $accstatus = 1;
 
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query = "UPDATE `student` SET `student_id`='$stud_id',`fname`='$fname',`mname`='$mname',`lname`='$lname',`suffix` = '$suffix',`mobile`='$mobile',`email`='$email',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
-      
+      $_SESSION['status'] = "Account has been successfully updated!";
       $_SESSION['status_code'] = "success";
         header('Location: student_manage.php');
         exit(0);
@@ -473,15 +470,16 @@ if (isset($_POST['download_student'])) {
   $student_id = $_POST['download_student'];
 
   // Fetch the selected student's data
-  $query = "SELECT
-                student.id, 
+  $query = "SELECT 
                 student.student_id,
                 student.fname, 
                 student.mname, 
                 student.lname, 
+                student.suffix,
                 student.email, 
+                student.mobile,
+                student.gender,
                 student.course, 
-                acc_status.status_name, 
                 student.mobile
             FROM
                 student

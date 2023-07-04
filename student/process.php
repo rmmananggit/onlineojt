@@ -133,61 +133,65 @@ if(isset($_POST['edit_journal']))
     }
 }
 
+if (isset($_POST['timein'])) {
+  $user_id2 = $_POST['user_id'];
+  $name = "TIME-IN";
 
-if(isset($_POST['timein']))
-{
   $date = new DateTime();
   $date->setTimezone(new DateTimeZone('UTC'));
   $currentdate = $date->format('Y-m-d H:i:s');
 
-    $name = "TIME-IN";
-    $user_id2 = $_POST['user_id'];
+  $query = "INSERT INTO `attendance`(`user_id`, `time`, `name`) VALUES ('$user_id2','$currentdate','$name')";
+  $query_run = mysqli_query($con, $query);
 
-
-    $query = "INSERT INTO `attendance`(`id`, `title`, `date`) VALUES ('$user_id2','$name','$currentdate')";
-    $query_run = mysqli_query($con, $query);
-
-    if($query_run)
+  if($query_run)
     {
+      $_SESSION['status'] = "Clock in successfully!";
       $_SESSION['status_code'] = "success";
       header('Location: attendance_manage.php');
+      mysqli_close($con);
         exit(0);
     }
     else
     {
-        $_SESSION['status_code'] = "error";
+      $_SESSION['status'] = "There is something wrong!";
+      $_SESSION['status_code'] = "error";
       header('Location: attendance_manage.php');
+      mysqli_close($con);
         exit(0);
     }
+
 }
 
+if (isset($_POST['timeout'])) {
+  $user_id2 = $_POST['user_id'];
+  $name = "TIME-OUT";
 
-if(isset($_POST['timeout']))
-{
   $date = new DateTime();
   $date->setTimezone(new DateTimeZone('UTC'));
   $currentdate = $date->format('Y-m-d H:i:s');
 
-    $name = "TIME-OUT";
-    $user_id2 = $_POST['user_id'];
+  $query = "INSERT INTO `attendance`(`user_id`, `time`, `name`) VALUES ('$user_id2','$currentdate','$name')";
+  $query_run = mysqli_query($con, $query);
 
-
-    $query = "INSERT INTO `attendance`(`id`, `title`, `date`) VALUES ('$user_id2','$name','$currentdate')";
-    $query_run = mysqli_query($con, $query);
-
-    if($query_run)
+  if($query_run)
     {
+      $_SESSION['status'] = "Clock out successfully!";
       $_SESSION['status_code'] = "success";
       header('Location: attendance_manage.php');
+      mysqli_close($con);
         exit(0);
     }
     else
     {
-        $_SESSION['status_code'] = "error";
+      $_SESSION['status'] = "There is something wrong!";
+      $_SESSION['status_code'] = "error";
       header('Location: attendance_manage.php');
+      mysqli_close($con);
         exit(0);
     }
 }
+
 
 //logout
 if(isset($_POST['logout_btn']))

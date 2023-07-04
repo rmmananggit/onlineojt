@@ -1,5 +1,60 @@
 <?php include('authentication.php'); 
 
+//add student
+if(isset($_POST['import_student']))
+{
+
+  $user_id = $_POST['user_id'];
+    $stud_id = $_POST['studentId'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $suffix = "JR";
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
+    $course = "3";
+    $password = uniqid();
+    
+    $acctype = 1;
+    $accstatus = 1;
+    
+
+    $query = "INSERT INTO `coordinator_student`(`coordinator`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$user_id','$stud_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$course','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      // $name = htmlentities($_POST['lname']);
+      // $email = htmlentities($_POST['email']);
+      // $subject = htmlentities('Account Credentials');
+      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
+  
+      // $mail = new PHPMailer(true);
+      // $mail->isSMTP();
+      // $mail->Host = 'smtp.gmail.com';
+      // $mail->SMTPAuth = true;
+      // $mail->Username = 'ustponlineojt@gmail.com';
+      // $mail->Password = 'tukuieeuncmktfiz';
+      // $mail->Port = 465;
+      // $mail->SMTPSecure = 'ssl';
+      // $mail->isHTML(true);
+      // $mail->setFrom($email, $name);
+      // $mail->addAddress($_POST['email']);
+      // $mail->Subject = ("$email ($subject)");
+      // $mail->Body = $message;
+      // $mail->send();
+      $_SESSION['status'] = "Accout has been added";
+      $_SESSION['status_code'] = "success";
+        header('Location: index.php');
+        mysqli_close($con);
+        exit(0);
+    }else{
+    }
+   
+}
+
 //delete attendance time-in
 if(isset($_POST['delete_attendance']))
 {

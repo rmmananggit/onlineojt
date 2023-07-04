@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2023 at 05:42 PM
+-- Generation Time: Jul 04, 2023 at 08:09 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -121,21 +121,17 @@ INSERT INTO `announcement` (`id`, `message`, `date_announced`) VALUES
 
 CREATE TABLE `attendance` (
   `attendance_id` int(11) NOT NULL,
-  `id` int(50) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `date` datetime NOT NULL
+  `user_id` int(50) NOT NULL,
+  `time` datetime NOT NULL,
+  `name` varchar(99) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`attendance_id`, `id`, `title`, `date`) VALUES
-(19, 1, 'TIME-OUT', '2023-04-05 23:35:32'),
-(20, 1, 'TIME-IN', '2023-06-08 02:55:25'),
-(21, 1, 'TIME-IN', '2023-06-19 14:37:03'),
-(22, 1, 'TIME-OUT', '2023-06-19 14:37:28'),
-(23, 1, 'TIME-IN', '2023-06-19 14:43:51');
+INSERT INTO `attendance` (`attendance_id`, `user_id`, `time`, `name`) VALUES
+(1, 1, '2023-07-04 01:21:54', 'TIME-IN');
 
 -- --------------------------------------------------------
 
@@ -148,13 +144,6 @@ CREATE TABLE `comment` (
   `student_id` int(50) NOT NULL,
   `message` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`comment_id`, `student_id`, `message`) VALUES
-(1, 3, 'qwrqw1245123');
 
 -- --------------------------------------------------------
 
@@ -178,7 +167,7 @@ CREATE TABLE `company_details` (
 CREATE TABLE `coordinator_student` (
   `id` int(11) NOT NULL,
   `coordinator` int(100) NOT NULL,
-  `student_id` int(100) NOT NULL,
+  `student_id` varchar(200) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
@@ -197,7 +186,8 @@ CREATE TABLE `coordinator_student` (
 --
 
 INSERT INTO `coordinator_student` (`id`, `coordinator`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES
-(1, 4, 414214, '214', '123', '124', '12124', 124124, '124124', '124124', '124124', 5, 1, 1);
+(1, 4, '3-201930', '214RM', '123', 'Mananggit', 'JR', 124124, '124124', 'stud', '124124', 5, 1, 1),
+(33, 4, '3-3002993002', 'Bes', 'A', 'bes', 'JR', 9383926318, 'besss@gmail.com', '64a3982f13de6', 'Male', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -219,8 +209,7 @@ INSERT INTO `course` (`course_id`, `course_name`, `acronym`) VALUES
 (3, 'Bachelor of Science in Marine Biology', 'BSMB'),
 (4, 'Bachelor of Science in Information Technology', 'BSIT'),
 (5, 'Bachelor of Secondary Education Major in Technology and Livelihood Education', 'BSED'),
-(6, 'Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts', 'BTLED'),
-(7, 'qweqwe', '12313');
+(6, 'Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts', 'BTLED');
 
 -- --------------------------------------------------------
 
@@ -247,14 +236,13 @@ CREATE TABLE `journal` (
 
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
-  `student_id` int(100) NOT NULL,
+  `student_id` varchar(200) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `suffix` varchar(100) NOT NULL,
-  `mobile` bigint(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `mobile` varchar(100) NOT NULL,
   `gender` varchar(100) NOT NULL,
   `course` int(50) NOT NULL,
   `acc_type` int(50) NOT NULL,
@@ -265,8 +253,10 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES
-(1, 2147483647, 'qwe', 'qwe', 'qwe', '', 9383926318, 'rmmananggit@gmail.com', '649d86faa1758', 'Male', 4, 1, 1);
+INSERT INTO `student` (`id`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `email`, `mobile`, `gender`, `course`, `acc_type`, `acc_status`) VALUES
+(1, '30291031209', 'qwe', 'qwe', 'qwe', 'III', 'rmmananggit@gmail.com', '9383926318', 'Male', 4, 1, 1),
+(5, '3-2019300499', 'rmrm', 'mrmad', 'asd', 'SR', 'rmamama@gmail.com', '93129381298', 'Male', 4, 1, 1),
+(6, '3-3002993002', 'Bes', 'A', 'bes', 'IV', 'besss@gmail.com', '09383926318', 'Male', 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -283,14 +273,6 @@ CREATE TABLE `task` (
   `date_given` date NOT NULL,
   `deadline` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `task`
---
-
-INSERT INTO `task` (`task_id`, `student_id`, `task`, `status`, `grade`, `date_given`, `deadline`) VALUES
-(3, 5, 'QWEQWEQWE', 'Pending', 0, '2023-06-09', '2023-06-09'),
-(4, 1, 'qweqweqweqweqwe', 'Pending', 0, '2023-06-14', '2023-06-15');
 
 --
 -- Indexes for dumped tables
@@ -327,7 +309,7 @@ ALTER TABLE `announcement`
 --
 ALTER TABLE `attendance`
   ADD PRIMARY KEY (`attendance_id`),
-  ADD KEY `id` (`id`);
+  ADD KEY `id` (`user_id`);
 
 --
 -- Indexes for table `comment`
@@ -347,7 +329,6 @@ ALTER TABLE `company_details`
 --
 ALTER TABLE `coordinator_student`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `student_id` (`student_id`),
   ADD KEY `course` (`course`,`acc_type`,`acc_status`),
   ADD KEY `coordinator` (`coordinator`),
   ADD KEY `acc_type` (`acc_type`),
@@ -371,7 +352,6 @@ ALTER TABLE `journal`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `student_id` (`student_id`),
   ADD KEY `course` (`course`,`acc_type`,`acc_status`),
   ADD KEY `acc_status` (`acc_status`),
   ADD KEY `acc_type` (`acc_type`);
@@ -415,7 +395,7 @@ ALTER TABLE `announcement`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -427,7 +407,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `coordinator_student`
 --
 ALTER TABLE `coordinator_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -445,13 +425,13 @@ ALTER TABLE `journal`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -468,13 +448,13 @@ ALTER TABLE `accounts`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`attendance_id`) REFERENCES `coordinator_student` (`id`);
 
 --
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `coordinator_student` (`id`);
 
 --
 -- Constraints for table `company_details`
@@ -495,7 +475,7 @@ ALTER TABLE `coordinator_student`
 -- Constraints for table `journal`
 --
 ALTER TABLE `journal`
-  ADD CONSTRAINT `journal_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `journal_ibfk_1` FOREIGN KEY (`id`) REFERENCES `coordinator_student` (`id`);
 
 --
 -- Constraints for table `student`
@@ -509,7 +489,7 @@ ALTER TABLE `student`
 -- Constraints for table `task`
 --
 ALTER TABLE `task`
-  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `coordinator_student` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

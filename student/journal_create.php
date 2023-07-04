@@ -13,7 +13,8 @@
               <form class="row g-3" action="process.php" method="POST" enctype="multipart/form-data">
 
 
-              <?php if(isset($_SESSION['auth_user']))  ?>
+              <?php if(isset($_SESSION['a
+              uth_user']))  ?>
 
 
             <label for="" hidden="true">user_id</label>

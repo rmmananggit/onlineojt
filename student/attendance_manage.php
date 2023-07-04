@@ -28,121 +28,79 @@ include('includes/sidebar.php');
 
   <section class="section mt-3">
     <div class="row">
-      <div class="col-lg-6">
+            <div class="col-lg-6">
 
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">TIME-IN</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Attendance</h5>
 
-            <form action="process.php" method="POST">
+                        <form action="process.php" method="POST">
 
-              <?php if(isset($_SESSION['auth_user']))  ?>
+                            <?php if(isset($_SESSION['auth_user']))  ?>
 
-              <label for="" hidden="true">user_id</label>
-              <input type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
+                            <label for="" hidden="true">user_id</label>
+                            <input type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
 
-              <button class="btn btn-primary mb-2" type="submit" name="timein" <?php if ($timein) echo 'disabled'; ?>>CLICK HERE TO TIME-IN</button>
+                            <div class="dropdown mb-4">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Click me!
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item" type="submit" name="timein">Log me in</button>
+                                    <button class="dropdown-item" type="submit" name="timeout">Log me out</button>
+                                </div>
+                            </div>
 
-            </form>
 
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">DESCRIPTION</th>
-                  <th scope="col">DATE</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $query = "SELECT attendance.title, attendance.date
-                          FROM attendance
-                          WHERE attendance.title = 'TIME-IN'
-                          ORDER BY attendance.date DESC";
-                $query_run = mysqli_query($con, $query);
-                if(mysqli_num_rows($query_run) > 0)
-                {
-                    foreach($query_run as $row)
-                    {
-                        ?>
-                        <tr>
-                          <td><?= $row['title']; ?></td>
-                          <td><?= $row['date']; ?></td>
-                        </tr>
-                        <?php
-                    }
-                } else {
-                ?>
-                    <tr>
-                      <td colspan="6">No Record Found</td>
-                    </tr>
-                <?php
-                }
-                ?>
-              </tbody>
-            </table>
-            <!-- End Default Table Example -->
-          </div>
-        </div>
+                        </form>
 
-      </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">TIME</th>
+                                    <th scope="col">NAME</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $userId = $_SESSION['auth_user']['user_id']; 
+                                $query = "SELECT `user_id`, `time`, `name` FROM `attendance` WHERE `user_id` = $userId ORDER BY `time` DESC";
+                                $query_run = mysqli_query($con, $query);
 
-      <div class="col-lg-6">
+                                if(mysqli_num_rows($query_run) > 0)
+                                {
+                                    foreach($query_run as $row)
+                                    {
+                                        ?>
+                                        <tr>
+                                          <td><?= $row['time']; ?></td>
+                                          <td><?= $row['name']; ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
+                                ?>
+                                    <tr>
+                                      <td colspan="2">No Record Found</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                        <!-- End Default Table Example -->
+                    </div>
+                </div>
 
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">TIME-OUT</h5>
+            </div>
 
-            <form action="process.php" method="POST">
+            <div class="col-lg-6">
 
-              <?php if(isset($_SESSION['auth_user']))  ?>
+                <!-- Rest of your HTML code -->
 
-              <label for="" hidden="true">user_id</label>
-              <input required type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
+            </div>
 
-              <button class="btn btn-primary mb-2" type="submit" name="timeout" <?php if ($timeout) echo 'disabled'; ?>>CLICK HERE TO TIME-OUT</button>
 
-            </form>
-
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">DESCRIPTION</th>
-                  <th scope="col">DATE</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $query = "SELECT attendance.title, attendance.date
-                          FROM attendance
-                          WHERE attendance.title = 'TIME-OUT'
-                          ORDER BY attendance.date DESC";
-                $query_run = mysqli_query($con, $query);
-                if(mysqli_num_rows($query_run) > 0)
-                {
-                    foreach($query_run as $row)
-                    {
-                        ?>
-                        <tr>
-                          <td><?= $row['title']; ?></td>
-                          <td><?= $row['date']; ?></td>
-                        </tr>
-                        <?php
-                    }
-                } else {
-                ?>
-                    <tr>
-                      <td colspan="6">No Record Found</td>
-                    </tr>
-                <?php
-                }
-                ?>
-              </tbody>
-            </table>
-            <!-- End Default Table Example -->
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 </div>

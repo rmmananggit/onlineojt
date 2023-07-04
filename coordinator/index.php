@@ -35,7 +35,6 @@ include('includes/sidebar.php');
                               coordinator_student.fname,
                               coordinator_student.mname,
                               coordinator_student.lname,
-                              coordinator_student.suffix,
                               coordinator_student.mobile,
                               coordinator_student.email,
                               coordinator_student.`password`,

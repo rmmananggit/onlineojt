@@ -69,9 +69,9 @@
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="student_update.php?id=<?=$row['id'];?>">Update</a>
 
-<button type="submit" name="delete_student" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Archive</button>
+<button type="submit" name="delete_student" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Archive</button>
 
-<button type="submit" name="download_student" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Download</button>
+<button type="submit" name="download_student" value="<?=$row['id']; ?>" class="btn btn-outline-warning">Download</button>
 </div>
 
 </form>
