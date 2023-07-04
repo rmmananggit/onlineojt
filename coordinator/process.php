@@ -1,4 +1,11 @@
-<?php include('authentication.php'); 
+<?php include('authentication.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
 
 //add student
 if(isset($_POST['import_student']))
@@ -26,10 +33,10 @@ if(isset($_POST['import_student']))
     if($query_run)
     {
       
-      // $name = htmlentities($_POST['lname']);
-      // $email = htmlentities($_POST['email']);
-      // $subject = htmlentities('Account Credentials');
-      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
+
+      $email = htmlentities($_POST['email']);
+      $subject = htmlentities('Account Credentials');
+      $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
   
       // $mail = new PHPMailer(true);
       // $mail->isSMTP();
@@ -40,9 +47,9 @@ if(isset($_POST['import_student']))
       // $mail->Port = 465;
       // $mail->SMTPSecure = 'ssl';
       // $mail->isHTML(true);
-      // $mail->setFrom($email, $name);
+      // $mail->setFrom($email, $lname);
       // $mail->addAddress($_POST['email']);
-      // $mail->Subject = ("$email ($subject)");
+      // $mail->Subject = ("$email ($sub   ject)");
       // $mail->Body = $message;
       // $mail->send();
       $_SESSION['status'] = "Accout has been added";
