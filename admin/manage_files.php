@@ -26,16 +26,21 @@
               <tbody>
               <?php
                             $query = "SELECT
-                            student_files.file_id,
-                            student.fname,
-                            student.mname,
-                            student.lname,
-                            student_files.filetitle,
-                            student_files.filename
-                            FROM
+                            student_files.stud_id, 
+                            coordinator_student.fname, 
+                            coordinator_student.mname, 
+                            coordinator_student.lname, 
+                            student_files.file
+                          FROM
                             student_files
-                            INNER JOIN student ON student_files.id = student.id
-                            ";
+                            INNER JOIN
+                            coordinator_student
+                            ON 
+                              student_files.stud_id = coordinator_student.id
+                          WHERE
+                            coordinator_student.acc_status = 1
+                          ORDER BY
+                            student_files.stud_id DESC";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -43,10 +48,10 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['file_id']; ?></td>
+                                    <td><?= $row['stud_id']; ?></td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
-                                    <td><?= $row['filetitle']; ?></td>
-                                    <td class="text-center"><a href="pdf/<?php echo $row['filename']; ?>" download>Download</td>
+                                    <td><?= $row['file_title']; ?></td>
+                                    <td class="text-center"><a href="pdf/<?php echo $row['file']; ?>" download>Download</td>
                                     </tr>
                                     <?php
                                 }

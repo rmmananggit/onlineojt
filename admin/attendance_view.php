@@ -78,14 +78,6 @@
                 
   </div>
 
-  <div class="col-md-6 text-center">  
-  <h6>Current Picture:</h6>               
-  <?php 
-  echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-  alt="image" style="height: 300px;">';
-  ?>
-  </div>
-
                
                 <div class="col-md-12 mt-4">  
                <h2><center>ATTENDANCE</center></h2>
@@ -110,17 +102,7 @@
                 </thead>
               <tbody>
               <?php
-                            $query = "SELECT
-                            attendance.id,
-                            attendance.title, 
-                            attendance.date
-                          FROM
-                            attendance
-                          WHERE
-                           attendance.id = '$id' AND
-                            attendance.title = 'TIME-IN'
-                          ORDER BY
-                            attendance.date DESC";
+                            $query = "SELECT `attendance_id`, `user_id`, `time`, `name` FROM attendance WHERE attendance_id = 1 AND attendance.name = 'TIME-IN' ORDER BY attendance.time DESC";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -128,9 +110,8 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['title']; ?></td>
-                                    <td><?= $row['date']; ?></td>
-                                  
+                                    <td><?= $row['name']; ?></td>
+                                    <td><?= $row['time']; ?></td>
                                     </tr>
                                     <?php
                                 }
@@ -167,17 +148,7 @@
       </thead>
     <tbody>
     <?php
-                  $query = "SELECT
-                  attendance.id,
-                  attendance.title, 
-                  attendance.date
-                FROM
-                  attendance
-                WHERE
-                 attendance.id = '$id' AND
-                  attendance.title = 'TIME-OUT'
-                ORDER BY
-                  attendance.date DESC";
+                  $query = "SELECT `attendance_id`, `user_id`, `time`, `name` FROM attendance WHERE attendance_id = '$id' AND attendance.name = 'TIME-OUT' ORDER BY attendance.time DESC";
                   $query_run = mysqli_query($con, $query);
                   if(mysqli_num_rows($query_run) > 0)
                   {
@@ -185,8 +156,8 @@
                       {
                           ?>
                           <tr>
-                          <td><?= $row['title']; ?></td>
-                          <td><?= $row['date']; ?></td>
+                          <td><?= $row['name']; ?></td>
+                          <td><?= $row['time']; ?></td>
                         
                           </tr>
                           <?php

@@ -369,7 +369,7 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_user']);
 
     $_SESSION['status'] = "You have been logout!";
-    $_SESSION['status_code'] = "error";
+    $_SESSION['status_code'] = "successss";
     header("Location: ../index.php");
     exit(0);
 }
