@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -48,6 +48,19 @@
                   <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
                 </div>
 
+
+                <div class="col-md-12 mb-2">
+  <label class="mb-2">Coordinator of:</label>
+  <select class="form-control" name="course">
+    <option selected disabled>Select Course</option>
+    <option value="Bachelor of Science in Marine Biology" <?= $user['course'] == 'Bachelor of Science in Marine Biology' ? 'selected' :'' ?> >Bachelor of Science in Marine Biology</option>
+    <option value="Bachelor of Science in Information Technology" <?= $user['course'] == 'Bachelor of Science in Information Technology' ? 'selected' :'' ?> >Bachelor of Science in Information Technology</option>
+    <option value="Bachelor of Secondary Education Major in Technology and Livelihood Education" <?= $user['course'] == 'Bachelor of Secondary Education Major in Technology and Livelihood Education' ? 'selected' :'' ?> >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+    <option value="Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts" <?= $user['course'] == 'Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts' ? 'selected' :'' ?> >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+                    
+  </select>
+</div>
+
                 <div class="col-md-6 text-center">  
                     <h6>Current Picture:</h6>               
                 <?php 
@@ -65,7 +78,7 @@
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-danger" href="index.php">Back</a>
+                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
                   <button type="submit" name="update_coordinator" class="btn btn-primary">Submit</button>
                 </div>
               </form>
@@ -91,6 +104,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

@@ -10,10 +10,14 @@
 
 if(isset($_POST['add_coordinator']))
 {
-    $picture = $_FILES['picture'];
-
-    $fname = $_POST['fname'];
+  if(isset($_POST['mname'])) {
     $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+    $picture = $_FILES['picture'];
+    $course = $_POST['course'];
+    $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $suffix = $_POST['suffix'];
     $email = $_POST['email'];
@@ -29,7 +33,7 @@ if(isset($_POST['add_coordinator']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`,`gender`,`dob`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$birthday','$picture','$acctype','$accstatus')";
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`,`gender`,`dob`, `picture`,`course`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$birthday','$picture','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -56,12 +60,12 @@ if(isset($_POST['add_coordinator']))
       // $mail->send();
       $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
-        header('Location: index.php');
+        header('Location: coordinator_manage.php');
         exit(0);
     }else{
       $_SESSION['status'] = "The account addition was unsuccessful";
       $_SESSION['status_code'] = "error";
-      header('Location: coordinator_create.php');
+      header('Location: coordinator_manage.php');
       exit(0);
     }
    
@@ -70,16 +74,23 @@ if(isset($_POST['add_coordinator']))
 
 if(isset($_POST['add_supervisor']))
 {
+  if(isset($_POST['mname'])) {
+    $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+
     $picture = $_FILES['picture'];
 
     $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $password = uniqid();
     $phone = $_POST['phone'];
     $gender = $_POST['gender'];
-
+    $company_name = $_POST['company_name'];
+    $company_email = $_POST['company_email'];
+    $company_address = $_POST['company_address'];
     
     $acctype = 3;
     $accstatus = 1;
@@ -87,7 +98,7 @@ if(isset($_POST['add_supervisor']))
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$acctype','$accstatus')";
+    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`,`company_name`,`company_email`,`company_address`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$company_name','$company_email','$company_address','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
@@ -131,6 +142,7 @@ if(isset($_POST['update_coordinator']))
 {
     $id = $_POST['id'];
     $picture = $_FILES['picture'];
+    $course = $_POST['course'];
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
@@ -139,26 +151,53 @@ if(isset($_POST['update_coordinator']))
 
     $acctype = 2;
     $accstatus = 1;
-
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`picture`='$picture',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
-      
-      $_SESSION['status_code'] = "success";
-        header('Location: coordinator_manage.php');
-        exit(0);
-    }else{
+
+    if (!$query_run) {
+      $_SESSION['status'] = "Something went wrong!";
       $_SESSION['status_code'] = "error";
       header('Location: coordinator_manage.php');
       exit(0);
-    }
-   
+  }
+
+  // Update photo if a new photo is uploaded
+  if ($_FILES["picture"]["tmp_name"]) {
+      $picture_temp = $_FILES["picture"]["tmp_name"];
+
+      // Retrieve existing photo, if any
+      $retrieve_query = "SELECT `picture` FROM `accounts` WHERE `id`='$id'";
+      $retrieve_result = mysqli_query($con, $retrieve_query);
+      $retrieve_row = mysqli_fetch_assoc($retrieve_result);
+
+      // Delete existing photo from MySQL
+      if ($retrieve_row['picture']) {
+          $delete_query = "UPDATE `accounts` SET `picture` = NULL WHERE `id`='$id'";
+          $delete_result = mysqli_query($con, $delete_query);
+      }
+
+      // Upload new photo to MySQL
+      $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
+      $update_photo_query = "UPDATE `accounts` SET `picture`='$picture' WHERE `id`='$id'";
+      $update_photo_result = mysqli_query($con, $update_photo_query);
+
+      if (!$update_photo_result) {
+          $_SESSION['status'] = "Something went wrong!";
+          $_SESSION['status_code'] = "error";
+          header('Location: coordinator_manage.php');
+          exit(0);
+      }
+  }
+
+  $_SESSION['status'] = "Account has been successfully updated!";
+  $_SESSION['status_code'] = "success";
+  header('Location: coordinator_manage.php');
+  exit(0);
 }
+   
+
 
 
 //update ang supervisor
@@ -171,33 +210,60 @@ if(isset($_POST['super_update']))
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
+    $company_name = $_POST['company_name'];
+    $company_email = $_POST['company_email'];
+    $company_address = $_POST['company_address'];
 
     $acctype = 3;
     $accstatus = 1;
-
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
     
 
-    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`picture`='$picture',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`company_name`='$company_name',`company_email`='$company_email',`company_address`='$company_address',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
+  
     
-    if($query_run)
-    {
-      
-      $_SESSION['status_code'] = "success";
-        header('Location: super_manage.php');
-        exit(0);
-    }else{
+    if (!$query_run) {
+      $_SESSION['status'] = "Something went wrong!";
       $_SESSION['status_code'] = "error";
       header('Location: super_manage.php');
       exit(0);
-    }
+  }
+
+  // Update photo if a new photo is uploaded
+  if ($_FILES["picture"]["tmp_name"]) {
+      $picture_temp = $_FILES["picture"]["tmp_name"];
+
+      // Retrieve existing photo, if any
+      $retrieve_query = "SELECT `picture` FROM `accounts` WHERE `id`='$id'";
+      $retrieve_result = mysqli_query($con, $retrieve_query);
+      $retrieve_row = mysqli_fetch_assoc($retrieve_result);
+
+      // Delete existing photo from MySQL
+      if ($retrieve_row['picture']) {
+          $delete_query = "UPDATE `accounts` SET `picture` = NULL WHERE `id`='$id'";
+          $delete_result = mysqli_query($con, $delete_query);
+      }
+
+      // Upload new photo to MySQL
+      $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
+      $update_photo_query = "UPDATE `accounts` SET `picture`='$picture' WHERE `id`='$id'";
+      $update_photo_result = mysqli_query($con, $update_photo_query);
+
+      if (!$update_photo_result) {
+          $_SESSION['status'] = "Something went wrong!";
+          $_SESSION['status_code'] = "error";
+          header('Location: super_manage.php');
+          exit(0);
+      }
+  }
+
+  $_SESSION['status'] = "Account has been successfully updated!";
+  $_SESSION['status_code'] = "success";
+  header('Location: super_manage.php');
+  exit(0);
    
 }
 
-
-
-//delete supervisor
 
 if(isset($_POST['delete_coordinator']))
 {
@@ -210,12 +276,16 @@ if(isset($_POST['delete_coordinator']))
     {
       $_SESSION['status'] = "Account has been archived";
       $_SESSION['status_code'] = "success";
-      header('Location: index.php');
+      header('Location: coordinator_manage.php');
+      mysqli_close($con);
         exit(0);
     }
     else
     {
-      header('Location: index.php');
+      $_SESSION['status'] = "Account has been archived";
+      $_SESSION['status_code'] = "success";
+      header('Location: coordinator_manage.php');
+      mysqli_close($con);
         exit(0);
     }
 }
@@ -232,7 +302,7 @@ if(isset($_POST['delete_supervisor']))
     {
       $_SESSION['status'] = "Account has been archived";
       $_SESSION['status_code'] = "success";
-      header('Location: index.php');
+      header('Location: super_manage.php');
         exit(0);
     }
     else
@@ -271,11 +341,16 @@ if(isset($_POST['add_course']))
 
 if(isset($_POST['add_student']))
 {
+  if(isset($_POST['mname'])) {
+    $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
     $picture = $_FILES['picture'];
 
     $stud_id = $_POST['student_id'];
     $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
+
     $lname = $_POST['lname'];
     $suffix = $_POST['suffix'];
     $email = $_POST['email'];
@@ -433,35 +508,60 @@ if(isset($_POST['delete_attendance']))
 }
 
 
-if(isset($_POST['update_account']))
-{
+if (isset($_POST['update_account'])) {
+  $user_id = $_POST['user_id'];
+  $fname = $_POST['fname'];
+  $mname = $_POST['mname'];
+  $lname = $_POST['lname'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $mobile = $_POST['mobile'];
+  $acc_type = 2;
+  $acc_stats = 1;
 
-    $user_id= $_POST['user_id'];
-    $fname= $_POST['fname'];
-    $mname= $_POST['mname'];
-    $lname= $_POST['lname'];
-    $email= $_POST['email'];
-    $password= $_POST['password'];
-    $mobile= $_POST['mobile'];
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
-    $acc_type = 4;
-    $acc_stats = 1;
+  // Update other data
+  $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id`='$user_id'";
+  $query_run = mysqli_query($con, $query);
 
-    $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id` ='$user_id'";
-    $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
-        $_SESSION['status_code'] = "success";
-        header('Location: settings.php');
-        exit(0);
-    }
-    else
-    {
-        $_SESSION['status_code'] = "error";
-        header('Location: settings.php');
-        exit(0);
-    }
+  if (!$query_run) {
+      $_SESSION['status'] = "Something went wrong!";
+      $_SESSION['status_code'] = "error";
+      header('Location: settings.php');
+      exit(0);
+  }
+
+  // Update photo if a new photo is uploaded
+  if ($_FILES["picture"]["tmp_name"]) {
+      $picture_temp = $_FILES["picture"]["tmp_name"];
+
+      // Retrieve existing photo, if any
+      $retrieve_query = "SELECT `picture` FROM `accounts` WHERE `id`='$user_id'";
+      $retrieve_result = mysqli_query($con, $retrieve_query);
+      $retrieve_row = mysqli_fetch_assoc($retrieve_result);
+
+      // Delete existing photo from MySQL
+      if ($retrieve_row['picture']) {
+          $delete_query = "UPDATE `accounts` SET `picture` = NULL WHERE `id`='$user_id'";
+          $delete_result = mysqli_query($con, $delete_query);
+      }
+
+      // Upload new photo to MySQL
+      $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
+      $update_photo_query = "UPDATE `accounts` SET `picture`='$picture' WHERE `id`='$user_id'";
+      $update_photo_result = mysqli_query($con, $update_photo_query);
+
+      if (!$update_photo_result) {
+          $_SESSION['status'] = "Something went wrong!";
+          $_SESSION['status_code'] = "error";
+          header('Location: settings.php');
+          exit(0);
+      }
+  }
+
+  $_SESSION['status'] = "Your Account has been updated!";
+  $_SESSION['status_code'] = "success";
+  header('Location: settings.php');
+  exit(0);
 }
 
 

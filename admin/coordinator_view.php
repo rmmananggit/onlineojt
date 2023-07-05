@@ -7,7 +7,7 @@
 <div class="container">
 <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit Supervisor Account</h5>
+              <h5 class="card-title">Edit Coordinator Account</h5>
 
               <?php
                         if(isset($_GET['id']))
@@ -29,55 +29,40 @@
 
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">First Name</label>
-                  <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5">
+                  <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">Middle Name</label>
-                  <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5">
+                  <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-4">
                   <label for="inputName5" class="form-label">Last Name</label>
-                  <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5">
+                  <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5" readonly>
                 </div>
                 <div class="col-md-6">
                   <label for="inputEmail5" class="form-label">Email</label>
-                  <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5">
+                  <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5" readonly>
                 </div>
                 <div class="col-md-6">
                   <label for="inputPassword5" class="form-label">Phone Number</label>
-                  <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
+                  <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5" readonly>
                 </div>
 
-                
-                <div class="row mt-4">
-                      <div class="col">
-                      <hr class="my-4">
-                      </div>
-                      <div class="col-auto"> <h4>Company Details</h4></div>
-                      <div class="col">
-                      <hr class="my-4">
-                      </div>
-                      </div>
-
-
-                      <div class="col-md-6">
-                  <label for="inputName5" class="form-label">Company Name:</label>
-                  <input type="text" name="company_name" value="<?= $user['company_name']; ?>" class="form-control" id="inputName5">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputName5" class="form-label">Company Email:</label>
-                  <input type="text" name="company_email" value="<?= $user['company_email']; ?>" class="form-control" id="inputName5">
-                </div>
-
-                <div class="col-md-6">
-  <label for="inputName5" class="form-label">Company Address:</label>
-  <textarea name="company_address" class="form-control" id="inputName5"><?= $user['company_address']; ?></textarea>
+                <div class="col-md-12 mb-2">
+  <label class="mb-2">Coordinator of:</label>
+  <select class="form-control" name="course" disabled>
+    <option selected disabled>Select Course</option>
+    <option value="Bachelor of Science in Marine Biology" <?= $user['course'] == 'Bachelor of Science in Marine Biology' ? 'selected' :'' ?> >Bachelor of Science in Marine Biology</option>
+    <option value="Bachelor of Science in Information Technology" <?= $user['course'] == 'Bachelor of Science in Information Technology' ? 'selected' :'' ?> >Bachelor of Science in Information Technology</option>
+    <option value="Bachelor of Secondary Education Major in Technology and Livelihood Education" <?= $user['course'] == 'Bachelor of Secondary Education Major in Technology and Livelihood Education' ? 'selected' :'' ?> >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+    <option value="Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts" <?= $user['course'] == 'Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts' ? 'selected' :'' ?> >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+                    
+  </select>
 </div>
 
-                <div class="col-md-6">
-
+                <div class="col-md-6 text-center">  
+                    
                 </div>
-
 
                 <div class="col-md-6 text-center">  
                     <h6>Current Picture:</h6>               
@@ -88,16 +73,11 @@
                 </div>
 
 
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture (2x2)</label> <br>
-                <input type="file" name="picture" accept=".jpg, .jpeg, .png" value="">
-                               </div>
-
+      
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-danger" href="super_manage.php">Back</a>
-                  <button type="submit" name="super_update" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
                 </div>
               </form>
               

@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -16,8 +16,8 @@
                   <input type="text" name="fname" class="form-control" id="inputName5" required>
                 </div>
                 <div class="col-md-3">
-                  <label for="inputName5" class="form-label">Middle Name:</label>
-                  <input type="text" name="mname" class="form-control" id="inputName5" required>
+                  <label for="inputName5" class="form-label">Middle Name (Optional)</label>
+                  <input type="text" name="mname" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-3">
                   <label for="inputName5" class="form-label">Last Name:</label>
@@ -55,19 +55,8 @@
                             <input required class="form-control" id="date" name="dob" placeholder="MM/DD/YYY" type="date" required>
                 </div>
 
-
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture:</label> <br>
-  <input type="file" class="input-large btn btn-secondary" name="picture" id="image1" accept=".jpg, .jpeg, .png" onchange="previewImage('frame1', 'image1')" required>
-  <br>
-
-  <label class="mb-2 mt-2"><h5>Preview:</h5></label>
-
-  <div class="mt-2" id="frame1"></div>
-                </div>
-
-                
-                      <div class="row">
+             
+                      <div class="row mt-4">
                       <div class="col">
                       <hr class="my-4">
                       </div>
@@ -79,22 +68,37 @@
 
                       <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Name:</label>
-                  <input type="text" name="compemail" class="form-control" id="inputName5">
+                  <input type="text" name="company_name" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Email:</label>
-                  <input type="text" name="mname" class="form-control" id="inputName5">
+                  <input type="text" name="company_email" class="form-control" id="inputName5">
                 </div>
 
                 <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Address:</label>
-                  <textarea type="text" name="lname" class="form-control" id="inputName5"> </textarea>
+                  <textarea type="text" name="company_address" class="form-control" id="inputName5"> </textarea>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+
+                
+                <div class="col-md-6">                 
+                <label class="mb-2">Upload Picture:</label>
+  <input type="file" class="input-large btn btn-secondary" name="picture" id="image1" accept=".jpg, .jpeg, .png" onchange="previewImage('frame1', 'image1')" required>
+                </div>
+
+                <div class="col-md-6">
+                <label class="mb-2 mt-2"><h5>Preview:</h5></label>
+
+<div class="mt-2" id="frame1"></div>
                 </div>
 
                 
                
                 <div class="text-end">
-                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
+                <a type="button" class="btn btn-danger" href="super_manage.php">Back</a>
                   <button type="submit" name="add_supervisor" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
@@ -103,11 +107,13 @@
             </div>
           </div>
 
+          
+
 </div>
 
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

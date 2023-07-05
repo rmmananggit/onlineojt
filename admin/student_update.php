@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -129,6 +129,6 @@ function validatePhoneNumber(input) {
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

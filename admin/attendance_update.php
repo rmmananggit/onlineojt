@@ -1,13 +1,13 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
 <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Update Student Information</h5>
+              <h5 class="card-title">Update Attendance</h5>
 
               <?php
                         if(isset($_GET['id']))
@@ -33,9 +33,9 @@
     <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5" readonly>
   </div>
   <div class="col-md-3">
-    <label for="inputName5" class="form-label">Middle Name</label>
-    <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5" readonly>
-  </div>
+                <label for="inputName5" class="form-label">Middle Name (Optional)</label>
+                <input type="text" name="mname" class="form-control" value="<?= !empty($user['mname']) ? $user['mname'] : 'N/A'; ?>" id="inputName5" readonly>
+                </div>
   <div class="col-md-3">
     <label for="inputName5" class="form-label">Last Name</label>
     <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5" readonly>
@@ -76,14 +76,6 @@
                 
   </div>
 
-  <div class="col-md-6 text-center">  
-  <h6>Current Picture:</h6>               
-  <?php 
-  echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($user['picture']).'" 
-  alt="image" style="height: 300px;">';
-  ?>
-  </div>
-
                
                 <div class="col-md-12 mt-4">  
                <h2><center>ATTENDANCE</center></h2>
@@ -112,16 +104,16 @@
               <?php
                             $query = "SELECT
                             attendance.attendance_id,
-                            attendance.id,
-                            attendance.title, 
-                            attendance.date
+                            attendance.user_id,
+                            attendance.name, 
+                            attendance.time
                           FROM
                             attendance
                           WHERE
-                           attendance.id = '$id' AND
-                            attendance.title = 'TIME-IN'
+                           attendance_id = '$id' AND
+                            attendance.name = 'TIME-IN'
                           ORDER BY
-                            attendance.date DESC";
+                            attendance.time DESC";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -129,8 +121,8 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['title']; ?></td>
-                                    <td><?= $row['date']; ?></td>
+                                    <td><?= $row['name']; ?></td>
+                                    <td><?= $row['time']; ?></td>
                                   <td>
                                   <form action="process.php" method="POST">  
                                   <button type="submit" name="delete_attendance" value="<?=$row['attendance_id']; ?>" class="btn btn-outline-danger">Delete</button>
@@ -175,16 +167,16 @@
     <?php
                   $query = "SELECT
                   attendance.attendance_id,
-                  attendance.id,
-                  attendance.title, 
-                  attendance.date
+                  attendance.user_id,
+                  attendance.name, 
+                  attendance.time
                 FROM
                   attendance
                 WHERE
-                 attendance.id = '$id' AND
-                  attendance.title = 'TIME-OUT'
+                 attendance_id = '$id' AND
+                  attendance.name = 'TIME-OUT'
                 ORDER BY
-                  attendance.date DESC";
+                  attendance.time DESC";
                   $query_run = mysqli_query($con, $query);
                   if(mysqli_num_rows($query_run) > 0)
                   {
@@ -192,8 +184,8 @@
                       {
                           ?>
                           <tr>
-                          <td><?= $row['title']; ?></td>
-                          <td><?= $row['date']; ?></td>
+                          <td><?= $row['name']; ?></td>
+                          <td><?= $row['time']; ?></td>
                         <td>
                         <form action="process.php" method="POST">  
                                   <button type="submit" name="delete_attendance" value="<?=$row['attendance_id']; ?>" class="btn btn-outline-danger">Delete</button>
@@ -259,6 +251,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

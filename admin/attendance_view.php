@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 
@@ -9,7 +9,7 @@
 <div class="card">
             <div class="card-body">
             <div class="col-md-12 mt-4 mb-4">  
-               <h1><center>VIEW STUDENT INFORMATION </center></h1>
+            <h5 class="card-title">Student Information</h5>
                 </div>
 
               <?php
@@ -79,8 +79,8 @@
   </div>
 
                
-                <div class="col-md-12 mt-4">  
-               <h2><center>ATTENDANCE</center></h2>
+                <div class="col-md-12 mt-4 mb-4">  
+               <h2><center><u>ATTENDANCE</u></center></h2>
                 </div>
      
 
@@ -216,6 +216,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

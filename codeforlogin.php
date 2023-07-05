@@ -34,9 +34,9 @@ if(isset($_POST['login']))
             {
                 if( $_SESSION['auth_role'] == '4')
         {
-            $_SESSION['status'] = "Welcome Admin $full_name!";
+            $_SESSION['status'] = "Welcome $full_name";
             $_SESSION['status_code'] = "success";
-            header("Location: ./admin/dashboard.php");
+            header("Location: ./admin/index.php");
             exit(0);
         }elseif( $_SESSION['auth_role'] == '1')
         {

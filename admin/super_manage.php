@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -18,9 +18,8 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Name</th>
+                  <th class="col-2">Name</th>
+                    <th scope="col">Company Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
                     <th scope="col">Status</th>
@@ -36,6 +35,7 @@
                             accounts.lname, 
                             accounts.mobile, 
                             accounts.picture,
+                            accounts.company_name,
                             accounts.email, 
                             account_type.`name`, 
                             acc_status.status_name
@@ -59,12 +59,8 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['id']; ?></td>
-                                    <td>  <?php 
-                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
-                alt="image" style="height: 250px; width: 250px;">';
-                ?></td>
-                                    <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
+                                    <td><b><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></b></td>
+                                    <td style="color: green;"><?= $row['company_name']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
                                     <td><?= $row['status_name']; ?></td>
@@ -72,9 +68,10 @@
 
 <form action="process.php" method="POST">  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<a type="button" class="btn btn-outline-primary" href="super_update.php?id=<?=$row['id'];?>">Update</a>
+<a type="button" class="btn btn-outline-primary" href="super_view.php?id=<?=$row['id'];?>">View</a>
+<a type="button" class="btn btn-outline-warning" href="super_update.php?id=<?=$row['id'];?>">Update</a>
 
-<button type="submit" name="delete_supervisor" value="<?=$row['id']; ?>" class="btn btn-outline-primary">Archive</button>
+<button type="submit" name="delete_supervisor" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Archive</button>
 </div>
 
 </form>
@@ -124,6 +121,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

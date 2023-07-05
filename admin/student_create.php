@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -22,8 +22,8 @@
                   <input  type="text" name="fname" class="form-control" id="inputName1" required>
                 </div>
                 <div class="col-md-3">
-                  <label for="inputName2" class="form-label">Middle Name:</label>
-                  <input type="text" name="mname" class="form-control" id="inputName2" required>
+                  <label for="inputName2" class="form-label">Middle Name (Optional)</label>
+                  <input type="text" name="mname" class="form-control" id="inputName2" >
                 </div>
                 <div class="col-md-3">
                   <label for="inputName3" class="form-label">Last Name:</label>
@@ -89,6 +89,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>
