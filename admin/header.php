@@ -67,12 +67,23 @@
 
        
 
-     
-        <li class="nav-item dropdown pe-3">
-        <?php if(isset($_SESSION['auth_user']))  ?>
-<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-  <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['auth_user'] ['user_name'];  ?></span>
+        <?php if(isset($_SESSION['auth_user'])): ?>
+  <li class="nav-item dropdown pe-3">
+    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+      <?php
+      $userID = $_SESSION['auth_user']['user_id'];
+      $query = "SELECT picture FROM accounts WHERE id = $userID";
+      $query_run = mysqli_query($con, $query);
+      $user = mysqli_fetch_assoc($query_run);
+
+      if($user && isset($user['picture'])) {
+        echo '<img src="data:image;base64,'.base64_encode($user['picture']).'" alt="Profile" class="rounded-circle img-fluid img-bordered-sm" style="height: 300px; max-width: 300px; object-fit: cover;">';
+      } else {
+        echo '<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">';
+      }
+      ?>
+      
+      <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['auth_user']['user_name']; ?></span>
 </a><!-- End Profile Iamge Icon -->
 
 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -108,5 +119,6 @@
 
       </ul>
     </nav><!-- End Icons Navigation -->
+    <?php endif; ?>
 
   </header><!-- End Header -->

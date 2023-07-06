@@ -6,7 +6,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
+        <a class="nav-link collapsed" href="student_manage.php">
           <i class="bi bi-person"></i>
           <span>Manage Student</span>
         </a>
@@ -39,6 +39,45 @@
   <i class="bi bi-card-image"></i>
     <span>Student Files</span>
   </a>
+</li>
+
+
+<li class="nav-heading">Manage</li>
+
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-person"></i>
+<span>Student</span>
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-file-person"></i>
+<span>Supevisor</span>
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-journal"></i>
+<span>Journal</span>
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-calendar-check"></i>
+<span>Attendance</span>
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-card-checklist"></i>
+<span>Task</span>
+</a>
 </li>
 
 

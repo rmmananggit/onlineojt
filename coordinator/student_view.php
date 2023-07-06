@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -81,7 +81,7 @@
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-primary" href="index.php">Back</a>
+                <a type="button" class="btn btn-primary" href="student_manage.php">Back</a>
                 </div>
               </form>
               
@@ -106,6 +106,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

@@ -54,7 +54,7 @@ if(isset($_POST['import_student']))
       // $mail->send();
       $_SESSION['status'] = "Accout has been added";
       $_SESSION['status_code'] = "success";
-        header('Location: index.php');
+        header('Location: student_manage.php');
         mysqli_close($con);
         exit(0);
     }else{

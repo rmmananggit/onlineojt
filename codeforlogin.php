@@ -8,7 +8,7 @@ if(isset($_POST['login']))
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $login_query = "SELECT id,fname,mname,lname,email,password,acc_status,acc_type FROM accounts WHERE email='$email' AND password= '$password' UNION SELECT id,fname,mname,lname,student_id,password,acc_status,acc_type FROM coordinator_student WHERE student_id='$email' AND password= '$password' LIMIT 1";
+    $login_query = "SELECT id,fname,mname,lname,email,password,acc_status,course,acc_type FROM accounts WHERE email='$email' AND password= '$password' UNION SELECT id,fname,mname,lname,student_id,password,acc_status,course,acc_type FROM coordinator_student WHERE student_id='$email' AND password= '$password' LIMIT 1";
     $login_query_run = mysqli_query($con, $login_query);
 
     if(mysqli_num_rows($login_query_run) > 0)
@@ -19,6 +19,7 @@ if(isset($_POST['login']))
             $user_status = $data['acc_status'];
             $role_as = $data['acc_type'];
             $user_email = $data['email'];
+            $user_course = $data['course'];
         }
 
         $_SESSION['auth'] = true;
@@ -28,6 +29,7 @@ if(isset($_POST['login']))
             'user_id' =>$user_id,
             'user_name' =>$full_name,
             'user_email' =>$user_email,
+            'user_course' =>$user_course,
         ];
 
             if($_SESSION['u_status'] != '2')

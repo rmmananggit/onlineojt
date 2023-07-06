@@ -1,7 +1,7 @@
 <?php
 include('authentication.php');
-include('includes/header.php');
-include('includes/sidebar.php');
+include('header.php');
+include('sidebar.php');
 
 if (isset($_POST['import'])) {
     // Check if a file is selected
@@ -130,5 +130,5 @@ if (isset($_POST['import'])) {
     }
 }
 
-include('includes/footer.php');
+include('footer.php');
 ?>
