@@ -444,7 +444,7 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_user']);
 
     $_SESSION['status'] = "You have been logout!";
-    $_SESSION['status_code'] = "successss";
+    $_SESSION['status_code'] = "success";
     header("Location: ../index.php");
     exit(0);
 }
@@ -470,18 +470,6 @@ if(isset($_POST['delete_student']))
       header('Location: student_manage.php');
         exit(0);
     }
-}
-
-if(isset($_POST['logout_btn']))
-{
-    // session_destroy();
-    unset( $_SESSION['auth']);
-    unset( $_SESSION['auth_role']);
-    unset( $_SESSION['auth_user']);
-
-    $_SESSION['message'] = "Logout Successfully";
-    header("Location: ../login/index.php");
-    exit(0);
 }
 
 

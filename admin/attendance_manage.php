@@ -24,6 +24,8 @@
                 </thead>
               <tbody>
               <?php
+              $user_id = $_SESSION['user_id']['user_id'];
+
                             $query = "SELECT
                             coordinator_student.fname, 
                             coordinator_student.mname, 
@@ -54,7 +56,7 @@
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="attendance_view.php?id=<?=$row['id'];?>">View</a>
 
-<a type="button" class="btn btn-outline-primary" href="attendance_update.php?id=<?=$row['id'];?>">Update</a>
+<a type="button" class="btn btn-outline-warning" href="attendance_update.php?id=<?=$row['id'];?>">Update</a>
 </div>
 
 </form>
