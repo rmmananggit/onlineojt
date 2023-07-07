@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -14,43 +14,52 @@
             <div class="card-body">
               <h5 class="card-title"> Manage Student Task</h5>
           
-          
+              <a type="button" href="student_create.php" class="btn btn-primary mb-3">Add Student Account</a>
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
+                  <th class="col-2">ID Number</th>
+                    <th class="col-2">Name</th>
                     <th scope="col">Mobile Number</th>
+                    <th scope="col">Course</th>
                     <th scope="col">Status</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
               <tbody>
               <?php
+
+$userID = $_SESSION['auth_user']['user_course'];
                             $query = "SELECT
                             student.id, 
+                            student.student_id, 
                             student.fname, 
                             student.mname, 
                             student.lname, 
+                            student.suffix, 
                             student.email, 
+                            student.mobile, 
+                            student.gender, 
                             student.course, 
-                            student.picture,
+                            account_type.`name`, 
                             acc_status.status_name, 
-                            student.mobile
-                          FROM
-                            student
-                            INNER JOIN
+                            course.course_name
+                        FROM
                             account_type
+                            INNER JOIN
+                            student
                             ON 
-                              student.acc_type = account_type.acc_id
+                                student.acc_type = account_type.acc_id
                             INNER JOIN
                             acc_status
                             ON 
-                              student.acc_status = acc_status.status_id
-                          WHERE
-                            student.acc_status = 1";
+                                student.acc_status = acc_status.status_id
+                            INNER JOIN
+                            course
+                            ON 
+                                student.course = course.course_id
+                        WHERE
+                            student.course = $userID";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -58,21 +67,25 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['id']; ?></td>
-                                    <td>  <?php 
-                echo '<img class="img-fluid" src = "data:image;base64,'.base64_encode($row['picture']).'" 
-                alt="image" style="height: 250px; width: 250px; object-fit: cover;">';
-                ?></td>
-                                    <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
-                                    <td><?= $row['email']; ?></td>
+                                    <td> <?= $row['student_id']; ?> </td>
+                                    <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?> <?= $row['suffix']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
-                                    <td class="text-center"><?= $row['status_name']; ?></td>
+                                    <td style="font-size: 13px; color: green;"><?= $row['course_name']; ?></td>
+
+                                    <td style="color: <?= $row['status_name'] === 'Active' ? 'green' : 'red'; ?>;"><?= $row['status_name']; ?></td>
+
+</td>
+
+</td>
+
                                     <td class="text-center">
 
-<form action="process.php" method="POST">  
+<form action="process.php" method="POST">
+    
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<a type="button" class="btn btn-outline-primary" href="view_task.php?id=<?=$row['id'];?>">View</a>
-<a type="button" class="btn btn-outline-primary" href="add_task.php?id=<?=$row['id'];?>">Add</a>
+<a type="button" class="btn btn-outline-primary" href="student_view.php?id=<?=$row['id'];?>">Add</a>
+
+<a type="button" class="btn btn-outline-warning" href="student_view.php?id=<?=$row['id'];?>">Edit</a>
 </div>
 
 </form>
@@ -122,6 +135,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

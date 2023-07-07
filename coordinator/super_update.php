@@ -48,6 +48,15 @@
                   <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
                 </div>
 
+                  <div class="col-md-6">
+                  <label class="mb-2">Status:</label>
+                  <select class="form-control" name="status">
+                  <option value="1" <?= $user['acc_status'] == '1' ? 'selected' :'' ?> >Active</option>
+                  <option value="2" <?= $user['acc_status'] == '2' ? 'selected' :'' ?> >Inactive</option>
+                  </select>
+                  </div>
+
+
                 
                 <div class="row mt-4">
                       <div class="col">

@@ -13,9 +13,9 @@ if(isset($_POST['login']))
 
     if(mysqli_num_rows($login_query_run) > 0)
     {
-        foreach($login_query_run as $data){
+        foreach ($login_query_run as $data) {
             $user_id = $data['id'];
-            $full_name = $data['fname'].' '.$data['lname'];
+            $full_name = $data['fname'] . ' ' . $data['lname'];
             $user_status = $data['acc_status'];
             $role_as = $data['acc_type'];
             $user_email = $data['email'];

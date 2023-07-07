@@ -5,41 +5,14 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="student_manage.php">
-          <i class="bi bi-person"></i>
-          <span>Manage Student</span>
+     
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="index.php">
+        <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
         </a>
+
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="journal_manage.php">
-          <i class="bi bi-envelope-paper"></i>
-          <span>Manage Journal</span>
-        </a>
-      </li>
-
-
-<li class="nav-item">
-  <a class="nav-link collapsed" href="attendance_manage.php">
-  <i class="bi bi-calendar"></i>
-    <span>Manage Attendance</span>
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link collapsed" href="manage_task.php">
-  <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-    <span>Task</span>
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link collapsed" href="manage_files.php">
-  <i class="bi bi-card-image"></i>
-    <span>Student Files</span>
-  </a>
-</li>
 
 
 <li class="nav-heading">Manage</li>
@@ -74,7 +47,7 @@
 </li>
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="#">
+<a class="nav-link collapsed" href="manage_task.php">
 <i class="bi bi-card-checklist"></i>
 <span>Task</span>
 </a>

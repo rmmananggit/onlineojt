@@ -19,6 +19,25 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
+<script>
+    function previewImage(frameId, imageId) {
+      const frame = document.getElementById(frameId);
+      const image = document.getElementById(imageId);
+
+      // Create a FileReader object to read the uploaded file
+      const reader = new FileReader();
+
+      // Define the callback function when file reading is completed
+      reader.onload = function(e) {
+        const imageURL = e.target.result;
+        frame.innerHTML = `<img src="${imageURL}" alt="Preview" width="300" height="300">`;
+      };
+
+      // Read the uploaded file as a data URL
+      reader.readAsDataURL(image.files[0]);
+    }
+  </script>
+  
 
 <?php
         if(isset($_SESSION['status']) && $_SESSION['status_code'] !='' )

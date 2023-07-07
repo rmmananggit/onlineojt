@@ -5,48 +5,53 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
+     
+    <li class="nav-item">
         <a class="nav-link collapsed" href="index.php">
-          <i class="bi bi-person"></i>
-          <span>Manage Student</span>
+        <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
         </a>
+
       </li>
 
+
+<li class="nav-heading">Manage</li>
+
+
 <li class="nav-item">
-  <a class="nav-link collapsed" href="attendance_manage.php">
-  <i class="bi bi-calendar"></i>
-    <span>Manage Attendance</span>
-  </a>
+<a class="nav-link collapsed" href="student_manage1.php">
+<i class="bi bi-person"></i>
+<span>Student</span>
+</a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="task_manage.php">
-  <i class="bi bi-card-text"></i>
-    <span>Manage Task</span>
-  </a>
+<a class="nav-link collapsed" href="super_manage.php">
+<i class="bi bi-file-person"></i>
+<span>Supevisor</span>
+</a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="comment.php">
-  <i class="bi bi-journal"></i>
-    <span>Comment</span>
-  </a>
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-journal"></i>
+<span>Journal</span>
+</a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="manage_files.php">
-    <i class="bi bi-file"></i>
-    <span>Student Files</span>
-  </a>
+<a class="nav-link collapsed" href="#">
+<i class="bi bi-calendar-check"></i>
+<span>Attendance</span>
+</a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link collapsed" href="ann_manage.php">
-  <i class="bi bi-megaphone"></i>
-    <span>Announcement</span>
-  </a>
+<a class="nav-link collapsed" href="manage_task.php">
+<i class="bi bi-card-checklist"></i>
+<span>Task</span>
+</a>
 </li>
-
 
 
 

@@ -50,8 +50,7 @@
                             ON 
                                 accounts.acc_status = acc_status.status_id
                         WHERE
-                            accounts.acc_type = 3 AND
-                            accounts.acc_status = 1";
+                            accounts.acc_type = 3";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -63,15 +62,19 @@
                                     <td style="color: green;"><?= $row['company_name']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td>
+                                    <?php
+                                    $status = $row['status_name'];
+                                    $statusClass = ($status === 'Active') ? 'text-success' : 'text-danger';
+                                    ?>
+                                    <span class="<?php echo $statusClass; ?>"><?php echo $status; ?></span>
+                                  </td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="super_view.php?id=<?=$row['id'];?>">View</a>
 <a type="button" class="btn btn-outline-warning" href="super_update.php?id=<?=$row['id'];?>">Update</a>
-
-<button type="submit" name="delete_supervisor" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Archive</button>
 </div>
 
 </form>
