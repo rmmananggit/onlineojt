@@ -81,15 +81,14 @@ if (isset($_POST['import'])) {
                                                     </div>
 
                                                     <div class="col-md-6 mb-4">
-                                                        <label for="course" class="form-label">Course:</label>
+                                                    <select name="course" required class="form-control">
+    <option value="" disabled>--Course--</option>
+    <option value="3" <?= $course == '3' ? 'selected' : '' ?>>Bachelor of Science in Marine Biology</option>
+    <option value="4" <?= $course == '4' ? 'selected' : '' ?>>Bachelor of Science in Information Technology</option>
+    <option value="5" <?= $course == '5' ? 'selected' : '' ?>>Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+    <option value="6" <?= $course == '6' ? 'selected' : '' ?>>Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+</select>
 
-                                                        <select name="course" required class="form-control">
-                                                            <option value="" disabled>--Status--</option>
-                                                            <option value="3" <?= $course == '3' ? 'selected' : '' ?> disabled>Bachelor of Science in Marine Biology</option>
-                                                            <option value="4" <?= $course == '4' ? 'selected' : '' ?> disabled>Bachelor of Science in Information Technology</option>
-                                                            <option value="5" <?= $course == '5' ? 'selected' : '' ?> disabled>Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
-                                                            <option value="6" <?= $course == '6' ? 'selected' : '' ?> disabled>Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
-                                                        </select>
                                                     </div>
 
                                                     <div class="col-md-4 mb-4">
