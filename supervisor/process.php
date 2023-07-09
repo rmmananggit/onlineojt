@@ -78,7 +78,6 @@ if(isset($_POST['add_task']))
     }
 }
 
-
 //logout
 if(isset($_POST['logout_btn']))
 {
@@ -87,11 +86,11 @@ if(isset($_POST['logout_btn']))
     unset( $_SESSION['auth_role']);
     unset( $_SESSION['auth_user']);
 
+    $_SESSION['status'] = "You have been logout!";
     $_SESSION['status_code'] = "success";
     header("Location: ../index.php");
     exit(0);
 }
-
 
 
 if (isset($_POST['update_student'])) {
@@ -182,4 +181,65 @@ if(isset($_POST['update_account']))
         header('Location: settings.php');
         exit(0);
     }
+}
+
+//add student
+
+if(isset($_POST['import_add_student']))
+{
+  if(isset($_POST['mname'])) {
+    $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+
+    $student_id = $_POST['studentid'];
+    $fname = $_POST['fname'];
+
+    $lname = $_POST['lname'];
+    $suffix = $_POST['suffix'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
+    $course = $_POST['course'];
+    $user_id = $_POST['user_id'];
+    $password = uniqid();
+    
+    $acctype = 1;
+    $accstatus = 1;
+    
+
+    $query = "INSERT INTO `supervisor_student`(`supervisor`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$user_id','$student_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$course','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      // $name = htmlentities($_POST['lname']);
+      // $email = htmlentities($_POST['email']);
+      // $subject = htmlentities('Account Credentials');
+      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
+  
+      // $mail = new PHPMailer(true);
+      // $mail->isSMTP();
+      // $mail->Host = 'smtp.gmail.com';
+      // $mail->SMTPAuth = true;
+      // $mail->Username = 'ustponlineojt@gmail.com';
+      // $mail->Password = 'tukuieeuncmktfiz';
+      // $mail->Port = 465;
+      // $mail->SMTPSecure = 'ssl';
+      // $mail->isHTML(true);
+      // $mail->setFrom($email, $name);
+      // $mail->addAddress($_POST['email']);
+      // $mail->Subject = ("$email ($subject)");
+      // $mail->Body = $message;
+      // $mail->send();
+      $_SESSION['status'] = "Account has been added";
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
 }

@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 <div class="container">
@@ -29,22 +29,11 @@
                   <textarea required class="form-control" name="message" rows="10" placeholder="Enter Journal Message"></textarea>
                 </div>
 
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture #1</label> <br>
-                <input type="file" required name="pic1" accept=".jpg, .jpeg, .png">
+                <div class="col-md-6">
+                    <label class="mb-2">Attach Photos</label> <br>
+                    <input type="file" required name="photos[]" accept=".jpg, .jpeg, .png" multiple>
                 </div>
-
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Picture #2</label> <br>
-                <input type="file" required name="pic2" accept=".jpg, .jpeg, .png">
-                </div>
-
-                <div class="col-md-6">                 
-                <label class="mb-2">Upload Video</label> <br>
-                <input type="file" required name="file" value='Upload' name='but_upload' accept=".mp4, .avi, .mov">
-                </div>
-              
-               
+                
                 <div class="text-end">
                 <a type="button" class="btn btn-danger" href="index.php">Back</a>
                   <button type="submit" name="add_journal" class="btn btn-primary">Submit</button>
@@ -60,6 +49,6 @@
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>

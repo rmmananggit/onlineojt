@@ -387,7 +387,7 @@ if(isset($_POST['add_student']))
       // $mail->Subject = ("$email ($subject)");
       // $mail->Body = $message;
       // $mail->send();
-      $_SESSION['status'] = "Accout has been added";
+      $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: student_manage.php');
         exit(0);

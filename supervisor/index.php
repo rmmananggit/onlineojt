@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
 
 
@@ -27,7 +27,7 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Total Student Accounts</h5>
+                  <h5 class="card-title">Total Student Handled</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -36,7 +36,7 @@
                     <div class="ps-3">
 
                     <?php
-                                        $sql = "SELECT * FROM student";
+                                        $sql = "SELECT * FROM supervisor_student";
                                         $sql_run = mysqli_query($con, $sql);
                                         if($student_count = mysqli_num_rows($sql_run)){
                                             echo '<h6>'.$student_count.'</h6>';
@@ -59,16 +59,16 @@
               <div class="card info-card revenue-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Total Coordinator Account</span></h5>
+                  <h5 class="card-title">Total Journal</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-person-circle"></i>
+                    <i class="bi bi-journal"></i>
                     </div>
                     <div class="ps-3">
 
                     <?php
-                                        $sql = "SELECT * FROM accounts WHERE acc_type = 2";
+                                        $sql = "SELECT * FROM journal";
                                         $sql_run = mysqli_query($con, $sql);
                                         if($coor_count = mysqli_num_rows($sql_run)){
                                             echo '<h6>'.$coor_count.'</h6>';
@@ -343,5 +343,5 @@
 
 
 <?php
-include('includes/footer.php')
+include('footer.php')
 ?>

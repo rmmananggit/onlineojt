@@ -63,6 +63,13 @@
     </a>
   </li>
 
+    <li class="nav-item">
+    <a class="nav-link collapsed" href="database_manage.php">
+  <i class="bi bi-database"></i>
+      <span>Database</span>
+    </a>
+  </li>
+
 
 
     </ul>

@@ -18,8 +18,8 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Id Number</th>
-                    <th scope="col">Name</th>
+                    <th class="col-2">Id Number</th>
+                    <th class="col-2">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
                     <th scope="col">Status</th>

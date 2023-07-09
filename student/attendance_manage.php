@@ -1,7 +1,7 @@
 <?php
 include('authentication.php');
-include('includes/header.php');
-include('includes/sidebar.php');
+include('header.php');
+include('sidebar.php');
 ?>
 
 <div class="container">
@@ -106,5 +106,5 @@ include('includes/sidebar.php');
 </div>
 
 <?php
-include('includes/footer.php')
+include('footer.php')
 ?>

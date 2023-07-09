@@ -19,18 +19,12 @@
 
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="student_manage1.php">
+<a class="nav-link collapsed" href="student_manage.php">
 <i class="bi bi-person"></i>
 <span>Student</span>
 </a>
 </li>
 
-<li class="nav-item">
-<a class="nav-link collapsed" href="super_manage.php">
-<i class="bi bi-file-person"></i>
-<span>Supevisor</span>
-</a>
-</li>
 
 <li class="nav-item">
 <a class="nav-link collapsed" href="#">

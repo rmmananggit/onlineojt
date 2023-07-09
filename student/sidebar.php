@@ -5,8 +5,16 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link collapsed" href="index.php">
+        <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
+        </a>
+
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="journal_manage.php">
           <i class="bi bi-envelope-paper"></i>
           <span>Journal</span>
         </a>

@@ -12,19 +12,18 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"> My Task</h5>
+              <h5 class="card-title"> My Journal</h5>
 
-             
+              <a type="button" href="journal_create.php" class="btn btn-primary mb-3">Add New Journal</a>
               <!-- Default Table -->
               <table class="table">
                 <thead>
                   <tr>
-                  <th scope="col"> Task #</th>
-                    <th scope="col"> Task Title</th>
-                    <th scope="col"> Task Description</th>
-                    <th scope="col"> Status</th>
-                    <th scope="col"> Date Given</th>
-                    <th scope="col"> Date Deadline</th>
+                    <th scope="col">Journal #</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Date Submitted</th>
                     <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -35,19 +34,11 @@
                 $currentUSER = $_SESSION['auth_user']['user_id'];
 
                             $query = "SELECT
-                            task.task_id, 
-                            task.student_id, 
-                            task.title, 
-                            task.status,
-                            task.task, 
-                            task.date_given, 
-                            task.deadline
-                        FROM
-                            task
-                        WHERE
-                            task.student_id = '$currentUSER'
-                        ORDER BY
-                            task.date_given DESC ";
+                            journal.*
+                          FROM
+                            journal
+                          WHERE
+                            id = '$currentUSER'";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -55,33 +46,36 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['task_id']; ?></td>
+                                    <td><?= $row['journal_id']; ?></td>
                                     <td><?= $row['title']; ?></td>
-                          <td><?= $row['task']; ?></td>
-                          <td>
-                          <?php 
-                                                          if($row['status']=="Pending"){
+                                    <td>
+                                    <?php 
+                                        echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($row['pic1']).'" 
+                                        alt="image" style="height: 170px; max-width: 310px; object-fit: cover;">'; ?>
+                                    </td>
+              
+                                    <td>
+                                    <?php 
+                                                          if($row['grade']=="0"){
                                                               ?>
-                                                               <p><span style="color: red;">Pending</span></p>
+                                                               <p><span style="color: red;">Not yet graded</span></p>
                                                               <?php
                                                           }else{
                                                               ?>
-                                                                 <p><span style="color: green;"><?php echo $row['status']; ?></span></p>
+                                                                 <p><span style="color: green;"><?php echo $row['grade']; ?></span></p>
                                                               <?php
                                                           }
                                                         ?>
-                          </td>
-                          <td><?= $row['date_given']; ?></td>
-                          <td><?= $row['deadline']; ?></td>
-
+                                    </td>
+                                    <td><?= $row['date']; ?></td>
                                     <td class="text-center">
 
                                    
  
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-<form action="process.php" method="POST">  
-<button type="submit" name="done_btn" value="<?=$row['task_id']; ?>" class="btn btn-outline-primary">Done</button>
-</form>
+<a type="button" class="btn btn-outline-primary" href="journal_view.php?id=<?=$row['journal_id'];?>">View</a>
+
+<a type="button" class="btn btn-outline-primary" href="journal_update.php?id=<?=$row['journal_id'];?>">Update</a>
 </div>
 
                                   

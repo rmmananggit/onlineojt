@@ -9,8 +9,9 @@ $con = mysqli_connect("$host", "$username", "$password", "$database");
 
 if(!$con)
 {
-    header("Location: ../errors/dberror.php");
+    header("Location: .../error/error.php");
     die();
 }
 
 ?>
+
