@@ -20,8 +20,7 @@
                   <tr>
                     <th class="col-2">Id Number</th>
                     <th class="col-2">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Course</th>
                     <th scope="col">Status</th>
                     <th class="text-center">Action</th>
                   </tr>
@@ -29,18 +28,16 @@
               <tbody>
               <?php
                             $query = "SELECT
-                            student.id, 
-                            student.student_id,
-                            student.fname, 
-                            student.mname, 
-                            student.lname, 
-                            student.email, 
-                            student.course, 
-                            student.suffix,
-                            acc_status.status_name, 
-                            student.mobile
+                            student.*, 
+                            course.course_name, 
+                            account_type.`name`, 
+                            acc_status.status_name
                           FROM
                             student
+                            INNER JOIN
+                            course
+                            ON 
+                              student.course = course.course_id
                             INNER JOIN
                             account_type
                             ON 
@@ -48,9 +45,7 @@
                             INNER JOIN
                             acc_status
                             ON 
-                              student.acc_status = acc_status.status_id
-                          WHERE
-                            student.acc_status = 1";
+                              student.acc_status = acc_status.status_id";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -60,9 +55,9 @@
                                     <tr>
                                     <td> <?= $row['student_id']; ?> </td>
                                     <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?> <?= $row['suffix']; ?></td>
-                                    <td><?= $row['email']; ?></td>
-                                    <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td><?= $row['course_name']; ?></td>
+                
+                                    <td style="color: <?= $row['status_name'] === 'Active' ? 'green' : 'red'; ?>;"><?= $row['status_name']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">

@@ -19,7 +19,7 @@
                 <thead>
                   <tr>
                     <th class="col-2">Name</th>
-                    <th scope="col">Course</th>
+                    <th scope="col">Department</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Number</th>
                     <th scope="col">Status</th>
@@ -29,29 +29,26 @@
               <tbody>
               <?php
                             $query = "SELECT
-                            accounts.id, 
-                            accounts.fname, 
-                            accounts.mname, 
-                            accounts.lname, 
-                            accounts.mobile, 
-                            accounts.picture,
-                            accounts.email, 
-                            accounts.course,
-                            account_type.`name`, 
-                            acc_status.status_name
-                        FROM
+                            accounts.*, 
+                            course.course_name, 
+                            acc_status.status_name, 
+                            account_type.`name`
+                          FROM
                             accounts
                             INNER JOIN
-                            account_type
+                            course
                             ON 
-                                accounts.acc_type = account_type.acc_id
+                              accounts.course = course.course_id
                             INNER JOIN
                             acc_status
                             ON 
-                                accounts.acc_status = acc_status.status_id
-                        WHERE
-                            accounts.acc_type = 2 AND
-                            accounts.acc_status = 1";
+                              accounts.acc_status = acc_status.status_id
+                            INNER JOIN
+                            account_type
+                            ON 
+                              accounts.acc_type = account_type.acc_id
+                          WHERE
+                            accounts.acc_type = 2";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -60,10 +57,10 @@
                                     ?>
                                     <tr>
                                     <td><b><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></b></td>
-                                    <td style="color: green;"><?= $row['course']; ?></td>
+                                    <td><?= $row['course_name']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td style="color: <?= $row['status_name'] === 'Active' ? 'green' : 'red'; ?>;"><?= $row['status_name']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  

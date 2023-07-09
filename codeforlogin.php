@@ -62,8 +62,11 @@ if(isset($_POST['login']))
             exit(0);
         } 
             }else{
-                $_SESSION['message'] = "Your account has been disabled";
-            header("Location: index.php");
+
+                $_SESSION['status'] = "Your Account has been Archived";
+                $_SESSION['status_code'] = "error";
+                header("Location: index.php");
+                exit(0);
             exit(0); 
             }
            

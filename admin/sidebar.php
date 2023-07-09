@@ -48,6 +48,12 @@
 
       <li class="nav-heading">Manage</li>
 
+      <li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+    <i class="bi bi-megaphone"></i>
+      <span>Announcement</span>
+    </a>
+  </li>
 
       <li class="nav-item">
     <a class="nav-link collapsed" href="manage_files.php">

@@ -63,7 +63,7 @@
                                     <td style="color: green;"><?= $row['company_name']; ?></td>
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['mobile']; ?></td>
-                                    <td><?= $row['status_name']; ?></td>
+                                    <td style="color: <?= $row['status_name'] === 'Active' ? 'green' : 'red'; ?>;"><?= $row['status_name']; ?></td>
                                     <td class="text-center">
 
 <form action="process.php" method="POST">  

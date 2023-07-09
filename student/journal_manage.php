@@ -21,7 +21,6 @@
                   <tr>
                     <th scope="col">Journal #</th>
                     <th scope="col">Message</th>
-                    <th scope="col">Picture</th>
                     <th scope="col">Grade</th>
                     <th scope="col">Date Submitted</th>
                     <th scope="col" class="text-center">Action</th>
@@ -48,11 +47,6 @@
                                     <tr>
                                     <td><?= $row['journal_id']; ?></td>
                                     <td><?= $row['title']; ?></td>
-                                    <td>
-                                    <?php 
-                                        echo '<img class="img-fluid img-bordered-sm" src = "data:image;base64,'.base64_encode($row['pic1']).'" 
-                                        alt="image" style="height: 170px; max-width: 310px; object-fit: cover;">'; ?>
-                                    </td>
               
                                     <td>
                                     <?php 
