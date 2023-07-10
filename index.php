@@ -1,53 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>USTP</title>
-  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/login.css">
-  
-</head>
-<body>
-<?php session_start(); ?>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Login #7</title>
+  </head>
+  <body>
+  <?php session_start(); ?>
   <main>
-    <div class="container-fluid">
+  
+  <div class="content">
+    <div class="container">
       <div class="row">
-        <div class="col-sm-6 login-section-wrapper">
-          <div class="brand-wrapper">
-          
-          </div>
-          <div class="login-wrapper">
-            <h1 class="login-title">Web-based OJT Monitoring System in USTP Panaon</h1>
-            <p>Login to your account</p>
-              <form action="codeforlogin.php" method="POST" class="needs-validation" novalidate>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="email@example.com">
+        <div class="col-md-6">
+          <img src="images/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="mb-4">
+              <h3>Hi! Welcome to</h3>
+              <p>Web-based OJT Monitoring System in Panaon Campus</p>
+            </div>
+            <form action="codeforlogin.php" method="POST" class="needs-validation" novalidate>
+              <div class="form-group first">
+                <label for="username">Email/Student ID</label>
+                <input type="text" class="form-control" name="email" id="email">
+
               </div>
-              <div class="form-group mb-4">
+              <div class="form-group last mb-4">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="enter your passsword">
+                <input type="password"  name="password" id="password" class="form-control" id="password">
+                
               </div>
-              <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
+          
+              <input type="submit" name="login" class="btn btn-block btn-primary">
+
             </form>
-           
+            </div>
           </div>
+          
         </div>
-        <div class="col-sm-6 px-0 d-none d-sm-block">
-          <img src="assets/images/ustp1.jpg" alt="login image" class="login-img img-fluid">
-        </div>
+        
       </div>
     </div>
+  </div>
   </main>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <?php
+  
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+     
+<?php
         if(isset($_SESSION['status']) && $_SESSION['status_code'] !='' )
         {
             ?>
@@ -62,7 +82,5 @@
                 unset($_SESSION['status_code']);
         }     
  ?>
-
-
-</body>
+  </body>
 </html>
