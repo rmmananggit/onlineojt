@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Login #7</title>
+    <title>ONLINE OJT</title>
   </head>
   <body>
   <?php session_start(); ?>
