@@ -2,109 +2,155 @@
 include('authentication.php');
 include('header.php');
 include('sidebar.php');
+
+// Assuming you have established a connection to your MySQL database
+$total_hours = 0;
+if (isset($_SESSION['auth_user'])) {
+    $userId = $_SESSION['auth_user']['user_id'];
+    $query1 = "SELECT time_in, time_out FROM attendance WHERE user_id = $userId";
+    $result = mysqli_query($con, $query1);
+
+    // Calculate total hours rendered
+    while ($row = mysqli_fetch_assoc($result)) {
+        $in_time = strtotime($row['time_in']);
+        $out_time = strtotime($row['time_out']);
+        $difference = $out_time - $in_time;
+        $total_hours += $difference / 3600; // Convert seconds to hours
+    }
+
+    mysqli_free_result($result);
+}
+
+$total_hours_formatted = number_format($total_hours, 2); // Format the total hours with 1 decimal place
+
 ?>
 
 <div class="container">
+    <h2><center>ATTENDANCE</center></h2>
+   
+    <section class="section dashboard">
+      <div class="row">
+      
 
-  <h2><center>ATTENDANCE</center></h2>
-  <h5><center>You must time-in at 8 am and time-out at 12 pm. Also in 1 pm and 5 pm.</center></h5>
+      
+         <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
-  <?php
-  $currentHour = date('H'); // Get the current hour in 24-hour format
+                <div class="card-body">
+                  <h5 class="card-title">Your Total Hours Rendered:</h5>
 
-  $disableButton = false; // Assume the button is enabled by default
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-stopwatch"></i>
+                    </div>
+                    <div class="ps-3">
 
-  $timein = false;
-  $timeout = false; // Initialize the $timein variable
+                    <?php echo '<h6>'.$total_hours_formatted.'</h6>'?>
 
-  // Check if the current time is within the specified ranges
-  if (($currentHour >= 8 && $currentHour < 12) || ($currentHour >= 13 && $currentHour < 17)) {
-      $timein = true;
-      $timeout = true; // Disable the button
-  }
-  ?>
+                    </div>
+                  </div>
+                </div>
 
-  <!-- HTML code with the button -->
+              </div>
+            </div>
 
-  <section class="section mt-3">
-    <div class="row">
-            <div class="col-lg-6">
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
+                <div class="card-body">
+                  <h5 class="card-title">Hours Required for Rendering:</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-stopwatch"></i>
+                    </div>
+                    <div class="ps-3">
+                    <h6>418</h6>
+                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+      </div>
+    </section>
+
+    <!-- HTML code with the button -->
+
+    <section class="section mt-3">
+        <div class="row">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">My Attendance</h5>
 
                         <form action="process.php" method="POST">
+                            <?php if(isset($_SESSION['auth_user'])) { ?>
+                                <label for="" hidden="true">user_id</label>
+                                <input type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
 
-                            <?php if(isset($_SESSION['auth_user']))  ?>
-
-                            <label for="" hidden="true">user_id</label>
-                            <input type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
-
-                            <div class="dropdown mb-4">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Click me!
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" type="submit" name="timein">Log me in</button>
-                                    <button class="dropdown-item" type="submit" name="timeout">Log me out</button>
+                                <div class="dropdown mb-4">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Click me!
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button class="dropdown-item" type="submit" name="timein">Log me in</button>
+                                        <button class="dropdown-item" type="submit" name="timeout">Log me out</button>
+                                    </div>
                                 </div>
-                            </div>
-
-
+                            <?php } ?>
                         </form>
 
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">TIME</th>
-                                    <th scope="col">NAME</th>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">TIME-IN</th>
+                                    <th scope="col">TIME-OUT</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $userId = $_SESSION['auth_user']['user_id']; 
-                                $query = "SELECT `user_id`, `time`, `name` FROM `attendance` WHERE `user_id` = $userId ORDER BY `time` DESC";
+                                $query = "SELECT `user_id`,`date`, TIME_FORMAT(`time_in`, '%h:%i:%s %p') AS `formatted_time_in`, TIME_FORMAT(`time_out`, '%h:%i:%s %p') AS `formatted_time_out` FROM `attendance` WHERE `user_id` = $userId ORDER BY `time_in` DESC";
                                 $query_run = mysqli_query($con, $query);
 
-                                if(mysqli_num_rows($query_run) > 0)
-                                {
-                                    foreach($query_run as $row)
-                                    {
+                                if (mysqli_num_rows($query_run) > 0) {
+                                    foreach ($query_run as $row) {
                                         ?>
                                         <tr>
-                                          <td><?= $row['time']; ?></td>
-                                          <td><?= $row['name']; ?></td>
+                                            <td><?= $row['date']; ?></td>
+                                            <td><?= $row['formatted_time_in']; ?></td>
+                                            <td><?= $row['formatted_time_out']; ?></td>
                                         </tr>
                                         <?php
                                     }
                                 } else {
-                                ?>
+                                    ?>
                                     <tr>
-                                      <td colspan="2">No Record Found</td>
+                                        <td colspan="3">No Record Found</td>
                                     </tr>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </tbody>
                         </table>
+
                         <!-- End Default Table Example -->
                     </div>
                 </div>
-
             </div>
 
-            <div class="col-lg-6">
-
-                <!-- Rest of your HTML code -->
-
-            </div>
-
-
-    </div>
-  </section>
+          
+        </div>
+    </section>
 </div>
 
 <?php
-include('footer.php')
+include('footer.php');
 ?>

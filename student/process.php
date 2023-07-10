@@ -75,6 +75,7 @@ if(isset($_POST['add_comment']))
    
 }
 
+
 if (isset($_POST['add_journal'])) {
   $user_id = $_POST['user_id'];
   $title = $_POST['title'];
@@ -89,43 +90,33 @@ if (isset($_POST['add_journal'])) {
   $query_run = mysqli_query($con, $query);
 
   if ($query_run) {
-      $student_id = mysqli_insert_id($con); // Get the auto-generated ID of the inserted person
+    $journal_id = mysqli_insert_id($con); // Get the auto-generated ID of the inserted journal
 
-      // Check if files were uploaded
-      if (!empty($_FILES['photos']['name'][0])) {
-          $fileCount = count($_FILES['photos']['name']);
+    // Check if files were uploaded
+    if (!empty($_FILES['photos']['name'][0])) {
+        $fileCount = count($_FILES['photos']['name']);
 
-          // Prepare the insert query for photos table
-          $query = "INSERT INTO `photos` (`student_id`, `photo`) VALUES (?, ?)";
-          $stmt = mysqli_prepare($con, $query);
+        for ($i = 0; $i < $fileCount; $i++) {
+            $tempFile = $_FILES['photos']['tmp_name'][$i];
+            $fileName = $_FILES['photos']['name'][$i];
+            $fileData = mysqli_real_escape_string($con, file_get_contents($tempFile));
 
-          for ($i = 0; $i < $fileCount; $i++) {
-              $tempFile = $_FILES['photos']['tmp_name'][$i];
-              $fileName = $_FILES['photos']['name'][$i];
-              $fileData = file_get_contents($tempFile);
+            $query = "INSERT INTO `photos` (`journal_id`, `photo`) VALUES ('$journal_id', '$fileData')";
+            mysqli_query($con, $query);
+        }
+    }
 
-              // Bind parameters to the prepared statement
-              mysqli_stmt_bind_param($stmt, "is", $student_id, $fileData);
-
-              // Execute the prepared statement
-              mysqli_stmt_execute($stmt);
-          }
-
-          // Close the prepared statement
-          mysqli_stmt_close($stmt);
-      }
-
-      $_SESSION['status'] = "Journal has been created";
-      $_SESSION['status_code'] = "success";
-      header('Location: journal_manage.php');
-      exit(0);
+    $_SESSION['status'] = "Journal has been created";
+    $_SESSION['status_code'] = "success";
+    header('Location: journal_manage.php');
+    exit(0);
   } else {
-      $_SESSION['status'] = "Something went wrong";
-      $_SESSION['status_code'] = "error";
-      header('Location: journal_manage.php');
-      // echo "Error: " . mysqli_error($con);
+    echo "Error: " . mysqli_error($con);
+    // echo "Error: " . mysqli_error($con);
   }
 }
+
+
 
 
 
@@ -158,48 +149,40 @@ if(isset($_POST['edit_journal']))
 
 if (isset($_POST['timein'])) {
   $user_id2 = $_POST['user_id'];
-  $name = "TIME-IN";
+  date_default_timezone_set('Asia/Singapore'); // Set timezone to GMT+8
+  $current_time = date('h:i:s A'); // Format: 12-hour time with AM/PM
+  $currentDate = date('Y-m-d'); // Format: YYYY-MM-DD
 
-  $date = new DateTime();
-  $date->setTimezone(new DateTimeZone('UTC'));
-  $currentdate = $date->format('Y-m-d H:i:s');
-
-  $query = "INSERT INTO `attendance`(`user_id`, `time`, `name`) VALUES ('$user_id2','$currentdate','$name')";
+  $query = "INSERT INTO attendance (`user_id`, `date`, `time_in`, `time_out`) VALUES ('$user_id2', '$currentDate', '$current_time', '$current_time')";
   $query_run = mysqli_query($con, $query);
 
-  if($query_run)
-    {
-      $_SESSION['status'] = "Clock in successfully!";
+  if ($query_run) {
+      $_SESSION['status'] = "Time in recorded successfully";
       $_SESSION['status_code'] = "success";
       header('Location: attendance_manage.php');
       mysqli_close($con);
-        exit(0);
-    }
-    else
-    {
-      $_SESSION['status'] = "There is something wrong!";
-      $_SESSION['status_code'] = "error";
-      header('Location: attendance_manage.php');
+      exit(0);
+  } else {
+      echo "Error: " . mysqli_error($con);
       mysqli_close($con);
-        exit(0);
-    }
-
+      exit(0);
+  }
 }
+
+
+
 
 if (isset($_POST['timeout'])) {
   $user_id2 = $_POST['user_id'];
-  $name = "TIME-OUT";
+  date_default_timezone_set('Asia/Singapore'); // Set timezone to GMT+8
+  $current_time = date('h:i:s A');
 
-  $date = new DateTime();
-  $date->setTimezone(new DateTimeZone('UTC'));
-  $currentdate = $date->format('Y-m-d H:i:s');
-
-  $query = "INSERT INTO `attendance`(`user_id`, `time`, `name`) VALUES ('$user_id2','$currentdate','$name')";
+  $query = "UPDATE attendance SET time_out = '$current_time' WHERE user_id = $user_id2 AND time_out = time_in";
   $query_run = mysqli_query($con, $query);
 
   if($query_run)
     {
-      $_SESSION['status'] = "Clock out successfully!";
+      $_SESSION['status'] = "Time out recorded successfully!";
       $_SESSION['status_code'] = "success";
       header('Location: attendance_manage.php');
       mysqli_close($con);
@@ -207,9 +190,7 @@ if (isset($_POST['timeout'])) {
     }
     else
     {
-      $_SESSION['status'] = "There is something wrong!";
-      $_SESSION['status_code'] = "error";
-      header('Location: attendance_manage.php');
+      echo "Error: " . mysqli_error($con);
       mysqli_close($con);
         exit(0);
     }
