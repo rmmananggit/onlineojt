@@ -55,16 +55,34 @@
                             <input required class="form-control" id="date" name="dob" placeholder="MM/DD/YYY" type="date" required>
                 </div>
 
-                <div class="col-md-112">
-  <label class="mb-2">Course:</label>
-  <select class="form-control" name="course">
-    <option selected disabled>Select Course</option>
-    <option value="3">Bachelor of Science in Marine Biology</option>
-    <option value="4">Bachelor of Science in Information Technology</option>
-    <option value="5">Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
-    <option value="6">Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
-  </select>
-</div>
+                <div class="col-md-12">
+                            <?php
+                                $sql = "SELECT * FROM `course`";
+                                $all_categories = mysqli_query($con,$sql);
+                            ?>
+                            <label for="">Course:</label>
+                            <select name="course" id="course_id" required class="form-control">
+                                <option value="" disabled selected>Select Product</option>
+                                <?php
+                                    // use a while loop to fetch data
+                                    // from the $all_categories variable
+                                    // and individually display as an option
+                                    while ($course = mysqli_fetch_array(
+                                        $all_categories,MYSQLI_ASSOC)):;
+                                ?>
+                                    <option value="<?php echo $course["course_id"]; ?>">
+                                        <!-- The value we usually set is the primary key -->
+                                        <?php echo $course["course_name"];
+                                            // To show the course name to the user
+                                        ?>
+                                    </option>
+                                <?php
+                                    endwhile;
+                                    // While loop must be terminated
+                                ?>
+                            </select>
+                        </div>
+
 
                 <div class="col-md-6">                 
                 <label class="mb-2">Upload Picture:</label> 
@@ -86,7 +104,7 @@
                 
                
                 <div class="text-end">
-                <a type="button" class="btn btn-danger" href="index.php">Back</a>
+                <a type="button" class="btn btn-danger" href="coordinator_manage.php">Back</a>
                   <button type="submit" value="submit" name="add_coordinator" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>

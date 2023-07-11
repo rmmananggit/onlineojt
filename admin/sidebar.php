@@ -20,13 +20,6 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-
-          <a href="student_manage.php">
-          <i class="bi bi-circle"></i><span>Student Account</span>
-         </a>
-    
-          </li>
-          <li>
         
           <a href="coordinator_manage.php">
           <i class="bi bi-circle"></i><span>Coordinator Account</span>
@@ -49,7 +42,7 @@
       <li class="nav-heading">Manage</li>
 
       <li class="nav-item">
-    <a class="nav-link collapsed" href="#">
+    <a class="nav-link collapsed" href="ann_manage.php">
     <i class="bi bi-megaphone"></i>
       <span>Announcement</span>
     </a>

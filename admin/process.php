@@ -71,70 +71,53 @@ if(isset($_POST['add_coordinator']))
    
 }
 
+if (isset($_POST['add_supervisor'])) {
+  // Retrieve form data
+  $fname = $_POST['fname'];
+  $mname = isset($_POST['mname']) ? $_POST['mname'] : NULL;
+  $lname = $_POST['lname'];
+  $email = $_POST['email'];
 
-if(isset($_POST['add_supervisor']))
-{
-  if(isset($_POST['mname'])) {
-    $mname = $_POST['mname'];
-  } else{
-    $mname = NULL;
+  // Perform validation by querying the database
+  $query = "SELECT * FROM accounts WHERE fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND email = '$email'";
+  $result = mysqli_query($con, $query);
+
+  // Check if a record with the same values already exists
+  if (mysqli_num_rows($result) > 0) {
+
+    $_SESSION['status'] = "A record with the same name and email already exists.";
+    $_SESSION['status_code'] = "error";
+    header('Location: super_create.php');
+    exit(0);
+
   }
 
-    $picture = $_FILES['picture'];
+  // Continue with inserting the record if validation passes
+  $picture = $_FILES['picture'];
+  $password = uniqid();
+  $phone = $_POST['phone'];
+  $gender = $_POST['gender'];
+  $company_name = $_POST['company_name'];
+  $company_email = $_POST['company_email'];
+  $company_address = $_POST['company_address'];
+  $course = 3;
+  $acctype = 3;
+  $accstatus = 1;
+  $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
 
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $password = uniqid();
-    $phone = $_POST['phone'];
-    $gender = $_POST['gender'];
-    $company_name = $_POST['company_name'];
-    $company_email = $_POST['company_email'];
-    $company_address = $_POST['company_address'];
-    
-    $acctype = 3;
-    $accstatus = 1;
+  $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`,`course`,`company_name`,`company_email`,`company_address`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$course','$company_name','$company_email','$company_address','$acctype','$accstatus')";
+  $query_run = mysqli_query($con, $query);
 
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
-    
-
-    $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`,`company_name`,`company_email`,`company_address`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$company_name','$company_email','$company_address','$acctype','$accstatus')";
-    $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
-
-      // $name = htmlentities($_POST['lname']);
-      // $email = htmlentities($_POST['email']);
-      // $subject = htmlentities('Account Credentials');
-      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
-  
-      // $mail = new PHPMailer(true);
-      // $mail->isSMTP();
-      // $mail->Host = 'smtp.gmail.com';
-      // $mail->SMTPAuth = true;
-      // $mail->Username = 'ustponlineojt@gmail.com';
-      // $mail->Password = 'tukuieeuncmktfiz';
-      // $mail->Port = 465;
-      // $mail->SMTPSecure = 'ssl';
-      // $mail->isHTML(true);
-      // $mail->setFrom($email, $name);
-      // $mail->addAddress($_POST['email']);
-      // $mail->Subject = ("$email ($subject)");
-      // $mail->Body = $message;
-      // $mail->send();
-      $_SESSION['status'] = "Account has been added";
-      $_SESSION['status_code'] = "success";
-        header('Location: super_manage.php');
-        exit(0);
-    }else{
-      $_SESSION['status'] = "The account addition was unsuccessful";
-      $_SESSION['status_code'] = "error";
-      header('Location: super_manage.php');
-      exit(0);
-    }
-   
+  if ($query_run) {
+    $_SESSION['status'] = "Account has been added";
+    $_SESSION['status_code'] = "success";
+    header('Location: super_manage.php');
+    exit(0);
+  } else {
+    echo "Error: " . mysqli_error($con);
+  }
 }
+
 
 
 //update ang coordinator
@@ -313,27 +296,37 @@ if(isset($_POST['delete_supervisor']))
 }
 
 //add course
-if(isset($_POST['add_course']))
-{
-    $course_name = $_POST['course'];
-    $acronym = $_POST['acronym'];
+if (isset($_POST['add_course'])) {
+  $course_name = $_POST['course'];
+  $acronym = $_POST['acronym'];
 
-    $query = "INSERT INTO `course`(`course_name`, `acronym`) VALUES ('$course_name','$acronym')";
-    $query_run = mysqli_query($con, $query);
-    
-    if($query_run)
-    {
+  // Perform validation by querying the database
+  $query = "SELECT * FROM course WHERE course_name = '$course_name' OR acronym = '$acronym'";
+  $result = mysqli_query($con, $query);
+
+  // Check if a record with the same values already exists
+  if (mysqli_num_rows($result) > 0) {
+      $_SESSION['status'] = "A course with the same name or acronym already exists.";
+      $_SESSION['status_code'] = "error";
+      header('Location: add_course.php');
+      exit(0);
+  }
+
+  // Continue with inserting the course if validation passes
+  $query = "INSERT INTO `course`(`course_name`, `acronym`) VALUES ('$course_name','$acronym')";
+  $query_run = mysqli_query($con, $query);
+
+  if ($query_run) {
       $_SESSION['status'] = "Course added successfully";
       $_SESSION['status_code'] = "success";
       header('Location: add_course.php');
-        exit(0);
-    }
-    else
-    {
+      exit(0);
+  } else {
       header('Location: add_course.php');
-        exit(0);
-    }
+      exit(0);
+  }
 }
+
 
 
 
@@ -609,9 +602,49 @@ if (isset($_POST['download_student'])) {
   }
 }
 
+if(isset($_POST['add_ann']))
+{
+  date_default_timezone_set('Asia/Manila');
+  $currentDate = date('Y-m-d');
+  $userid = $_POST['userid'];
+  $ann = $_POST['ann'];
 
 
+    $query = "INSERT INTO `announcement`(`user_id`, `message`, `date_announced`) VALUES ('$userid','$ann','$currentDate')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "You have broadcast an announcement";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
+}
 
 
+if(isset($_POST['update_ann']))
+{
+    $id = $_POST['id'];
+    $message = $_POST['message'];
+
+
+    $query = "UPDATE `announcement` SET `message`='$message' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been updated";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
+}
 
 
