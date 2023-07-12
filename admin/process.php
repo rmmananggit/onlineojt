@@ -7,6 +7,7 @@
 // require './PHPMailer/src/PHPMailer.php';
 // require './PHPMailer/src/SMTP.php';
 
+// checking for validation
 
 if(isset($_POST['add_coordinator']))
 {
@@ -32,15 +33,24 @@ if(isset($_POST['add_coordinator']))
 
     $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
 
+    //check fname
+
+    $check_fname = mysqli_query($con, "SELECT * FROM accounts WHERE fname='$fname'");
+    if(mysqli_num_rows($check_fname) > 0) {
+      $_SESSION['status'] = "Name already exist, please check the accounts to check if this person has already have an account";
+      $_SESSION['status_code'] = "error";
+      header('Location: coordinator_create.php');
+      exit(0);
+    }
 
 
     //check email
 
     $check_email = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
     if(mysqli_num_rows($check_email) > 0) {
-      $_SESSION['status'] = "The email already exists in the database.";
+      $_SESSION['status'] = "Email Address already exists, please check the accounts to check if this person has already have an account";
       $_SESSION['status_code'] = "error";
-      header('Location: coordinator_manage.php');
+      header('Location: coordinator_create.php');
       exit(0);
     }
 
@@ -69,21 +79,6 @@ if (isset($_POST['add_supervisor'])) {
   $lname = $_POST['lname'];
   $email = $_POST['email'];
 
-  // Perform validation by querying the database
-  $query = "SELECT * FROM accounts WHERE fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND email = '$email'";
-  $result = mysqli_query($con, $query);
-
-  // Check if a record with the same values already exists
-  if (mysqli_num_rows($result) > 0) {
-
-    $_SESSION['status'] = "A record with the same name and email already exists.";
-    $_SESSION['status_code'] = "error";
-    header('Location: super_create.php');
-    exit(0);
-
-  }
-
-  // Continue with inserting the record if validation passes
   $picture = $_FILES['picture'];
   $password = uniqid();
   $phone = $_POST['phone'];
@@ -95,6 +90,28 @@ if (isset($_POST['add_supervisor'])) {
   $acctype = 3;
   $accstatus = 1;
   $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
+
+  //check fname
+
+  $check_fname = mysqli_query($con, "SELECT * FROM accounts WHERE fname='$fname'");
+  if(mysqli_num_rows($check_fname) > 0) {
+    $_SESSION['status'] = "Name already exist, please check the accounts to check if this person has already have an account";
+    $_SESSION['status_code'] = "error";
+    header('Location: super_create.php');
+    exit(0);
+  }
+
+
+  //check email
+
+  $check_email = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
+  if(mysqli_num_rows($check_email) > 0) {
+    $_SESSION['status'] = "Email Address already exists, please check the accounts to check if this person has already have an account";
+    $_SESSION['status_code'] = "error";
+    header('Location: super_create.php');
+    exit(0);
+  }
+
 
   $query = "INSERT INTO `accounts`(`fname`, `mname`, `lname`, `mobile`, `email`, `password`,`gender`, `picture`,`course`,`company_name`,`company_email`,`company_address`, `acc_type`, `acc_status`) VALUES ('$fname','$mname','$lname','$phone','$email','$password','$gender','$picture','$course','$company_name','$company_email','$company_address','$acctype','$accstatus')";
   $query_run = mysqli_query($con, $query);
