@@ -648,3 +648,23 @@ if(isset($_POST['update_ann']))
 }
 
 
+//delete student
+if(isset($_POST['ann_delete']))
+{
+    $id = $_POST['ann_delete'];
+
+    $query = "DELETE FROM `announcement` WHERE `id` = $id";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been deleted";
+      $_SESSION['status_code'] = "success";
+      header('Location: ann_manage.php');
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
+    }
+}

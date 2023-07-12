@@ -68,7 +68,7 @@
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                     <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#viewModal<?=$row['id'];?>">View</a>
                                                     <a type="button" class="btn btn-outline-warning" href="ann_update.php?id=<?=$row['id'];?>">Update</a>
-                                                    <button type="submit" name="delete_student" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Delete</button>
+                                                    <button type="submit" name="ann_delete" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Delete</button>
                                                 </div>
                                             </form>
                                         </td>
