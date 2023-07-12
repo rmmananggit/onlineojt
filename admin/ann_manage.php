@@ -54,8 +54,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            $userID = $_SESSION['auth_user']['user_id'];
-                            $query = "SELECT * FROM `announcement` WHERE `user_id` = $userID";
+                            $query = "SELECT * FROM `announcement`";
                             $query_run = mysqli_query($con, $query);
                             if (mysqli_num_rows($query_run) > 0) {
                                 foreach ($query_run as $row) {
@@ -67,8 +66,6 @@
                                             <form action="process.php" method="POST">
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                     <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#viewModal<?=$row['id'];?>">View</a>
-                                                    <a type="button" class="btn btn-outline-warning" href="ann_update.php?id=<?=$row['id'];?>">Update</a>
-                                                    <button type="submit" name="ann_delete" value="<?=$row['id']; ?>" class="btn btn-outline-danger">Delete</button>
                                                 </div>
                                             </form>
                                         </td>
