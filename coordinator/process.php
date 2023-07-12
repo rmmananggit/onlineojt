@@ -316,6 +316,39 @@ if (isset($_POST['add_student'])) {
   $acctype = 1;
   $accstatus = 1; 
 
+  //check student_id
+
+  $check_id = mysqli_query($con, "SELECT * FROM student WHERE student_id='$stud_id'");
+  if(mysqli_num_rows($check_id) > 0) {
+    $_SESSION['status'] = "Student Id already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_create.php');
+    exit(0);
+  }
+
+
+  //check mail
+
+  $check_mail = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
+  if(mysqli_num_rows($check_mail) > 0) {
+    $_SESSION['status'] = "Email address already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_create.php');
+    exit(0);
+  }
+
+    //check phone number
+
+    $check_mail = mysqli_query($con, "SELECT * FROM accounts WHERE mobile='$phone'");
+    if(mysqli_num_rows($check_mail) > 0) {
+      $_SESSION['status'] = "Mobile Number already exists. Please check the Manage Accounts section to see if this person already has an account.";
+      $_SESSION['status_code'] = "error";
+      header('Location: student_create.php');
+      exit(0);
+    }
+
+
+
     $query = "INSERT INTO `student`(`student_id`,`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$stud_id','$fname','$mname','$lname','$suffix','$phone','$email','$gender','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
@@ -476,5 +509,73 @@ if(isset($_POST['super_update']))
   $_SESSION['status_code'] = "success";
   header('Location: super_manage.php');
   exit(0);
+   
+}
+
+if(isset($_POST['import_add_student']))
+{
+  if(isset($_POST['mname'])) {
+    $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+
+    $student_id = $_POST['studentid'];
+    $fname = $_POST['fname'];
+
+    $lname = $_POST['lname'];
+    $suffix = $_POST['suffix'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
+    $course = $_POST['course'];
+    $user_id = $_POST['user_id'];
+    $password = uniqid();
+    $acctype = 1;
+    $accstatus = 1;
+    
+    //check student_id
+
+  $check_id = mysqli_query($con, "SELECT * FROM student WHERE student_id='$stud_id'");
+  if(mysqli_num_rows($check_id) > 0) {
+    $_SESSION['status'] = "Student Id already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_manage1.php');
+    exit(0);
+  }
+
+
+  //check mail
+
+  $check_mail = mysqli_query($con, "SELECT * FROM student WHERE email='$email'");
+  if(mysqli_num_rows($check_mail) > 0) {
+    $_SESSION['status'] = "Email address already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_manage1.php');
+    exit(0);
+  }
+
+    //check phone number
+
+    $check_mail = mysqli_query($con, "SELECT * FROM student WHERE mobile='$phone'");
+    if(mysqli_num_rows($check_mail) > 0) {
+      $_SESSION['status'] = "Mobile Number already exists. Please check the Manage Accounts section to see if this person already has an account.";
+      $_SESSION['status_code'] = "error";
+      header('Location: student_manage1.php');
+      exit(0);
+    }
+
+    $query = "INSERT INTO `student`(`student_id`,`fname`, `mname`, `lname`,`suffix`, `mobile`, `email`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$student_id','$fname','$mname','$lname','$suffix','$phone','$email','$gender','$course','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Account has been added";
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage1.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
    
 }

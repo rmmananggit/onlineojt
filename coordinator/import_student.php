@@ -11,12 +11,11 @@ if (isset($_POST['import'])) {
         // Read the CSV file
         $file = fopen($filename, 'r');
         if ($file) {
-            // Read the header row
-            $header = fgetcsv($file);
-
             // Read the first data row
+            fgetcsv($file);
+            fgetcsv($file);
             $data = fgetcsv($file);
-            if ($data) {
+            if ($data !== false) { // Check if data is valid
                 // Assign the values from the CSV to variables
                 $student_id = $data[0];
                 $fname = $data[1];
@@ -48,7 +47,7 @@ if (isset($_POST['import'])) {
                                                 <div class="row">
                                                     <div class="col-md-12 mb-4">
                                                         <label for="studentId" class="form-label">Student ID:</label>
-                                                        <input type="text" class="form-control" id="studentId" name="studentId" value="<?= $student_id ?>" readonly>
+                                                        <input type="text" class="form-control" id="studentid" name="studentid" value="<?= $student_id ?>" readonly>
                                                     </div>
 
                                                     <div class="col-md-3 mb-4">
@@ -68,11 +67,11 @@ if (isset($_POST['import'])) {
                                                         <label class="mb-2">Suffix:</label>
                                                         <select class="form-control" name="suffix">
                                                             <option selected disabled>Select Suffix</option>
-                                                            <option value="JR" <?= $suffix == 'JR' ? 'selected' : '' ?> disabled >JR</option>
-                                                            <option value="SR" <?= $suffix == 'SR' ? 'selected' : '' ?> disabled >SR</option>
-                                                            <option value="II" <?= $suffix == 'II' ? 'selected' : '' ?> disabled >II</option>
-                                                            <option value="III" <?= $suffix == 'III' ? 'selected' : '' ?> disabled >III</option>
-                                                            <option value="IV" <?= $suffix == 'IV' ? 'selected' : '' ?> disabled >IV</option>
+                                                            <option value="JR" <?= $suffix == 'JR' ? 'selected' : '' ?>>JR</option>
+                                                            <option value="SR" <?= $suffix == 'SR' ? 'selected' : '' ?>>SR</option>
+                                                            <option value="II" <?= $suffix == 'II' ? 'selected' : '' ?>>II</option>
+                                                            <option value="III" <?= $suffix == 'III' ? 'selected' : '' ?>>III</option>
+                                                            <option value="IV" <?= $suffix == 'IV' ? 'selected' : '' ?>>IV</option>
                                                         </select>
                                                     </div>
 
@@ -80,31 +79,38 @@ if (isset($_POST['import'])) {
                                                         <label for="email" class="form-label">Email:</label>
                                                         <input type="email" class="form-control" id="email" name="email" value="<?= $email ?>" readonly>
                                                     </div>
-                                                    <div class="col-md-6 mb-4">
-                                                        <label for="course" class="form-label">Course:</label>
 
+                                                    <div class="col-md-6 mb-4">
+                                                        <label for="email" class="form-label">Course:</label>
                                                         <select name="course" required class="form-control">
-                                                            <option value="" disabled>--Status--</option>
-                                                            <option value="3" <?= $course == '3' ? 'selected' : '' ?> disabled>Bachelor of Science in Marine Biology</option>
-                                                            <option value="4" <?= $course == '4' ? 'selected' : '' ?> disabled>Bachelor of Science in Information Technology</option>
-                                                            <option value="5" <?= $course == '5' ? 'selected' : '' ?> disabled>Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
-                                                            <option value="6" <?= $course == '6' ? 'selected' : '' ?> disabled>Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
+                                                            <option value="" disabled>--Course--</option>
+                                                            <option value="3" <?= $course == $_SESSION['auth_user']['user_course'] ? 'selected' : '' ?>>Bachelor of Science in Marine Biology</option>
+                                                            <option value="4" <?= $course == '4' ? 'selected' : '' ?> disabled >Bachelor of Science in Information Technology</option>
+                                                            <option value="5" <?= $course == '5' ? 'selected' : '' ?> disabled >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
+                                                            <option value="6" <?= $course == '6' ? 'selected' : '' ?> disabled >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
                                                         </select>
+                                                        <?php
+                                                        // Validation check for course
+                                                        if ($course != $_SESSION['auth_user']['user_course']) {
+                                                            echo '<span class="text-danger">This student is not from this department</span>';
+                                                            echo '<script>document.querySelector(\'[name="import_add_student"]\').disabled = true;</script>';
+                                                        }
+                                                        ?>
                                                     </div>
-                                                  
+
                                                     <div class="col-md-4 mb-4">
                                                         <label for="mobile" class="form-label">Mobile Number:</label>
                                                         <input type="text" class="form-control" id="mobile" name="phone" value="<?= $phone ?>" readonly>
                                                     </div>
 
                                                     <div class="col-md-6 mb-4">
-                                                        <label for="mobile" class="form-label">Gender:</label>
-                                                        <input type="text" class="form-control" id="mobile" name="gender" value="<?= $gender ?>" readonly>
+                                                        <label for="gender" class="form-label">Gender:</label>
+                                                        <input type="text" class="form-control" id="gender" name="gender" value="<?= $gender ?>" readonly>
                                                     </div>
 
                                                     <div class="text-end">
                                                         <a type="button" class="btn btn-danger" href="index.php">Back</a>
-                                                        <button type="submit" name="import_student" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="import_add_student" class="btn btn-primary" <?= $course != $_SESSION['auth_user']['user_course'] ? 'disabled' : '' ?>>Submit</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -115,7 +121,6 @@ if (isset($_POST['import'])) {
                         </div>
                     </section>
                 </div>
-
                 <?php
             } else {
                 echo "Invalid CSV file.";

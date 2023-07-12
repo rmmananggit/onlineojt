@@ -116,36 +116,90 @@ if (isset($_POST['add_journal'])) {
   }
 }
 
+if (isset($_POST['update_journal'])) {
+  $id = $_POST['id'];
+  $title = $_POST['title'];
+  $message = $_POST['message'];
 
+  // Check if files were uploaded
+  if (!empty($_FILES['photos']['name'][0])) {
+    // Delete all existing photos for the journal
+    $deleteQuery = "DELETE FROM `photos` WHERE `journal_id` = $id";
+    mysqli_query($con, $deleteQuery);
 
-
-
-
-if(isset($_POST['edit_journal']))
-{
-    $journal_id = $_POST['journal_id'];
-    $title = $_POST['title'];
-    $message = $_POST['message'];
-
-    $pic1 = addslashes(file_get_contents($_FILES["pic1"]['tmp_name']));
-    $pic2 = addslashes(file_get_contents($_FILES["pic2"]['tmp_name']));
-
-    $query = "UPDATE `journal` SET `title`='$title',`message`='$message',`pic1`='$pic1',`pic2`='$pic2' WHERE `journal_id`='$journal_id' ";
+    // Update the journal information
+    $query = "UPDATE `journal` SET `title`='$title', `message`='$message' WHERE `journal_id` = $id";
     $query_run = mysqli_query($con, $query);
 
-    if($query_run)
-    {
+    if ($query_run) {
+      $journal_id = $id;
+
+      $fileCount = count($_FILES['photos']['name']);
+
+      for ($i = 0; $i < $fileCount; $i++) {
+        $tempFile = $_FILES['photos']['tmp_name'][$i];
+        $fileName = $_FILES['photos']['name'][$i];
+        $fileData = mysqli_real_escape_string($con, file_get_contents($tempFile));
+
+        $query = "INSERT INTO `photos` (`journal_id`, `photo`) VALUES ('$journal_id', '$fileData')";
+        mysqli_query($con, $query);
+      }
+
+      $_SESSION['status'] = "Journal has been updated";
       $_SESSION['status_code'] = "success";
       header('Location: journal_manage.php');
-        exit(0);
+      exit(0);
+    } else {
+      echo "Error: " . mysqli_error($con);
     }
-    else
-    {
-        $_SESSION['status_code'] = "error";
+  } else {
+    // No new photos were uploaded, so update the journal without changing the existing photos
+    $query = "UPDATE `journal` SET `title`='$title', `message`='$message', `date`='$currentdate' WHERE `journal_id` = $id";
+    $query_run = mysqli_query($con, $query);
+
+    if ($query_run) {
+      $_SESSION['status'] = "Journal has been updated";
+      $_SESSION['status_code'] = "success";
       header('Location: journal_manage.php');
-        exit(0);
+      exit(0);
+    } else {
+      echo "Error: " . mysqli_error($con);
     }
+  }
 }
+
+
+if (isset($_POST['delete_journal'])) {
+  $id = $_POST['delete_journal'];
+
+  // Perform deletion in the 'journal' table
+  $query = "DELETE FROM `journal` WHERE `journal_id` = $id";
+  $query_run = mysqli_query($con, $query);
+
+  // Perform deletion in the 'photos' table
+  $query1 = "DELETE FROM `photos` WHERE `journal_id` = $id";
+  $query_run1 = mysqli_query($con, $query1);
+
+  if ($query_run && $query_run1) {
+      $_SESSION['status'] = "Journal and associated photos have been deleted successfully.";
+      $_SESSION['status_code'] = "success";
+  } else {
+    echo "Error: " . mysqli_error($con);
+  }
+
+  mysqli_close($con);
+
+  // Redirect to the desired page
+  header('Location: journal_manage.php');
+  exit(0);
+}
+?>
+
+
+
+
+
+
 
 if (isset($_POST['timein'])) {
   $user_id2 = $_POST['user_id'];

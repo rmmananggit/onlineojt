@@ -37,7 +37,7 @@ if(isset($_POST['add_coordinator']))
 
     $check_fname = mysqli_query($con, "SELECT * FROM accounts WHERE fname='$fname'");
     if(mysqli_num_rows($check_fname) > 0) {
-      $_SESSION['status'] = "Name already exist, please check the accounts to check if this person has already have an account";
+      $_SESSION['status'] = "Name already exists. Please check the Manage Accounts section to see if this person already has an account.";
       $_SESSION['status_code'] = "error";
       header('Location: coordinator_create.php');
       exit(0);
@@ -48,7 +48,7 @@ if(isset($_POST['add_coordinator']))
 
     $check_email = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
     if(mysqli_num_rows($check_email) > 0) {
-      $_SESSION['status'] = "Email Address already exists, please check the accounts to check if this person has already have an account";
+      $_SESSION['status'] = "Email address already exists. Please check the Manage Accounts section to see if this person already has an account.";
       $_SESSION['status_code'] = "error";
       header('Location: coordinator_create.php');
       exit(0);
@@ -95,7 +95,7 @@ if (isset($_POST['add_supervisor'])) {
 
   $check_fname = mysqli_query($con, "SELECT * FROM accounts WHERE fname='$fname'");
   if(mysqli_num_rows($check_fname) > 0) {
-    $_SESSION['status'] = "Name already exist, please check the accounts to check if this person has already have an account";
+    $_SESSION['status'] = "Name already exists. Please check the Manage Accounts section to see if this person already has an account.";
     $_SESSION['status_code'] = "error";
     header('Location: super_create.php');
     exit(0);
@@ -106,7 +106,7 @@ if (isset($_POST['add_supervisor'])) {
 
   $check_email = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
   if(mysqli_num_rows($check_email) > 0) {
-    $_SESSION['status'] = "Email Address already exists, please check the accounts to check if this person has already have an account";
+    $_SESSION['status'] = "Email address already exists. Please check the Manage Accounts section to see if this person already has an account.";
     $_SESSION['status_code'] = "error";
     header('Location: super_create.php');
     exit(0);

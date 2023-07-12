@@ -81,6 +81,7 @@ if (isset($_POST['import'])) {
                                                     </div>
 
                                                     <div class="col-md-6 mb-4">
+                                                    <label for="email" class="form-label">Course:</label>
                                                     <select name="course" required class="form-control">
     <option value="" disabled>--Course--</option>
     <option value="3" <?= $course == '3' ? 'selected' : '' ?>>Bachelor of Science in Marine Biology</option>

@@ -65,12 +65,16 @@
                                     <td class="text-center">
 
                                    
- 
+                                    <form action="process.php" method="POST">
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="journal_view.php?id=<?=$row['journal_id'];?>">View</a>
 
-<a type="button" class="btn btn-outline-primary" href="journal_update.php?id=<?=$row['journal_id'];?>">Update</a>
+<a type="button" class="btn btn-outline-info" href="journal_update.php?id=<?=$row['journal_id'];?>">Update</a>
+
+<button type="submit" name="delete_journal" value="<?=$row['journal_id']; ?>" class="btn btn-outline-danger">Delete</button>
 </div>
+
+                                    </form>
 
                                   
                                     </td>

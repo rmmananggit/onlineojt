@@ -208,32 +208,42 @@ if(isset($_POST['import_add_student']))
     $acctype = 1;
     $accstatus = 1;
     
+    //check student_id
+
+  $check_id = mysqli_query($con, "SELECT * FROM supervisor_student WHERE student_id='$stud_id'");
+  if(mysqli_num_rows($check_id) > 0) {
+    $_SESSION['status'] = "Student Id already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_manage.php');
+    exit(0);
+  }
+
+
+  //check mail
+
+  $check_mail = mysqli_query($con, "SELECT * FROM supervisor_student WHERE email='$email'");
+  if(mysqli_num_rows($check_mail) > 0) {
+    $_SESSION['status'] = "Email address already exists. Please check the Manage Accounts section to see if this person already has an account.";
+    $_SESSION['status_code'] = "error";
+    header('Location: student_manage.php');
+    exit(0);
+  }
+
+    //check phone number
+
+    $check_mail = mysqli_query($con, "SELECT * FROM supervisor_student WHERE mobile='$phone'");
+    if(mysqli_num_rows($check_mail) > 0) {
+      $_SESSION['status'] = "Mobile Number already exists. Please check the Manage Accounts section to see if this person already has an account.";
+      $_SESSION['status_code'] = "error";
+      header('Location: student_manage.php');
+      exit(0);
+    }
 
     $query = "INSERT INTO `supervisor_student`(`supervisor`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$user_id','$student_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$course','$acctype','$accstatus')";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
-      
-      // $name = htmlentities($_POST['lname']);
-      // $email = htmlentities($_POST['email']);
-      // $subject = htmlentities('Account Credentials');
-      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
-  
-      // $mail = new PHPMailer(true);
-      // $mail->isSMTP();
-      // $mail->Host = 'smtp.gmail.com';
-      // $mail->SMTPAuth = true;
-      // $mail->Username = 'ustponlineojt@gmail.com';
-      // $mail->Password = 'tukuieeuncmktfiz';
-      // $mail->Port = 465;
-      // $mail->SMTPSecure = 'ssl';
-      // $mail->isHTML(true);
-      // $mail->setFrom($email, $name);
-      // $mail->addAddress($_POST['email']);
-      // $mail->Subject = ("$email ($subject)");
-      // $mail->Body = $message;
-      // $mail->send();
       $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: student_manage.php');
