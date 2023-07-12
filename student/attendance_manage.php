@@ -7,7 +7,7 @@ include('sidebar.php');
 $total_hours = 0;
 if (isset($_SESSION['auth_user'])) {
     $userId = $_SESSION['auth_user']['user_id'];
-    $query1 = "SELECT time_in, time_out FROM attendance WHERE user_id = $userId";
+    $query1 = "SELECT time_in, time_out FROM attendance WHERE user_id = $userId ORDER BY date DESC";
     $result = mysqli_query($con, $query1);
 
     // Calculate total hours rendered
@@ -21,7 +21,7 @@ if (isset($_SESSION['auth_user'])) {
     mysqli_free_result($result);
 }
 
-$total_hours_formatted = number_format($total_hours, 2); // Format the total hours with 1 decimal place
+$total_hours_formatted = intval($total_hours);// Format the total hours with 1 decimal place
 
 ?>
 
@@ -30,58 +30,41 @@ $total_hours_formatted = number_format($total_hours, 2); // Format the total hou
    
     <section class="section dashboard">
       <div class="row">
-      
-
-      
-         <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Your Total Hours Rendered:</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-stopwatch"></i>
-                    </div>
-                    <div class="ps-3">
-
-                    <?php echo '<h6>'.$total_hours_formatted.'</h6>'?>
-
-                    </div>
-                  </div>
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 class="card-title">Your Total Hours Rendered:</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-stopwatch"></i>
                 </div>
-
+                <div class="ps-3">
+                  <?php echo '<h6>'.$total_hours_formatted.'</h6>'?>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Hours Required for Rendering:</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-stopwatch"></i>
-                    </div>
-                    <div class="ps-3">
-                    <h6>418</h6>
-                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
-
-                    </div>
-                  </div>
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 class="card-title">Hours Required for Rendering:</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-stopwatch"></i>
                 </div>
-
+                <div class="ps-3">
+                  <h6>418</h6>
+                </div>
               </div>
             </div>
-
-
-
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- HTML code with the button -->
-
     <section class="section mt-3">
         <div class="row">
             <div class="col-lg-12">
@@ -90,19 +73,27 @@ $total_hours_formatted = number_format($total_hours, 2); // Format the total hou
                         <h5 class="card-title">My Attendance</h5>
 
                         <form action="process.php" method="POST">
-                            <?php if(isset($_SESSION['auth_user'])) { ?>
+                            <?php if(isset($_SESSION['auth_user'])) {
+                                $currentTime = new DateTime('now', new DateTimeZone('Asia/Manila'));
+                                $disableTimein = ($currentTime->format('H:i') > '08:15') ? 'disabled' : '';
+                            ?>
                                 <label for="" hidden="true">user_id</label>
                                 <input type="text" hidden name="user_id" value="<?=$_SESSION['auth_user']['user_id']; ?>">
 
-                                <div class="dropdown mb-4">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Click me!
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <button class="dropdown-item" type="submit" name="timein">Log me in</button>
-                                        <button class="dropdown-item" type="submit" name="timeout">Log me out</button>
-                                    </div>
-                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Click me!
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="submit" name="timein" <?=$disableTimein; ?>>Log me in</button>
+            <button class="dropdown-item" type="submit" name="timeout">Log me out</button>
+        </div>
+    </div>
+    
+    <button type="button" class="btn btn-secondary">Print Attendance</button>
+</div>
+
                             <?php } ?>
                         </form>
 
@@ -145,8 +136,6 @@ $total_hours_formatted = number_format($total_hours, 2); // Format the total hou
                     </div>
                 </div>
             </div>
-
-          
         </div>
     </section>
 </div>

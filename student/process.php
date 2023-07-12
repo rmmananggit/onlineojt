@@ -193,13 +193,6 @@ if (isset($_POST['delete_journal'])) {
   header('Location: journal_manage.php');
   exit(0);
 }
-?>
-
-
-
-
-
-
 
 if (isset($_POST['timein'])) {
   $user_id2 = $_POST['user_id'];
@@ -266,36 +259,66 @@ if(isset($_POST['logout_btn']))
 }
 
 
-if(isset($_POST['update_student']))
+if(isset($_POST['update_account']))
 {
-    $id = $_POST['id'];
-    $picture = $_FILES['picture'];
-    $fname = $_POST['fname'];
+  if(isset($_POST['mname'])) {
     $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+  $student_id = $_POST['student_id'];
+    $id = $_POST['id'];
+    $picture = $_FILES['user_id'];
+    $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
-    $course = $_POST['course'];
+    $password = $_POST['password'];
+    $user_id = $_SESSION['auth_user']['user_id'];
 
-    $acctype = 1;
-    $accstatus = 1;
+   // Check student_id
+$check_id = mysqli_query($con, "SELECT * FROM supervisor_student WHERE student_id='$student_id' AND id != $user_id");
+if (mysqli_num_rows($check_id) > 0) {
+  $_SESSION['status'] = "Student Id already exists.For more information, you can contact your coordinator.";
+  $_SESSION['status_code'] = "error";
+  header('Location: settings.php');
+  exit(0);
+}
 
-    $picture = addslashes(file_get_contents($_FILES["picture"]['tmp_name']));
-    
 
-    $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`picture`='$picture',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
+
+  //check mail
+
+  $check_mail = mysqli_query($con, "SELECT * FROM supervisor_student WHERE email='$email' AND id != $user_id");
+  if(mysqli_num_rows($check_mail) > 0) {
+    $_SESSION['status'] = "Email address already exists.For more information, you can contact your coordinator.";
+    $_SESSION['status_code'] = "error";
+    header('Location: settings.php');
+    exit(0);
+  }
+
+    //check phone number
+
+    $check_mail = mysqli_query($con, "SELECT * FROM supervisor_student WHERE mobile='$phone' AND id != $user_id");
+    if(mysqli_num_rows($check_mail) > 0) {
+      $_SESSION['status'] = "Mobile Number already exists.For more information, you can contact your coordinator.";
+      $_SESSION['status_code'] = "error";
+      header('Location: settings.php');
+      exit(0);
+    }
+ 
+
+    $query = "UPDATE `supervisor_student` SET `student_id`='$student_id',`fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password' WHERE `id`='$id'";
     $query_run = mysqli_query($con, $query);
     
     if($query_run)
     {
-      
+      $_SESSION['status'] = "You Account has been successfully updated!";
       $_SESSION['status_code'] = "success";
-        header('Location: student_manage.php');
+        header('Location: settings.php');
         exit(0);
     }else{
-      $_SESSION['status_code'] = "error";
-      header('Location: student_manage.php');
-      exit(0);
+      echo "Error: " . mysqli_error($con);
     }
    
 }

@@ -35,20 +35,14 @@
  ?>
  
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $("#togglePassword").click(function() {
-      var passwordInput = $("#passwordInput");
-      var eyeIcon = $("#eyeIcon");
-      
-      if (passwordInput.attr("type") === "password") {
-        passwordInput.attr("type", "text");
-        eyeIcon.removeClass("bi-eye").addClass("bi-eye-slash");
-      } else {
-        passwordInput.attr("type", "password");
-        eyeIcon.removeClass("bi-eye-slash").addClass("bi-eye");
-      }
-    });
+ <script>
+  document.getElementById('toggle-password').addEventListener('click', function() {
+    var passwordInput = document.getElementById('password-input');
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
   });
 </script>
 
