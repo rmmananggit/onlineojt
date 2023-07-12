@@ -46,12 +46,6 @@
 </a>
 </li>
 
-<li class="nav-item">
-<a class="nav-link collapsed" href="manage_task.php">
-<i class="bi bi-card-checklist"></i>
-<span>Task</span>
-</a>
-</li>
 
 
 
