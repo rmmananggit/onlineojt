@@ -15,7 +15,7 @@
               <h5 class="card-title"> Manage Student Account</h5>
           
               <div class="mb-3">
-                <a type="button" href="student_create.php" class="btn btn-primary">Add Student Account</a>
+                <!-- <a type="button" href="student_create.php" class="btn btn-primary">Add Student Account</a> -->
                 <a type="button" href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#importStudentModal">Import Student</a>
               </div>
               <table class="table">
