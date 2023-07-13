@@ -78,7 +78,7 @@ include('sidebar.php');
                 $src = 'data:image/jpeg;base64,' . $imageData;
                 ?>
                 <div class="col-md-4">
-                    <div class="image-container" style="height: 100%; width: 100%; max-width: 100%;">
+                    <div class="image-container" style="height: 400px; width: 400px; max-width: 100%;">
                         <img src="<?= $src; ?>" alt="Journal Photo" class="img-fluid" style="height: 100%; width: 100%; object-fit: contain;">
                     </div>
                 </div>

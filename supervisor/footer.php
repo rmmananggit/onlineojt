@@ -1,5 +1,15 @@
 </main><!-- End #main -->
 
+<script>
+    document.getElementById('toggle-password').addEventListener('click', function() {
+        var passwordInput = document.getElementById('password-input');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+</script>
 
 <script>
     function previewImage(frameId, imageId) {

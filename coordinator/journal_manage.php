@@ -133,6 +133,8 @@ include('sidebar.php');
     var journalIdInput = document.querySelector('#addRatingModal input[name="journalIdInput"]');
 
     addRatingButtons.forEach(function (button) {
+                  ON 
+                    supervisor_student.acc_status = acc_stat
         button.addEventListener('click', function () {
             var journalId = button.getAttribute('data-journal-id');
             journalIdInput.value = journalId;

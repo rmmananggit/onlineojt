@@ -33,6 +33,10 @@ include('sidebar.php');
                     if (mysqli_num_rows($result) > 0) {
                         $user = mysqli_fetch_assoc($result);
                         ?>
+
+<input type="hidden" name="journal_id" value="<?=$user['journal_id'];?>">
+
+
                         <div class="col-md-12">
                             <label for="inputName5" class="form-label"><b>Journal Title:</b></label>
                             <input readonly class="form-control" value="<?= $user['title']; ?>">
@@ -89,10 +93,11 @@ include('sidebar.php');
     </div>
 </div>
 
-                        <div class="text-end">
+<div class="text-end">
                             <a type="button" class="btn btn-danger" href="journal_manage.php">Back</a>
 
-                            <a type="button" class="btn btn-primary" href="journal_manage.php">Print</a>
+                            <a type="button" class="btn btn-secondary" href="print_journal.php?id=<?= $user['journal_id']; ?>" target="_blank">Print</a>
+
                         </div>
                         <?php
                     } else {
@@ -106,6 +111,8 @@ include('sidebar.php');
         </div>
     </div>
 </div>
+
+
 
 <?php
 include('footer.php');

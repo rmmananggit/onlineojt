@@ -1,7 +1,7 @@
 <?php
  include('authentication.php');
- include('includes/header.php');
- include('includes/sidebar.php');
+ include('header.php');
+ include('sidebar.php');
  ?>
  <div class="pagetitle">
       <h1>Profile</h1>
@@ -85,10 +85,16 @@ $users_run = mysqli_query($con, $users);
                                     <label for="">Email:</label>
                                     <input required type="email" name="email" value="<?= $user['email']; ?>" class="form-control">
                     </div>
-                    <div class="col-md-12 mb-3">
-                                    <label for="">Password:</label>
-                                    <input required type="text" name="password" value="<?= $user['password']; ?>" class="form-control">
-                    </div>
+                              <div class="col-md-12 mb-3">
+              <label for="">Password:</label>
+              <div class="input-group">
+                  <input required type="password" name="password" value="<?= $user['password']; ?>" class="form-control" id="password-input">
+                  <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                  <i class="bi bi-eye"></i>
+                  </button>
+              </div>
+          </div>
+
                     <div class="col-md-6">
                                 <label for="picture">Picture: </label>
                                 <input type="file" name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
@@ -127,6 +133,6 @@ $users_run = mysqli_query($con, $users);
 
 <?php
 
-include('includes/footer.php')
+include('footer.php')
 
 ?>
