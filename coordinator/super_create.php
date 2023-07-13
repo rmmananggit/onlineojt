@@ -68,16 +68,16 @@
 
                       <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Name:</label>
-                  <input type="text" name="company_name" class="form-control" id="inputName5">
+                  <input type="text" required name="company_name" class="form-control" id="inputName5">
                 </div>
                 <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Email:</label>
-                  <input type="text" name="company_email" class="form-control" id="inputName5">
+                  <input type="text" required  name="company_email" class="form-control" id="inputName5">
                 </div>
 
                 <div class="col-md-6">
                   <label for="inputName5" class="form-label">Company Address:</label>
-                  <textarea type="text" name="company_address" class="form-control" id="inputName5"> </textarea>
+                  <textarea type="text" required name="company_address" class="form-control" id="inputName5"> </textarea>
                 </div>
                 <div class="col-md-6">
 

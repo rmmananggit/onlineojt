@@ -1,6 +1,5 @@
 </main><!-- End #main -->
 
-
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -18,25 +17,21 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
 <script>
-    function previewImage(frameId, imageId) {
-      const frame = document.getElementById(frameId);
-      const image = document.getElementById(imageId);
+    // Add an event listener to the "Add Rating" buttons
+    var addRatingButtons = document.querySelectorAll('.add-rating-btn');
+    addRatingButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var journalId = button.getAttribute('data-journal-id');
+            document.querySelector('#addRatingModal input[name="journalIdInput"]').value = journalId;
+        });
+    });
 
-      // Create a FileReader object to read the uploaded file
-      const reader = new FileReader();
-
-      // Define the callback function when file reading is completed
-      reader.onload = function(e) {
-        const imageURL = e.target.result;
-        frame.innerHTML = `<img src="${imageURL}" alt="Preview" width="300" height="300">`;
-      };
-
-      // Read the uploaded file as a data URL
-      reader.readAsDataURL(image.files[0]);
+    function printContent() {
+        // ...
     }
-  </script>
+</script>
+
   
 
 <?php

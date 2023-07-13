@@ -28,7 +28,7 @@
 <li class="nav-item">
 <a class="nav-link collapsed" href="super_manage.php">
 <i class="bi bi-file-person"></i>
-<span>Supevisor</span>
+<span>Supervisor</span>
 </a>
 </li>
 

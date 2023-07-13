@@ -579,3 +579,47 @@ if(isset($_POST['import_add_student']))
     }
    
 }
+
+//add comment to journal
+if(isset($_POST['add_comment']))
+{
+    $journal_id = $_POST['journal_id'];
+    $comment = $_POST['comment'];
+
+    $query = "INSERT INTO `comment`(`journal_id`, `comment`) VALUES ('$journal_id','$comment')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Comment has been added to the journal";
+      $_SESSION['status_code'] = "success";
+      header('Location: journal_manage.php');
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
+    }
+}
+
+//add rating to journal
+if(isset($_POST['add_rating']))
+{
+    $journal_id = $_POST['journalIdInput'];
+    $rating = $_POST['rating'];
+
+    $query = "UPDATE `journal` SET `grade`='$rating' WHERE `journal_id` = '$journal_id';";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Journal has been graded";
+      $_SESSION['status_code'] = "success";
+      header('Location: journal_manage.php');
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
+    }
+}
