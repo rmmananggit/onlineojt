@@ -33,7 +33,7 @@
 </li>
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="#">
+<a class="nav-link collapsed" href="journal_manage.php">
 <i class="bi bi-journal"></i>
 <span>Journal</span>
 </a>
