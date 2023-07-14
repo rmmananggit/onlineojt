@@ -101,15 +101,18 @@ $total_hours_formatted = number_format($total_hours, 2); // Format the total hou
                     <div class="ps-3">
 
                     <?php
-                                        // $sql = "SELECT * FROM accounts WHERE acc_type = 3";
-                                        // $sql_run = mysqli_query($con, $sql);
-                                        // if($coor_count = mysqli_num_rows($sql_run)){
-                                        //     echo '<h6>'.$coor_count.'</h6>';
-                                        // }
-                                        // else{
-                                        //     echo '<h6>0</h6>';
-                                        // }
-                                    ?>
+if (isset($_SESSION['auth_user'])) {
+    $userID = $_SESSION['auth_user']['user_id'];
+    $sql = "SELECT * FROM journal WHERE id = $userID";
+    $sql_run = mysqli_query($con, $sql);
+    if ($sql_run) {
+        $journal_count = mysqli_num_rows($sql_run);
+        echo '<h6>' . $journal_count . '</h6>';
+    } else {
+        echo '<h6>0</h6>';
+    }
+}
+?>
 
                  
                     </div>
