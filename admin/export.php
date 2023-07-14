@@ -17,7 +17,7 @@ if ($connection->connect_error) {
 }
 
 // Retrieve table names from the database
-$tables = array('accounts', 'account_type', 'acc_status', 'announcement', 'attendance', 'comment', 'coordinator_student', 'course', 'journal', 'student', 'student_files', 'task');
+$tables = array('accounts', 'account_type', 'acc_status', 'announcement', 'attendance', 'comment', 'supervisor_student', 'course', 'journal', 'student', 'student_files', 'task');
 
 // Disable foreign key checks temporarily
 $connection->query('SET FOREIGN_KEY_CHECKS=0');

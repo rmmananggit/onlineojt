@@ -21,12 +21,16 @@
         <a href="export.php" class="btn btn-primary">Export Data</a>
         </div>
 
+       
         <div class="col-md-6">
-        <h4>Import Database:</h4>
-        <form method="import.php" action="">
-        <input type="submit" name="import" value="Import Data">
+    <h4>Import Database:</h4>
+    <form method="POST" action="import.php" enctype="multipart/form-data">
+        <input type="file" name="backupFile" required>
+        <input type="submit" name="import" value="Import Data" class="btn btn-primary">
     </form>
-        </div>
+</div>
+        
+
     </div>
 </div>
 

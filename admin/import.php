@@ -5,37 +5,44 @@ $username = 'root';
 $password = '';
 $database = 'onlineojt';
 
-// Create a database connection
-$connection = new mysqli($host, $username, $password, $database);
-
-// Check for connection errors
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
-
-// Import your data using your preferred method (e.g., SQL file, CSV file, etc.)
-// Replace 'your_file_path' with the actual file path or SQL query
-
+// Check if the form is submitted
 if (isset($_POST['import'])) {
+    // Temporary backup file to import
+    $backupFile = $_FILES['backupFile']['tmp_name'];
+
+    // Create a database connection
+    $connection = new mysqli($host, $username, $password, $database);
+
+    // Check for connection errors
+    if ($connection->connect_error) {
+        die("Connection failed: " . $connection->connect_error);
+    }
+
     // Disable foreign key checks temporarily
     $connection->query('SET FOREIGN_KEY_CHECKS=0');
 
-    // Example 1: Import data from an SQL file
-    $importFile = 'your_file_path.sql';
-    $importQuery = file_get_contents($importFile);
-    $connection->multi_query($importQuery);
+    // Clear existing database tables
+    $tables = array('accounts', 'account_type', 'acc_status', 'announcement', 'attendance', 'comment', 'supervisor_student', 'course', 'journal', 'student', 'student_files', 'task');
 
-    // Example 2: Import data from a CSV file using LOAD DATA INFILE
-    // $importFile = 'your_file_path.csv';
-    // $importQuery = "
-    //     LOAD DATA INFILE '$importFile'
-    //     INTO TABLE your_table
-    //     FIELDS TERMINATED BY ',' 
-    //     ENCLOSED BY '\"'
-    //     LINES TERMINATED BY '\n'
-    //     IGNORE 1 ROWS
-    // ";
-    // $connection->query($importQuery);
+    foreach ($tables as $table) {
+        $dropTableSql = "DROP TABLE IF EXISTS `$table`";
+        $connection->query($dropTableSql);
+    }
+
+    // Read the backup file
+    $sqlStatements = file_get_contents($backupFile);
+
+    // Execute the SQL statements
+    if ($connection->multi_query($sqlStatements)) {
+        do {
+            // Discard results
+            if ($result = $connection->store_result()) {
+                $result->free();
+            }
+        } while ($connection->next_result());
+    } else {
+        echo "Error importing database: " . $connection->error;
+    }
 
     // Re-enable foreign key checks
     $connection->query('SET FOREIGN_KEY_CHECKS=1');
@@ -43,13 +50,9 @@ if (isset($_POST['import'])) {
     // Close the database connection
     $connection->close();
 
-    // Provide the backup file for download
-    $backupFile = 'database_backup_' . date('YmdHis') . '.sql';
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . $backupFile . '"');
-    readfile($importFile);
-
-    // Delete the backup file
-    unlink($backupFile);
+    $_SESSION['status'] = "Database imported successfully";
+      $_SESSION['status_code'] = "success";
+      header('Location: database_manage.php');
+      exit(0);
 }
 ?>
