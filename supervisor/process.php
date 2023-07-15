@@ -1,5 +1,11 @@
 <?php include('authentication.php'); 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
 
 //delete attendance
 if(isset($_POST['delete_attendance']))
@@ -311,25 +317,25 @@ if(isset($_POST['add_student']))
     if($query_run)
     {
       
-      // $name = htmlentities($_POST['lname']);
-      // $email = htmlentities($_POST['email']);
-      // $subject = htmlentities('Account Credentials');
-      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
+      $name = htmlentities($_POST['lname']);
+      $email = htmlentities($_POST['email']);
+      $subject = htmlentities('Account Credentials');
+      $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
   
-      // $mail = new PHPMailer(true);
-      // $mail->isSMTP();
-      // $mail->Host = 'smtp.gmail.com';
-      // $mail->SMTPAuth = true;
-      // $mail->Username = 'ustponlineojt@gmail.com';
-      // $mail->Password = 'tukuieeuncmktfiz';
-      // $mail->Port = 465;
-      // $mail->SMTPSecure = 'ssl';
-      // $mail->isHTML(true);
-      // $mail->setFrom($email, $name);
-      // $mail->addAddress($_POST['email']);
-      // $mail->Subject = ("$email ($subject)");
-      // $mail->Body = $message;
-      // $mail->send();
+      $mail = new PHPMailer(true);
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'ustponlineojt@gmail.com';
+      $mail->Password = 'tukuieeuncmktfiz';
+      $mail->Port = 465;
+      $mail->SMTPSecure = 'ssl';
+      $mail->isHTML(true);
+      $mail->setFrom($email, $name);
+      $mail->addAddress($_POST['email']);
+      $mail->Subject = ("$email ($subject)");
+      $mail->Body = $message;
+      $mail->send();
       $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: student_manage.php');

@@ -858,6 +858,12 @@ h6 {
   background: #ffecdf;
 }
 
+
+.dashboard .done-card .card-icon {
+  color: rgb(0, 255, 0);
+  background: #f6f6fe;
+}
+
 /* Activity */
 .dashboard .activity {
   font-size: 14px;

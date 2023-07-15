@@ -307,6 +307,7 @@ if(isset($_POST['delete_supervisor']))
 if (isset($_POST['add_course'])) {
   $course_name = $_POST['course'];
   $acronym = $_POST['acronym'];
+  $hour = 0;
 
   // Perform validation by querying the database
   $query = "SELECT * FROM course WHERE course_name = '$course_name' OR acronym = '$acronym'";
@@ -321,7 +322,7 @@ if (isset($_POST['add_course'])) {
   }
 
   // Continue with inserting the course if validation passes
-  $query = "INSERT INTO `course`(`course_name`, `acronym`) VALUES ('$course_name','$acronym')";
+  $query = "INSERT INTO `course`(`course_name`, `acronym`, `ojt_hours`) VALUES ('$course_name','$acronym', '$hour')";
   $query_run = mysqli_query($con, $query);
 
   if ($query_run) {

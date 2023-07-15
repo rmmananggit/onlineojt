@@ -36,7 +36,7 @@
                     <div class="ps-3">
 
                     <?php
-                                        $sql = "SELECT * FROM student";
+                                        $sql = "SELECT * FROM supervisor_student";
                                         $sql_run = mysqli_query($con, $sql);
                                         if($student_count = mysqli_num_rows($sql_run)){
                                             echo '<h6>'.$student_count.'</h6>';

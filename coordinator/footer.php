@@ -32,6 +32,19 @@
     }
 </script>
   
+<script>
+  $('#myModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var rowId = button.data('course-id');
+    var modal = $(this);
+    modal.find('#row_id').val(rowId);
+  });
+</script>
+
+
+
+
+
 
 <?php
         if(isset($_SESSION['status']) && $_SESSION['status_code'] !='' )

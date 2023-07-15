@@ -24,25 +24,20 @@ include('sidebar.php');
                 <?php
                 if(isset($_SESSION['auth_user'])) {
                   // Retrieve the user ID from the session
-                  $user_id = $_SESSION['auth_user']['user_id'];
+                  $user_course = $_SESSION['auth_user']['user_course'];
 
                   // Prepare and execute the SQL query
                   $query = "SELECT
-                              attendance.attendance_id, 
-                              attendance.user_id, 
-                              attendance.time, 
-                              attendance.`name`, 
-                              coordinator_student.fname, 
-                              coordinator_student.mname, 
-                              coordinator_student.lname
-                            FROM
-                              attendance
-                              INNER JOIN
-                              coordinator_student
-                              ON 
-                                attendance.attendance_id = coordinator_student.id
-                            WHERE
-                              coordinator_student.coordinator = $user_id";
+                  supervisor_student.fname, 
+                  supervisor_student.mname, 
+                  supervisor_student.lname, 
+                  supervisor_student.course, 
+                  supervisor_student.student_id, 
+                  supervisor_student.id
+                FROM
+                  supervisor_student
+                WHERE
+                  supervisor_student.course = $user_course";
                   $query_run = mysqli_query($con, $query);
 
                   if(mysqli_num_rows($query_run) > 0) {
@@ -52,12 +47,9 @@ include('sidebar.php');
                         <td><?= $row['student_id']; ?></td>
                         <td><?= $row['fname']; ?> <?= $row['mname']; ?> <?= $row['lname']; ?></td>
                         <td class="text-center">
-                          <form action="process.php" method="POST">  
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                               <a type="button" class="btn btn-outline-primary" href="attendance_view.php?id=<?=$row['id'];?>">View</a>
-
                             </div>
-                          </form>
                         </td>
                       </tr>
                       <?php

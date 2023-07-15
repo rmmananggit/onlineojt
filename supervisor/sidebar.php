@@ -34,7 +34,7 @@
 
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="#">
+<a class="nav-link collapsed" href="attendance_manage.php">
 <i class="bi bi-calendar-check"></i>
 <span>Attendance</span>
 </a>

@@ -659,3 +659,26 @@ if(isset($_POST['add_rating']))
       echo "Error: " . mysqli_error($con);
     }
 }
+
+//add ojt hour
+if(isset($_POST['add_ojt_hour']))
+{
+    $id = $_POST['id'];
+    $time = $_POST['time'];
+
+    $query = "UPDATE `course` SET `ojt_hours`='$time' WHERE `course_id`= '$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "OJT render hour has been updated";
+      $_SESSION['status_code'] = "success";
+      header("Location: set_hour.php");
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
+        exit(0);
+    }
+}

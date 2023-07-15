@@ -52,6 +52,13 @@
 </a>
 </li>
 
+<li class="nav-item">
+<a class="nav-link collapsed" href="set_hour.php">
+<i class="bi bi-alarm"></i>
+<span>OJT HOUR</span>
+</a>
+</li>
+
 
 
 

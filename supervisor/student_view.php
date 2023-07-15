@@ -13,7 +13,7 @@
                         if(isset($_GET['id']))
                         {
                             $id = $_GET['id'];
-                            $users = "SELECT * FROM student WHERE id='$id' ";
+                            $users = "SELECT * FROM supervisor_student WHERE id='$id' ";
                             $users_run = mysqli_query($con, $users);
 
                             if(mysqli_num_rows($users_run) > 0)

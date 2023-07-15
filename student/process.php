@@ -1,34 +1,6 @@
 <?php include('authentication.php'); 
 
 
-    if (isset($_POST['add_file'])) {
- 
-        $user_id = $_POST['user_id'];
-        $name = $_POST['name'];
-        if (isset($_FILES['pdf_file']['name']))
-        {
-          $file_name = $_FILES['pdf_file']['name'];
-          $file_tmp = $_FILES['pdf_file']['tmp_name'];
- 
-          move_uploaded_file($file_tmp,"./pdf/".$file_name);
-          move_uploaded_file($file_tmp,"../admin/pdf/".$file_name);
-          $insertquery =
-          "INSERT INTO `student_files`(`id`, `filetitle`, `filename`) VALUES ('$user_id','$name','$file_name')";
-          $iquery = mysqli_query($con, $insertquery);
-
-          $_SESSION['status_code'] = "success";
-          header('Location: student_file.php');
-          exit(0);
-        }
-        else
-        {
-          $_SESSION['status_code'] = "error";
-          header('Location: student_file.php');
-          exit(0);
-        }
-    }
-
-
 //change task status
 if(isset($_POST['done_btn']))
 {
@@ -199,22 +171,38 @@ if (isset($_POST['timein'])) {
   date_default_timezone_set('Asia/Singapore'); // Set timezone to GMT+8
   $current_time = date('h:i:s A'); // Format: 12-hour time with AM/PM
   $currentDate = date('Y-m-d'); // Format: YYYY-MM-DD
-
+  
+  // Splitting the current time into hours, minutes, and seconds
+  $time_parts = explode(':', $current_time);
+  $hours = $time_parts[0];
+  $minutes = $time_parts[1];
+  $seconds = $time_parts[2];
+  
+  // Checking if the current time is PM and converting to 12-hour format
+  if (strpos($current_time, 'PM') !== false) {
+    $hours = $hours + 12;
+    $hours = ($hours == 24) ? 0 : $hours;
+  }
+  
+  // Formatting the time in 12-hour format
+  $current_time = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+  
   $query = "INSERT INTO attendance (`user_id`, `date`, `time_in`, `time_out`) VALUES ('$user_id2', '$currentDate', '$current_time', '$current_time')";
   $query_run = mysqli_query($con, $query);
 
   if ($query_run) {
-      $_SESSION['status'] = "Time in recorded successfully";
-      $_SESSION['status_code'] = "success";
-      header('Location: attendance_manage.php');
-      mysqli_close($con);
-      exit(0);
+    $_SESSION['status'] = "Time in recorded successfully";
+    $_SESSION['status_code'] = "success";
+    header('Location: attendance_manage.php');
+    mysqli_close($con);
+    exit(0);
   } else {
-      echo "Error: " . mysqli_error($con);
-      mysqli_close($con);
-      exit(0);
+    echo "Error: " . mysqli_error($con);
+    mysqli_close($con);
+    exit(0);
   }
 }
+
 
 
 
@@ -222,7 +210,23 @@ if (isset($_POST['timein'])) {
 if (isset($_POST['timeout'])) {
   $user_id2 = $_POST['user_id'];
   date_default_timezone_set('Asia/Singapore'); // Set timezone to GMT+8
-  $current_time = date('h:i:s A');
+  $current_time = date('h:i:s A'); // Format: 12-hour time with AM/PM
+  $currentDate = date('Y-m-d'); // Format: YYYY-MM-DD
+  
+  // Splitting the current time into hours, minutes, and seconds
+  $time_parts = explode(':', $current_time);
+  $hours = $time_parts[0];
+  $minutes = $time_parts[1];
+  $seconds = $time_parts[2];
+  
+  // Checking if the current time is PM and converting to 12-hour format
+  if (strpos($current_time, 'PM') !== false) {
+    $hours = $hours + 12;
+    $hours = ($hours == 24) ? 0 : $hours;
+  }
+  
+  // Formatting the time in 12-hour format
+  $current_time = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 
   $query = "UPDATE attendance SET time_out = '$current_time' WHERE user_id = $user_id2 AND time_out = time_in";
   $query_run = mysqli_query($con, $query);
@@ -408,7 +412,32 @@ else
           header('Location: changepassword.php');
           exit(0);
 }
-   
+}
 
-  
+if (isset($_POST['submit_file'])) {
+
+  $name = $_POST['name'];
+  $user_id = $_POST['user_id'];
+
+  if (isset($_FILES['pdf_file']['name']))
+  {
+  $file_name = $_FILES['pdf_file']['name'];
+  $file_tmp = $_FILES['pdf_file']['tmp_name'];
+
+  move_uploaded_file($file_tmp,"./pdf/".$file_name);
+
+  $insertquery =
+  "INSERT INTO files_table(student_id,file_name) VALUES('$user_id','$file_name')";
+  $iquery = mysqli_query($con, $insertquery);
+
+  $_SESSION['status'] = "Your File has been added";
+  $_SESSION['status_code'] = "success";
+  header('Location: add_file.php');
+  exit(0);
+
+  }
+  else
+  {
+
+  }
 }
