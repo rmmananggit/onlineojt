@@ -159,11 +159,14 @@ if (isset($_POST['update_account'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
   $mobile = $_POST['mobile'];
-  $acc_type = 2;
+  $company_name = $_POST['company_name'];
+  $company_email = $_POST['company_email'];
+  $company_address = $_POST['company_address'];
+  $acc_type = 3;
   $acc_stats = 1;
 
   // Update other data
-  $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`acc_type`='$acc_type',`acc_status`='$acc_stats' WHERE `id`='$user_id'";
+  $query = "UPDATE `accounts` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`password`='$password',`acc_type`='$acc_type',`company_name`='$company_name',`company_email`='$company_email',`company_address`='$company_address',`acc_status`='$acc_stats' WHERE `id`='$user_id'";
   $query_run = mysqli_query($con, $query);
 
   if (!$query_run) {
@@ -271,6 +274,130 @@ if(isset($_POST['import_add_student']))
       $_SESSION['status'] = "Account has been added";
       $_SESSION['status_code'] = "success";
         header('Location: student_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
+}
+
+//add student
+
+if(isset($_POST['add_student']))
+{
+  if(isset($_POST['mname'])) {
+    $mname = $_POST['mname'];
+  } else{
+    $mname = NULL;
+  }
+
+    $student_id = $_POST['student_id'];
+    $fname = $_POST['fname'];
+    $super_id = $_POST['super_id'];
+    $lname = $_POST['lname'];
+    $suffix = $_POST['suffix'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
+    $course = $_POST['course'];
+    $password = uniqid();
+    $acctype = 1;
+    $accstatus = 1;
+    
+
+    $query = "INSERT INTO `supervisor_student`(`supervisor`, `student_id`, `fname`, `mname`, `lname`, `suffix`, `mobile`, `email`, `password`, `gender`, `course`, `acc_type`, `acc_status`) VALUES ('$super_id','$student_id','$fname','$mname','$lname','$suffix','$phone','$email','$password','$gender','$course','$acctype','$accstatus')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      
+      // $name = htmlentities($_POST['lname']);
+      // $email = htmlentities($_POST['email']);
+      // $subject = htmlentities('Account Credentials');
+      // $message =  nl2br("Hi! \r\n This is your USTP Web-based OJT Monitoring System Account! \r\n Email: $email \r\n Password: $password \r\n Please change the password immediately!");
+  
+      // $mail = new PHPMailer(true);
+      // $mail->isSMTP();
+      // $mail->Host = 'smtp.gmail.com';
+      // $mail->SMTPAuth = true;
+      // $mail->Username = 'ustponlineojt@gmail.com';
+      // $mail->Password = 'tukuieeuncmktfiz';
+      // $mail->Port = 465;
+      // $mail->SMTPSecure = 'ssl';
+      // $mail->isHTML(true);
+      // $mail->setFrom($email, $name);
+      // $mail->addAddress($_POST['email']);
+      // $mail->Subject = ("$email ($subject)");
+      // $mail->Body = $message;
+      // $mail->send();
+      $_SESSION['status'] = "Account has been added";
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
+}
+
+if(isset($_POST['add_ann']))
+{
+  date_default_timezone_set('Asia/Manila');
+  $currentDate = date('Y-m-d');
+  $userid = $_POST['userid'];
+  $ann = $_POST['ann'];
+
+
+    $query = "INSERT INTO `announcement`(`user_id`, `message`, `date_announced`) VALUES ('$userid','$ann','$currentDate')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "You have broadcast an announcement";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+      exit(0);
+    }
+   
+}
+
+if(isset($_POST['ann_delete']))
+{
+    $id = $_POST['delete_id'];
+
+    $query = "DELETE FROM `announcement` WHERE `id` = $id";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been deleted";
+      $_SESSION['status_code'] = "success";
+      header('Location: ann_manage.php');
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
+    }
+}
+
+if(isset($_POST['update_ann']))
+{
+    $id = $_POST['id'];
+    $message = $_POST['message'];
+
+
+    $query = "UPDATE `announcement` SET `message`='$message' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been updated";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
         exit(0);
     }else{
       echo "Error: " . mysqli_error($con);

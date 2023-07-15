@@ -50,7 +50,19 @@
  ?>
 
 <script>
-  
+    // JavaScript code to handle the delete confirmation modal and pass the ID to the form
+    const deleteConfirmationModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+    const deleteButtons = document.querySelectorAll('[data-toggle="modal"][data-target="#deleteConfirmationModal"]');
+
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const deleteId = button.getAttribute('data-delete-id');
+            const deleteIdInput = document.getElementById('deleteIdInput');
+            deleteIdInput.value = deleteId;
+            deleteConfirmationModal.show();
+        });
+    });
 </script>
  
 </body>

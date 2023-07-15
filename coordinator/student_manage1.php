@@ -88,7 +88,7 @@ $userID = $_SESSION['auth_user']['user_course'];
 <div class="btn-group" role="group" aria-label="Basic outlined example">
 <a type="button" class="btn btn-outline-primary" href="student_view.php?id=<?=$row['id'];?>">View</a>
 
-<a type="button" class="btn btn-outline-info" href="#">Print</a>
+<a type="button" class="btn btn-outline-warning" href="student_update.php?id=<?=$row['id'];?>">Update</a>
 </div>
 
 </form>

@@ -145,63 +145,99 @@ if(isset($_POST['logout_btn']))
     exit(0);
 }
 
-
-if (isset($_POST['update_student'])) {
-  $id = $_POST['id'];
-  $fname = $_POST['fname'];
-  $mname = $_POST['mname'];
-  $lname = $_POST['lname'];
-  $email = $_POST['email'];
-  $mobile = $_POST['mobile'];
-  $course = $_POST['course'];
-
-  $acctype = 1;
-  $accstatus = 1;
+if(isset($_POST['add_ann']))
+{
+  date_default_timezone_set('Asia/Manila');
+  $currentDate = date('Y-m-d');
+  $userid = $_POST['userid'];
+  $ann = $_POST['ann'];
 
 
-  // Update other data
-  $query = "UPDATE `student` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`mobile`='$mobile',`email`='$email',`course`='$course',`acc_type`='$acctype',`acc_status`='$accstatus' WHERE `id`='$id'";
-  $query_run = mysqli_query($con, $query);
-
-  if (!$query_run) {
-      $_SESSION['status'] = "Something went wrong!";
-      $_SESSION['status_code'] = "error";
-      header('Location: settings.php');
-      exit(0);
-  }
-
-  // Update photo if a new photo is uploaded
-  if ($_FILES["picture"]["tmp_name"]) {
-    $picture_temp = $_FILES["picture"]["tmp_name"];
-
-    // Retrieve existing photo, if any
-    $retrieve_query = "SELECT `picture` FROM `student` WHERE `id`='$id'";
-    $retrieve_result = mysqli_query($con, $retrieve_query);
-    $retrieve_row = mysqli_fetch_assoc($retrieve_result);
-
-    // Delete existing photo from MySQL
-    if ($retrieve_row['picture']) {
-        $delete_query = "UPDATE `student` SET `picture` = NULL WHERE `id`='$id'";
-        $delete_result = mysqli_query($con, $delete_query);
-    }
-
-    // Upload new photo to MySQL
-    $picture = mysqli_real_escape_string($con, file_get_contents($picture_temp));
-    $update_photo_query = "UPDATE `student` SET `picture`='$picture' WHERE `id`='$id'";
-    $update_photo_result = mysqli_query($con, $update_photo_query);
-
-    if (!$update_photo_result) {
-        $_SESSION['status'] = "Something went wrong!";
-        $_SESSION['status_code'] = "error";
-        header('Location: index.php');
+    $query = "INSERT INTO `announcement`(`user_id`, `message`, `date_announced`) VALUES ('$userid','$ann','$currentDate')";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "You have broadcast an announcement";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
         exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+      exit(0);
+    }
+   
+}
+
+if(isset($_POST['update_ann']))
+{
+    $id = $_POST['id'];
+    $message = $_POST['message'];
+
+
+    $query = "UPDATE `announcement` SET `message`='$message' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been updated";
+      $_SESSION['status_code'] = "success";
+        header('Location: ann_manage.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
+}
+
+if(isset($_POST['ann_delete']))
+{
+    $id = $_POST['delete_id'];
+
+    $query = "DELETE FROM `announcement` WHERE `id` = $id";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Announcement has been deleted";
+      $_SESSION['status_code'] = "success";
+      header('Location: ann_manage.php');
+        exit(0);
+    }
+    else
+    {
+      echo "Error: " . mysqli_error($con);
     }
 }
 
-$_SESSION['status'] = "Your Account has been updated!";
-$_SESSION['status_code'] = "success";
-header('Location: index.php');
-exit(0);
+
+if(isset($_POST['update_student']))
+{
+  $id = $_POST['id'];
+   $student_id = $_POST['student_id'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $suffix = $_POST['suffix'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $status = $_POST['status'];
+
+    
+
+    $query = "UPDATE `student` SET `student_id`='$student_id',`fname`='$fname',`mname`='$mname',`lname`='$lname',`suffix` = '$suffix',`mobile`='$mobile',`email`='$email',`acc_status`='$status' WHERE `id`='$id'";
+    $query_run = mysqli_query($con, $query);
+    
+    if($query_run)
+    {
+      $_SESSION['status'] = "Student Details has been updated!";
+      $_SESSION['status_code'] = "success";
+        header('Location: student_manage1.php');
+        exit(0);
+    }else{
+      echo "Error: " . mysqli_error($con);
+    }
+   
 }
 
 

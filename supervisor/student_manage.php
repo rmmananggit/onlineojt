@@ -11,7 +11,7 @@ include('sidebar.php');
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Manage Student Account</h5>
-            <a type="button" href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#importStudentModal">Import Student</a>
+            <a type="button" class="btn btn-primary" href="student_create.php">Add Student</a>
             <table class="table">
               <thead>
                 <tr>

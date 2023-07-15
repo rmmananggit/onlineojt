@@ -5,7 +5,7 @@ include('sidebar.php');
 ?>
 
 <div class="pagetitle">
-      <h1>View Task</h1>
+      <h1>View Announcement</h1>
 
     </div>
 
@@ -14,9 +14,25 @@ include('sidebar.php');
         <div class="col-lg-12">
 
 <?php
- if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-$query="SELECT * FROM task WHERE student_id='$id' ";
+$query="SELECT
+announcement.message, 
+announcement.date_announced, 
+accounts.fname, 
+accounts.mname, 
+accounts.lname, 
+account_type.`name`
+FROM
+announcement
+INNER JOIN
+accounts
+ON 
+    announcement.user_id = accounts.id
+INNER JOIN
+account_type
+ON 
+    accounts.acc_type = account_type.acc_id
+ORDER BY
+announcement.date_announced DESC";
 $query_run = mysqli_query($con,$query);
 $check_announcement = mysqli_num_rows($query_run) > 0;
 
@@ -28,37 +44,27 @@ if($check_announcement)
 
 
 <div class="card">
-            <div class="card-body"> 
-            <?php
-            $status = $row['status'];
-            ?>
-
-            <h5 class="card-title">
-            Deadline: <?php echo $row['deadline'] ?>
-            </h5>
-
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $row['fname'] ?> <?php echo $row['mname'] ?> <?php echo $row['lname'] ?></h5>
              
-              <?php echo $row['task'] ?> 
+              <?php echo $row['message'] ?>
 
-     
+
             </div>
             
             <div class="card-footer">
-            <p class="submitted">
-    Status: <span style="color: <?php echo $status === 'Pending' ? 'red' : 'green'; ?>;"><?php echo $status; ?></span>
-</p>
+                <p class="submitted"> <?php echo $row['date_announced'] ?> </p>
             </div>
           </div>
 
 
             <?php
     }
-    }
-    else
+}else
 {
- echo "This student has no task";
+
 }
-  }
+
 
 ?>
         </div>

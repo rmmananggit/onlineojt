@@ -27,18 +27,38 @@
 
               <input type="hidden" name="id" value="<?=$user['id'];?>"> 
 
-                <div class="col-md-4">
+
+              <div class="col-md-12">
+                  <label for="inputName5" class="form-label">Student ID Number</label>
+                  <input type="text" name="student_id" class="form-control" value="<?= $user['student_id']; ?>" id="inputName5">
+                </div>
+
+
+                <div class="col-md-3">
                   <label for="inputName5" class="form-label">First Name</label>
                   <input type="text" name="fname" class="form-control" value="<?= $user['fname']; ?>" id="inputName5">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="inputName5" class="form-label">Middle Name</label>
                   <input type="text" name="mname" class="form-control"  value="<?= $user['mname']; ?>" id="inputName5">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="inputName5" class="form-label">Last Name</label>
                   <input type="text" name="lname" class="form-control"  value="<?= $user['lname']; ?>" id="inputName5">
                 </div>
+
+                    <div class="col-md-3">
+                    <label class="mb-2">Suffix:</label>
+                    <select class="form-control" name="suffix">
+                    <option value="" <?= $user['suffix'] == '' ? 'selected' :'' ?>  >N/A</option>
+                    <option value="JR" <?= $user['suffix'] == 'JR' ? 'selected' :'' ?>  >JR</option>
+                    <option value="SR" <?= $user['suffix'] == 'SR' ? 'selected' :'' ?>  >SR</option>
+                    <option value="II" <?= $user['suffix'] == 'II' ? 'selected' :'' ?>  >II</option>
+                    <option value="III" <?= $user['suffix'] == 'III' ? 'selected' :'' ?>  >III</option>
+                    <option value="IV" <?= $user['suffix'] == 'IV' ? 'selected' :'' ?>  >IV</option>
+                    </select>
+                    </div>
+
                 <div class="col-md-6">
                   <label for="inputEmail5" class="form-label">Email</label>
                   <input type="email" name="email" class="form-control"  value="<?= $user['email']; ?>" id="inputEmail5">
@@ -48,21 +68,21 @@
                   <input type="text" name="mobile" class="form-control"  value="<?= $user['mobile']; ?>" id="inputPassword5">
                 </div>
 
-                
-
                 <div class="col-md-6">                 
           
-                <label class="mb-2">Course:</label>
-                <select name="course" required class="form-control">
-                    <option value="" disabled>--Status--</option>
-                    <option value="3" <?= $user['course'] == '3' ? 'selected' :'' ?> >Bachelor of Science in Marine Biology</option>
-                    <option value="4" <?= $user['course'] == '4' ? 'selected' :'' ?> >Bachelor of Science in Information Technology</option>
-                    <option value="5" <?= $user['course'] == '5' ? 'selected' :'' ?> >Bachelor of Secondary Education Major in Technology and Livelihood Education</option>
-                    <option value="6" <?= $user['course'] == '6' ? 'selected' :'' ?> >Bachelor of Technology Livelihood Education Major in Home Economics and Major in Industrial Arts</option>
-                    
-                </select>
-                              
-                </div>
+          <label class="mb-2">Status:</label>
+          <select name="status" required class="form-control">
+              <option value="" disabled>--Status--</option>
+              <option value="1" <?= $user['acc_status'] == '1' ? 'selected' :'' ?>  >Active</option>
+              <option value="2" <?= $user['acc_status'] == '2' ? 'selected' :'' ?>  >Archived</option>
+              
+          </select>
+                        
+          </div>
+
+                
+
+              
 
             
 
@@ -72,8 +92,8 @@
                 
                
                 <div class="text-end mt-5">
-                <a type="button" class="btn btn-danger" href="index.php">Back</a>
-                  <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-danger" href="student_manage1.php">Back</a>
+                  <button type="submit" name="update_student" class="btn btn-primary">Update</button>
                 </div>
               </form>
               

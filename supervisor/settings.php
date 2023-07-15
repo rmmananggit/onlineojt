@@ -95,10 +95,26 @@ $users_run = mysqli_query($con, $users);
               </div>
           </div>
 
-                    <div class="col-md-6">
-                                <label for="picture">Picture: </label>
-                                <input type="file" name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
-                    </div>
+        <div class="col-md-12 mb-3">
+                        <label for="">Company Name:</label>
+                        <input required type="text" name="company_name" value="<?= $user['company_name']; ?>" class="form-control">
+        </div>
+
+
+        <div class="col-md-12 mb-3">
+                        <label for="">Company Email:</label>
+                        <input required type="text" name="company_email" value="<?= $user['company_email']; ?>" class="form-control">
+        </div>
+
+        <div class="col-md-12 mb-3">
+                        <label for="">Company Address:</label>
+                        <input required type="text" name="company_address" value="<?= $user['company_address']; ?>" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+                    <label for="picture">Picture: </label>
+                    <input type="file" name="picture" id="picture" accept=".jpg, .jpeg, .png" value="">
+        </div>
                     <div class="text-end mt-4">
                                 <a href="index.php" class="btn btn-danger">Back</a>
                                 <button type="submit" name="update_account" class="btn btn-primary">Save</button>

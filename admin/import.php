@@ -4,6 +4,8 @@ $host = 'localhost';
 $username = 'root';
 $password = '';
 $database = 'onlineojt';
+session_start();
+
 
 // Check if the form is submitted
 if (isset($_POST['import'])) {

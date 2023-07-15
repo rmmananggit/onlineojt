@@ -17,6 +17,12 @@
 
 <li class="nav-heading">Manage</li>
 
+<li class="nav-item">
+    <a class="nav-link collapsed" href="ann_manage.php">
+    <i class="bi bi-megaphone"></i>
+      <span>Announcement</span>
+    </a>
+  </li>
 
 <li class="nav-item">
 <a class="nav-link collapsed" href="student_manage1.php">
@@ -40,7 +46,7 @@
 </li>
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="#">
+<a class="nav-link collapsed" href="attendance_manage.php">
 <i class="bi bi-calendar-check"></i>
 <span>Attendance</span>
 </a>

@@ -17,7 +17,13 @@
 
 <li class="nav-heading">Manage</li>
 
-
+<li class="nav-item">
+    <a class="nav-link collapsed" href="ann_manage.php">
+    <i class="bi bi-megaphone"></i>
+      <span>Announcement</span>
+    </a>
+  </li>
+  
 <li class="nav-item">
 <a class="nav-link collapsed" href="student_manage.php">
 <i class="bi bi-person"></i>

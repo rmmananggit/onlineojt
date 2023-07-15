@@ -19,12 +19,9 @@
               <table class="table">
                 <thead>
                   <tr>
-                  <th scope="col"> Task #</th>
-                    <th scope="col"> Task Title</th>
-                    <th scope="col"> Task Description</th>
-                    <th scope="col"> Status</th>
-                    <th scope="col"> Date Given</th>
-                    <th scope="col"> Date Deadline</th>
+                  <th class="col-3">Task</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Deadline</th>
                     <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -35,19 +32,19 @@
                 $currentUSER = $_SESSION['auth_user']['user_id'];
 
                             $query = "SELECT
-                            task.task_id, 
-                            task.student_id, 
-                            task.title, 
-                            task.status,
+                            task.student_id,
                             task.task, 
-                            task.date_given, 
+                            task.`status`, 
                             task.deadline
-                        FROM
+                          FROM
                             task
-                        WHERE
-                            task.student_id = '$currentUSER'
-                        ORDER BY
-                            task.date_given DESC ";
+                            INNER JOIN
+                            supervisor_student
+                            ON 
+                              task.student_id = supervisor_student.id
+                          WHERE
+                            task.student_id = $currentUSER'
+                          ";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             {
@@ -55,9 +52,7 @@
                                 {
                                     ?>
                                     <tr>
-                                    <td><?= $row['task_id']; ?></td>
-                                    <td><?= $row['title']; ?></td>
-                          <td><?= $row['task']; ?></td>
+                                    <td><?= $row['task']; ?></td>
                           <td>
                           <?php 
                                                           if($row['status']=="Pending"){
@@ -71,7 +66,6 @@
                                                           }
                                                         ?>
                           </td>
-                          <td><?= $row['date_given']; ?></td>
                           <td><?= $row['deadline']; ?></td>
 
                                     <td class="text-center">

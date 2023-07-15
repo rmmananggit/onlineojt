@@ -26,7 +26,7 @@
                 <div class="col-md-3">
                 <label class="mb-2">Suffix:</label>
                 <select class="form-control" name="suffix" required>
-  <option selected disabled>Select Suffix</option>
+  <option selected>N/A</option>
   <option value="JR">JR</option>
   <option value="SR">SR</option>
   <option value="II">II</option>
